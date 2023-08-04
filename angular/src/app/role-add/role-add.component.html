@@ -1,0 +1,115 @@
+<div class="drawer-overlay" [ngClass]="{'show': properties.showOverlay === true, 'hide': properties.hideOverlay === true}"
+ (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card style="padding-right: 32px; padding-left: 32px;">
+			<div class="card-heading" l10nTranslate>Header.Details</div>
+			<mat-form-field class='firstFormField' id='firstFormField'>
+				<input matInput placeholder="{{translation.translate('Label.Code')}}" (input)='updateDescription()' (blur)="blurCode();"
+				 id='firstField' (keydown.Tab)="tabEvent()" [disabled]="!properties.isDrawerOpen || role.IsReadOnly === true || properties.rowID !== ''"
+				 [(ngModel)]="role.Name" #name=ngModel appCodeValidation />
+				<mat-error *ngIf="name.errors">{{name.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput (change)="checkDescriptionChange();" placeholder="{{translation.translate('Label.Description')}}"
+				 id='descriptionField' id='descriptionField' [(ngModel)]="role.Description" [disabled]="!properties.isDrawerOpen || role.IsReadOnly === true" />
+			</mat-form-field>
+			<div class="drawer-toggle-container-2fa">
+				<label>2FA</label>
+				<mat-slide-toggle style="position: relative; top: 2px;" color="primary" [disabled]="!properties.isDrawerOpen || role.Name === 'TSA'"
+				 [(ngModel)]="role.Is2FAEnabled"></mat-slide-toggle>
+			</div>
+			<mat-form-field class="drawer-authenticationFactors" *ngIf="!!role.Is2FAEnabled">
+				<mat-select [disabled]=!properties.isDrawerOpen matSelect id='authenticationFactors' placeholder="{{translation.translate('Label.Security code')}}" class="authenticationFactors"
+				 [(ngModel)]="role.AuthenticationFactor.Code" #authenticationFactor>
+					<mat-option *ngFor="let authenticationFactor of authenticationFactors" [value]="authenticationFactor.Code">{{authenticationFactor.Description}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<div *ngIf='role.Is2FAEnabled === true' style='height: 8px;'></div>
+			<div class="active">
+				<label l10nTranslate>Label.Active</label>
+				<mat-slide-toggle style="position: relative; top: 2px;" id='roleActiveToggle' class='bottomToggle' color="primary" [disabled]="!properties.isDrawerOpen || role.IsReadOnly === true"
+				 [(ngModel)]="role.IsActive"></mat-slide-toggle>
+			</div>
+		</mat-card>
+		<mat-card style='padding: 0px;' *ngIf="role.Name !== 'TSA'">
+			<div class="card-heading associatedTitle" l10nTranslate>Header.Associated permissions</div>
+			<br />
+			<div class='subheadingDiv'>
+				<span class="card-subheading associatedSubTitle" l10nTranslate>Header.Permissions</span>
+				<span *ngIf="role.Name !== 'TSA'" class="card-subheading subtitle-right" l10nTranslate>Label.Remove</span>
+			</div>
+			<br />
+			<div class="associated-permission-hr"></div>
+			<div *ngFor="let permission of role.Permissions" class="associated-row">
+				<span class="form-field-text associated-permission">{{translation.translate('Permissions.' +
+					permission.Description)}}</span>
+				<mat-icon class='removeAssociate' (click)='removePermission(permission);'>close</mat-icon>
+				<div class="associated-permission-hr"></div>
+			</div>
+			<!-- These settings account for height of class "hr" used above -->
+			<div class='selectDrawerButton' style="padding-top: 21px; padding-bottom: 14px;">
+				<button [disabled]="!properties.isDrawerOpen" mat-button (click)="rolePermission.show(true)" l10nTranslate>Label.Select
+					Permissions</button>
+			</div>
+		</mat-card>
+		<mat-card style='padding: 0px;' *ngIf="role.Name !== 'TSA'">
+			<div class="card-heading associatedTitle" l10nTranslate>Header.Associated users</div>
+			<br />
+			<div class='subheadingDiv'>
+				<span class="card-subheading associatedSubTitle" style="padding-left:0px;" l10nTranslate>Label.Users</span>
+				<span class="card-subheading subtitle-right-users" l10nTranslate>Label.Remove</span>
+			</div>
+			<br />
+			<div class="selector-hr"></div>
+			<div *ngIf="role.Users.length > 0 && showUsers === true">
+				<ng-container *ngFor="let user of role.Users">
+					<div class='selectorRow'>
+						<div style="float: left;">
+							<ng-container *ngIf="!user.AvatarURL || user.AvatarURL.length <= 1">
+								<span class="circle">{{utilsService.getInitials(user)}}</span>
+							</ng-container>
+							<ng-container *ngIf="user.AvatarURL && user.AvatarURL.length > 1">
+								<img class="avatarCircle" src="{{user.AvatarURL}}" alt="" />
+							</ng-container>
+						</div>
+						<div class="info-span">
+							<span style="line-height: 14px;">{{user.FirstName}} {{user.LastName}}</span>
+							<br class="selector-br">
+							<span class="email-span">{{user.Email}}</span>
+						</div>
+						<mat-icon class='removeUser' (click)='removeUser(user);'>close</mat-icon>
+					</div>
+					<div class="selector-hr"></div>
+				</ng-container>
+			</div>
+			<!-- These exact settings are needed for 24px top and bottom -->
+			<div class='selectDrawerButton' style="padding-top: 31px; padding-bottom: 14px;">
+				<button [disabled]="!properties.isDrawerOpen" mat-button (click)="roleUser.show(true)" l10nTranslate>Label.Select
+					User</button>
+			</div>
+		</mat-card>
+		<mat-card *ngIf="role.Name === 'TSA'" style="height: 74px;">
+			<div class="card-heading associatedTSA" l10nTranslate>Header.Associated user</div>
+			<mat-form-field *ngIf="role.Users.length > 0">
+				<mat-select [disabled]="!properties.isDrawerOpen" matSelect placeholder="User" [(ngModel)]="role.Users[0].Username">
+					<mat-option *ngFor="let user of (activeEntitiesService.users | async)" [value]="user.Username" (click)='setUser(user.Username);'>{{user.FirstName}}
+						{{user.LastName}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]="!properties.isDrawerOpen" class="btn-save-and-add-another" mat-button (click)="showUsers = false; checkForm(true);"
+		 *ngIf="headerText === 'Add role'" l10nTranslate>Label.Save & Add Another</button>
+		<button [disabled]="!properties.isDrawerOpen" class="btn-save" id='roleSaveButton' mat-button (click)="showUsers = false; checkForm(false);"
+		 l10nTranslate>Label.Save</button>
+	</div>
+</div>
+<app-role-permission #rolePermission (onFullClose)="fullClose($event)" id="rolePermission"></app-role-permission>
+<rmp-user-selector #roleUser id="roleUser" (onFullClose)="fullClose($event)" (onSave)='processUserSelect($event)'
+ [usersInput]='role.Users' [parentData]="{title:'RoleAdd'}"></rmp-user-selector>

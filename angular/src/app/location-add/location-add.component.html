@@ -1,0 +1,79 @@
+<div class="drawer-overlay" [ngClass]="{'show': properties.showOverlay === true, 'hide': properties.hideOverlay === true}"
+ (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Details</div>
+			<mat-form-field class='firstFormField' id='firstFormField'>
+				<input matInput placeholder="{{translation.translate('Label.Code')}}" [disabled]="!properties.isDrawerOpen || properties.rowID !== ''"
+				 id='firstField' (keydown.Tab)="tabEvent()" (input)='updateDescription()' appCodeLabValidation (change)='resetExists();' (blur)="blurCode();" [(ngModel)]="location.Code"
+				 #code=ngModel />
+				<mat-error *ngIf="code.errors">{{code.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" (change)="checkDescriptionChange();" placeholder="{{translation.translate('Label.Description')}}"
+				 id='descriptionField' [(ngModel)]="location.Description" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='locationStreet1' placeholder="{{translation.translate('Label.Street address 1')}}"
+				 [(ngModel)]="location.Location.StreetAddress1" #streetAddress1=ngModel />
+				<mat-error *ngIf="streetAddress1.errors">{{streetAddress1.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Street address 2')}}"
+				 [(ngModel)]="location.Location.StreetAddress2" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='locationCity' placeholder="{{translation.translate('Label.City')}}"
+				 [(ngModel)]="location.Location.City" #city=ngModel />
+				<mat-error *ngIf="city.errors">{{city.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]="!properties.isDrawerOpen" id='locationState' placeholder="{{translation.translate('Label.State')}}"
+				 (selectionChange)="location.Location.County = ''" [(ngModel)]="location.Location.State" #state=ngModel
+				 >
+					<mat-option *ngFor="let state of states()" [value]="state">{{ state }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="state.errors">{{state.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='locationZip' placeholder="{{translation.translate('Label.Postal code')}}"
+				 [(ngModel)]="location.Location.PostalCode" numeric #postalCode=ngModel postalCodeValidator maxlength="5" />
+				<mat-error *ngIf="postalCode.errors">{{postalCode.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]="!properties.isDrawerOpen" id='locationCounty' placeholder="{{translation.translate('Label.County')}}"
+				 [(ngModel)]="location.Location.County">
+					<mat-option *ngFor="let county of counties()" [value]="county">{{ county }}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field id='countryField'>
+				<input matInput placeholder="{{translation.translate('Label.Country')}}" value="USA" disabled="disabled" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='locationPhone' placeholder="{{translation.translate('Label.Phone')}}" (blur)="blur();"
+				 [(ngModel)]="location.Phone" #phone=ngModel numeric phoneValidator maxlength="14" />
+				<mat-error *ngIf="phone.errors">{{phone.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]="!properties.isDrawerOpen" #lab=ngModel id='locationSelectLab' genericRequired placeholder="{{translation.translate('Label.Lab')}}" [(ngModel)]="location.LabId">
+					<mat-option *ngFor="let lab of labOptions" (click)='resetExists();' [value]="lab">{{ lab }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="lab.errors">{{lab.errors.message}}</mat-error>
+			</mat-form-field>
+			<div class="drawer-toggle-container">
+				<label l10nTranslate>Label.Active</label>
+				<mat-slide-toggle id='locationActiveToggle' [disabled]="!properties.isDrawerOpen" color="primary" [(ngModel)]='location.IsActive'></mat-slide-toggle>
+			</div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]="!properties.isDrawerOpen" class="btn-save-and-add-another" mat-button (click)="checkForm(true)"
+		 *ngIf="headerText === translation.translate('Label.Add location')" l10nTranslate>Label.Save & Add Another</button>
+		<button [disabled]="!properties.isDrawerOpen" class="btn-save" id='locationSaveButton' mat-button (click)="checkForm(false)" l10nTranslate>Label.Save</button>
+	</div>
+</div>

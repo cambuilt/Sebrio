@@ -1,0 +1,16 @@
+.alert-dialog {
+	text-align: right;
+	max-width: 320px;
+	min-width: 180px;
+}
+
+.alert-message {
+	font-size: 14px;
+	margin: 27px 24px 29px;
+	text-align: left;
+}
+
+.btn-alert-ok {
+	margin: 0px 24px 32px;
+	min-width: 40px;
+}

@@ -1,0 +1,70 @@
+* {
+    font-size: 12px;
+}
+
+.colorBar {
+    width: 100%;
+    height: 14px;
+    text-align: center;
+    margin-bottom: 7px;
+}
+
+.colorText {
+    width: calc(100% - 16px);
+    white-space: nowrap;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    display: inline-block;
+}
+
+.mac .colorText {
+    position: relative;
+    top: -2px;
+}
+
+.android .colorText {
+    position: relative;
+    top: -0.5px;
+}
+
+.test-br {
+    margin-top: -5px;
+}
+
+.testRow {
+    width: 100%;
+    max-width: 100%;
+    display: inline-block;
+}
+
+.testCode {
+    display: inline-block;
+    max-width: calc(100% - 40px);
+    white-space: nowrap;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+}
+
+.mac .testCode {
+    position: relative;
+    top: -1px;
+}
+
+.volume {
+    display: inline-block;
+    margin-left: 7px;
+    position: relative;
+    top: -3px;
+}
+
+.disabled span {
+    color: rgba(0, 0, 0, .54);
+}
+
+.showColor {
+    color: #FF0000;
+}
+
+.disabled .showColor {
+    color: rgb(255, 158, 158);
+}

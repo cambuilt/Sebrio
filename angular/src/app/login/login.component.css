@@ -1,0 +1,320 @@
+.login-wrapper {
+    display: none;
+}
+
+.login-wrapper.show {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    height: 100%;
+    overflow-y: auto;
+    position: absolute;
+    width: 100%;
+    display: block;
+}
+
+.page-background {
+    background-image: url('../../assets/imageLoginFilter.png');
+    background-position: center;
+    background-size: cover;
+    bottom: 0px;
+    left: 0px;
+    min-height: 640px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    transition: top 0.25s;
+}
+
+.login-dialog {
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 0px 56px 0px rgba(0, 0, 0, 0.16);
+    height: 620px;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: height 0.25s, width 0.25s;
+    width: 860px;
+    display: block;
+}
+
+.login-logo {
+    margin-top: 70px;
+    transition: margin 0.25s, width 0.25s;
+    max-width: 290px;
+    max-height: 44px;
+    height: auto;
+    width: auto;
+}
+
+.login-subheading {
+    color: rgba(0, 0, 0, 0.54);
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    font-weight: 100;
+    margin-top: 5px;
+    transition: font-size 0.25s;
+}
+
+.login-inputs {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.24);
+    height: 155px;
+    margin: 56px 160px 0px;
+    position: relative;
+    transition: height 0.25s, margin 0.25s, width 0.25s;
+    width: 540px;
+}
+
+.login-inputs:before {
+    background-color: #e5e5e5;
+    content: "";
+    height: 1px;
+    left: 0px;
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.login-inputs:after {
+    content: "";
+    height: 50%;
+    left: -1px;
+    position: absolute;
+    top: 0%;
+    transition: top 0.25s;
+    width: 4px;
+}
+
+.login-inputs.focusPassword:after {
+    top: 50%;
+}
+
+.input-username,
+.input-password {
+    background-color: #ffffff;
+    border: none;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    left: 30px;
+    outline: none;
+    position: absolute;
+    transition: font-size 0.25s, left 0.25s, top 0.25s, width 0.25s;
+    width: calc(100% - 100px);
+}
+
+.input-username {
+    top: 40px;
+}
+
+.input-password {
+    top: 117px;
+}
+
+.label-username {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 16px;
+    font-weight: 100;
+    left: 30px;
+    position: absolute;
+    top: 16px;
+    transition: font-size 0.25s, left 0.25s, top 0.25s;
+}
+
+.icon-username {
+    cursor: default;
+    height: 18px;
+    position: absolute;
+    right: 20px;
+    top: 28px;
+    transition: height 0.25s, right 0.25s, top 0.25s, width 0.25s;
+    width: 18px;
+}
+
+.label-password {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 16px;
+    font-weight: 100;
+    left: 30px;
+    position: absolute;
+    top: 93px;
+    transition: font-size 0.25s, left 0.25s, top 0.25s;
+}
+
+.icon-password {
+    cursor: default;
+    height: 18px;
+    position: absolute;
+    right: 20px;
+    top: 104px;
+    transition: height 0.25s, right 0.25s, top 0.25s, width 0.25s;
+    width: 18px;
+}
+
+.button-sign-in {
+    border: none;
+    border-radius: 2px;
+    color: #ffffff;
+    display: block;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    height: 64px;
+    line-height: 64px;
+    margin: 46px 160px 0px;
+    outline: none;
+    transition: font-size 0.25s, height 0.25s, line-height 0.25s, margin 0.25s, width 0.25s;
+    width: 540px;
+    cursor: pointer;
+}
+
+.login-footer {
+    color: rgba(0, 0, 0, 0.32);
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    margin-top: 44px;
+    transition: font-size 0.25s, margin 0.25s;
+}
+
+.mat-error {
+    font-size: 14px;
+    font-weight: 400;
+    user-select: none;
+    display: block;
+    margin-left: 60px;
+    margin-bottom: -17px;
+    width: calc(100% - 120px);
+    position: relative;
+    top: 13px;
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 1024px) {
+    .login-dialog {
+        height: 614px;
+        width: 708px;
+    }
+    .login-inputs {
+        margin: 60px 60px 0px;
+        width: calc(100% - 120px);
+    }
+    .button-sign-in {
+        margin: 45px 60px 0px;
+        width: calc(100% - 120px);
+    }
+}
+
+@media (max-width: 768px) {
+    .login-dialog {
+        transition: height 0.25s, width 0s;
+        width: calc(100% - 60px);
+    }
+}
+
+@media (max-width: 480px) {
+    .page-background {
+        min-height: 560px;
+    }
+    .login-dialog {
+        background-color: rgba(255, 255, 255, 0.7);
+        height: 100%;
+        width: 100%;
+    }
+    .dialog-content {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+    }
+    .login-logo {
+        margin-top: 0px;
+    }
+    .login-subheading {
+        font-size: 13px;
+        margin-top: 14px;
+    }
+    .login-inputs {
+        margin: 64px 30px 0px;
+        width: calc(100% - 60px);
+    }
+    .button-sign-in {
+        font-size: 16px;
+        margin: 45px 30px 0px;
+        width: calc(100% - 60px);
+    }
+}
+
+@media (max-width: 320px) {
+    .page-background {
+        min-height: 420px;
+    }
+    .login-logo {
+        width: 190px;
+    }
+    .login-subheading {
+        font-size: 12px;
+        margin-top: 0px;
+    }
+    .login-inputs {
+        height: 112px;
+        margin: 44px 10px 0px;
+        width: calc(100% - 20px);
+    }
+    .login-inputs:after {
+        width: 3px;
+    }
+    .input-username {
+        font-size: 14px;
+        left: 20px;
+        top: 26px;
+        width: calc(100% - 80px);
+    }
+    .input-password {
+        font-size: 14px;
+        left: 20px;
+        top: 84px;
+        width: calc(100% - 80px);
+    }
+    .label-username {
+        font-size: 12px;
+        left: 20px;
+        top: 8px;
+    }
+    .icon-username {
+        height: 13px;
+        right: 8px;
+        top: 13px;
+        width: 13px;
+    }
+    .label-password {
+        font-size: 12px;
+        left: 20px;
+        top: 66px;
+    }
+    .icon-password {
+        height: 13px;
+        right: 8px;
+        top: 69px;
+        width: 13px;
+    }
+    .button-sign-in {
+        font-size: 14px;
+        height: 46px;
+        line-height: 46px;
+        margin: 35px 10px 0px;
+        width: calc(100% - 20px);
+    }
+    .login-footer {
+        font-size: 9px;
+        margin-top: 20px;
+    }
+    .mat-error {
+        position: relative;
+        top: 8px;
+    }
+}

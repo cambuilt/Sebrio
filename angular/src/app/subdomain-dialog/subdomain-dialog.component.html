@@ -1,0 +1,14 @@
+<div style="background-color: #FFFFFF; padding-left: 25px; padding-right: 24px; overflow:hidden !important;">
+	<h4 l10nTranslate>Label.Sub-domain</h4>
+	<h5 l10nTranslate>Label.Please enter your Tenant's sub-domain</h5>
+	<div style="white-space: nowrap;">
+		<mat-form-field style="width:100px;">
+			<input matInput type='text' id='firstField' [(ngModel)]='subdomain' #subdomainForm=ngModel
+			subdomainValidator />
+		</mat-form-field>
+		<span class="domainLabel">.emylabcollect.com</span>
+		<mat-error style='font-size: 10px; margin-top: -12px;' *ngIf="subdomainForm.errors">{{subdomainForm.errors.message}}</mat-error>
+
+	</div>
+	<button class='subdomainButton' mat-button (click)="setSubdomain()">OK</button>
+</div>

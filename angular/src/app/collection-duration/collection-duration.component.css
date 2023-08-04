@@ -1,0 +1,15 @@
+.mat-column-Code,
+.mat-column-Users,
+.mat-column-NumberOfCollections,
+.mat-column-AverageDuration {
+    padding-right: 24px;
+    white-space: nowrap;
+}
+
+.filteredRange {
+    position: absolute;
+    top: 21px;
+    left: 18px;
+    font-size: 14px;
+    color: rgb(117, 117, 117);
+}

@@ -1,0 +1,63 @@
+<div class="drawer-overlay" [ngClass]="{'show': properties.showOverlay === true, 'hide': properties.hideOverlay === true}"
+    (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+    <mat-toolbar color="white">
+        <mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+        <div class="drawer-header-text">{{ headerText }}</div>
+    </mat-toolbar>
+    <div class="drawer-content">
+        <mat-card>
+            <div class="card-heading" l10nTranslate>Header.Details</div>
+            <mat-form-field class='firstFormField' id="firstFormField">
+                <input matInput placeholder="Code" id='codeField' [disabled]="!properties.isDrawerOpen || newDevice === false"
+                    (keydown.Tab)="tabEvent()" [(ngModel)]="device.Code" #code=ngModel (input)='updateDescription()'
+                    (blur)="blurCode();" appCodeValidation />
+                <mat-error *ngIf="code.errors">{{code.errors.message}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [disabled]="!properties.isDrawerOpen" (change)="checkDescriptionChange();" id='descriptionField'
+                    placeholder="{{translation.translate('Label.Description')}}" [(ngModel)]="device.Description" />
+            </mat-form-field>
+            <mat-form-field id="formField2">
+                <input matInput [disabled]="true" placeholder="Cordova {{translation.translate('Label.version')}}"
+                    [(ngModel)]="device.CordovaVersion" />
+            </mat-form-field>
+            <mat-form-field id="formField3">
+                <input matInput [disabled]="true" placeholder="{{translation.translate('Label.Model')}}" [(ngModel)]="device.Model" />
+            </mat-form-field>
+            <mat-form-field id="formField4">
+                <input matInput [disabled]="true" placeholder="{{translation.translate('Label.Platform')}}" [(ngModel)]="device.Platform" />
+            </mat-form-field>
+            <mat-form-field id="formField5">
+                <input matInput [disabled]="true" placeholder="UUID" [(ngModel)]="device.UUID" />
+            </mat-form-field>
+            <mat-form-field id="formField6">
+                <input matInput [disabled]="true" placeholder="OS {{translation.translate('Label.version')}}"
+                    [(ngModel)]="device.OSVersion" />
+            </mat-form-field>
+            <mat-form-field id="formField7">
+                <input matInput [disabled]="true" placeholder="{{translation.translate('Label.Manufacturer')}}"
+                    [(ngModel)]="device.Manufacturer" />
+            </mat-form-field>
+            <mat-form-field id="formField8">
+                <input matInput [disabled]="true" placeholder="{{translation.translate('Label.Simulator')}}"
+                    [(ngModel)]="device.Simulator" />
+            </mat-form-field>
+            <mat-form-field id="formField9">
+                <input matInput [disabled]="true" placeholder="{{translation.translate('Label.Serial')}}" [(ngModel)]="device.SerialNumber" />
+            </mat-form-field>
+            <mat-form-field id="formField10">
+                <input matInput [disabled]="true" placeholder="{{translation.translate('Label.Secret number')}}"
+                    [(ngModel)]="device.SecretNumber" />
+            </mat-form-field>
+            <div class="drawer-toggle-container">
+                <label l10nTranslate>Label.Active</label>
+                <mat-slide-toggle color="primary" id='deviceActiveToggle' [(ngModel)]="device.IsActive"></mat-slide-toggle>
+            </div>
+        </mat-card>
+    </div>
+    <div class="drawer-footer">
+        <button class="btn-save-and-add-another" mat-button (click)="clickDelete()" l10nTranslate>Label.Delete device</button>
+        <button class="btn-save" mat-button id='saveDeviceButton' (click)="save()" l10nTranslate>Label.Save</button>
+    </div>
+</div>

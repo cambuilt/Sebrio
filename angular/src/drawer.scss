@@ -1,0 +1,18 @@
+:host{
+    position: absolute;
+    overflow: scroll;
+    width: 400px;
+    height: calc(100vh);
+    top: 0px;
+    background-color: #FAFAFA;
+    display:block;
+    border-radius: 0px;
+    box-shadow: 0px 0px 50px  rgba(0,0,0,0.26);
+    overflow-x: hidden;
+}
+
+/* Check box class for check boxes in divs, not in tds (configurator). */
+.checkboxDiv {
+    position: absolute;
+    right: 50px;
+}

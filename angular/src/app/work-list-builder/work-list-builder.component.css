@@ -1,0 +1,77 @@
+/* .maintenance-page:before {
+	background-image: url('../../assets/banners/keyboard.png');
+} */
+
+.refreshDisabled {
+    color: rgba(0, 0, 0, .1);
+    cursor: default;
+}
+
+.rowDisabled {}
+
+.rowDisabled:hover {}
+
+.rowDisabled>td {
+    color: rgba(0, 0, 0, .38) !important;
+}
+
+.reservationIcons {
+    padding: 0px;
+    margin-left: -3px;
+    margin-top: 3px;
+    cursor: pointer;
+}
+
+.completeIcon {
+    padding: 0px;
+    margin-left: -3px;
+    margin-top: 3px;
+    cursor: default;
+    color: rgba(0, 0, 0, .38) !important;
+}
+
+.noPointer {
+    cursor: default;
+}
+
+.noPointer:hover {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.mat-column-Name,
+.mat-column-DOB,
+.mat-column-Gender,
+.mat-column-MRN,
+.mat-column-Location,
+.mat-column-Priority,
+.mat-column-Time,
+.mat-column-Bed,
+.mat-column-Reserved {
+    padding-right: 24px;
+    white-space: nowrap;
+}
+
+th.mat-column-MRN {
+    padding-left: 11px;
+}
+
+th.mat-column-Time {
+    padding-left: 2px;
+}
+
+.periodText {
+    font-size: 14px;
+    color: rgb(117, 117, 117);
+    display: inline-block;
+    margin-top: 11px;
+    width: calc(100% - 192px - 1px);
+    padding-right: 1px;
+}
+
+.mac .periodText {
+    margin-top: 13px;
+}
+
+.showColor {
+    color: #FF0000;
+}

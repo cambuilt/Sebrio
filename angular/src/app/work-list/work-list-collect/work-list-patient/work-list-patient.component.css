@@ -1,0 +1,74 @@
+.mat-card {
+    margin: 0 !important;
+}
+
+.subheading {
+    font-size: 11px;
+    color: #747474;
+}
+
+.collection-br {
+    margin-top: -1px;
+}
+
+.afterSub-br {
+    margin-top: 5px;
+}
+
+.afterSub-short-br {
+    margin-top: 3px;
+}
+
+.beforeSub-br {
+    margin-top: 13px;
+}
+
+.patientInfoCard {
+    overflow: hidden;
+    font-size: 14px;
+    height: calc(100% - 112px);
+    overflow-y: auto;
+    padding-top: 17px;
+    padding-bottom: 20px;
+}
+
+.patientInfoCard * {
+    transform: translateZ(0);
+}
+
+.shadowed .patientInfoCard {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .08) !important;
+}
+
+.patientInfoContainer,
+.patientInfoCard {
+    transform: scaleY(0);
+    transition: transform 0.26s ease;
+    transform-origin: top;
+}
+
+.patientInfoContainer.shadowed,
+.shadowed .patientInfoCard {
+    transform: scaleY(1);
+    transition: transform 0.26s ease;
+}
+
+/* .patientInfoContainer,
+.patientInfoCard {
+    max-height: 0;
+}
+
+.patientInfoContainer.shadowed,
+.shadowed .patientInfoCard {
+    max-height: 400px;
+    animation: slidedown .5s forwards;
+}
+
+@keyframes slidedown {
+    0% {
+        max-height: 0;
+    }
+    100% {
+        max-height: 400px;
+    }
+} */

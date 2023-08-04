@@ -1,0 +1,85 @@
+<div class="headerRow">
+	<mat-icon class="reserveHeader" (click)="reserveAll()">check_box_outline_blank</mat-icon>
+</div>
+<div class="scroll-container" [ngClass]="{'mac': !(platform === 'Win32' || platform === 'Win64'), 'android': userAgentCategory === 'Android'}">
+	<ng-container *ngFor="let collection of patientsToDisplay">
+		<div style="padding-left: 16px;" class="mobile-row showLocations" [ngClass]="{'rowDisabled': collection.Status === 'Complete' || collection.IsCancelled, 'selected': selectedRow === collection}"
+		 (click)="collectionClick(collection)">
+
+			<ng-container *ngIf="collection.IsCancelled">
+				<mat-icon class="reserveIcon completeIcon">close</mat-icon>
+			</ng-container>
+			<ng-container *ngIf="!collection.IsCancelled">
+				<mat-icon class="reserveIcon completeIcon" *ngIf="collection.Status === 'Complete'">done</mat-icon>
+				<mat-icon class="reserveIcon" *ngIf="collection.Status === 'Available' || collection.Status === ''" (click)=cycleReserved(collection)>check_box_outline_blank</mat-icon>
+				<mat-icon class="reserveIcon" *ngIf="collection.Status === 'Reserved' && collection.ReservedBy.Username === currentPhleb.username"
+				 (click)=cycleReserved(collection)>check_box</mat-icon>
+				<mat-icon class="reserveIcon" *ngIf="collection.Status === 'Locked' && collection.ReservedBy.Username === currentPhleb.username"
+				 svgIcon="locked" (click)=cycleReserved(collection)></mat-icon>
+				<mat-icon class="reserveIcon" *ngIf="collection.Status === 'Reserved' && collection.ReservedBy.Username !== currentPhleb.username && (canSupersedeReservations | async) "
+				 svgIcon="other_reserved" (click)=cycleReserved(collection)></mat-icon>
+				<mat-icon class="reserveIcon noPointer" *ngIf="collection.Status === 'Reserved'  && collection.ReservedBy.Username !== currentPhleb.username &&  !(canSupersedeReservations | async)"
+				 svgIcon="other_reserved"></mat-icon>
+				<mat-icon class="reserveIcon" *ngIf="collection.Status === 'Locked' &&  (canSupersedeReservations | async) && collection.ReservedBy.Username !== currentPhleb.username"
+				 svgIcon="blocked" (click)=requestLocked(collection)></mat-icon>
+				<mat-icon class="reserveIcon noPointer" *ngIf="collection.Status === 'Locked' && !(canSupersedeReservations | async) && collection.ReservedBy.Username !== currentPhleb.username"
+				 svgIcon="blocked"></mat-icon>
+			</ng-container>
+
+			<div class="leftAlign">
+				<span class="top-row">
+					<span *ngIf="collection.IsTransferred" class="greenDotTransferred"></span>
+					<span class="bold">{{collection.Patient.LastName}}, {{collection.Patient.FirstName}}</span>
+				</span>
+				<div class="mobile-br"></div>
+				<span class="middle-row">
+					<span>{{collection.Patient.DateOfBirth}}</span>
+					<span>{{collection.Patient.Gender}}</span>
+					<span>{{collection.Patient.MRN}}</span>
+					<mat-icon *ngIf=collection.IsProblem class="problemListIcon" svgIcon="problem_list"></mat-icon>
+				</span>
+
+			</div>
+
+			<div class="rightAlign">
+				<span class="top-row">
+					<span [ngClass]="{'showColor': collection.Priority && collection.Priority.ShowColor === true}">{{collection.Priority?.Description}}</span>
+					<span>{{collection.ScheduledTime}}</span>
+				</span>
+				<div class="mobile-br"></div>
+				<span *ngIf="(displayBed | async)" class="middle-row">
+					<span>{{collection.Bed}}</span>
+				</span>
+			</div>
+
+
+			<span class="bottom-row locationString">
+				<span class="bold">{{collection.CollectedLocation.Code}}</span>
+				<span *ngIf="(canDisplayLocationAddress | async) || (canDisplayHomeDrawAddress | async)">{{collection.CollectedLocation.Address}}</span>
+			</span>
+		</div>
+	</ng-container>
+</div>
+<div class="custom-paginator" [ngClass]="{'noBorderPaginator': !(patients && patients.length)}">
+	<div class="mat-paginator" style="line-height:56px; border-top: unset !important;">
+		<span class="items-per-page" l10nTranslate>
+			Label.Items per page
+		</span>
+
+		<mat-form-field class="paginator-select">
+			<mat-select matSelect [(ngModel)]="paginatorSelected" (selectionChange)=updatePaginatorNumber()>
+				<mat-option *ngFor="let option of paginatorOptions" [value]="option">{{option}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<span class="paginator-range">
+			{{ paginatorRange }}
+		</span>
+	</div>
+	<mat-icon class="paginator-icon left-chevron" title="{{translation.translate('Label.Previous')}}" id="previous" *ngIf="paginationStart !== 0"
+	 (click)=changePageIndex(-1)>chevron_left</mat-icon>
+	<mat-icon class="paginator-icon paginator-icon-disabled left-chevron" id="nav-end" *ngIf="paginationStart === 0">chevron_left</mat-icon>
+	<mat-icon class="paginator-icon right-chevron" title="{{translation.translate('Label.Next')}}" id="next" *ngIf="paginationEnd < paginationTotal"
+	 (click)=changePageIndex(1)>chevron_right</mat-icon>
+	<mat-icon class="paginator-icon paginator-icon-disabled right-chevron" *ngIf="paginationEnd >= paginationTotal">chevron_right</mat-icon>
+</div>

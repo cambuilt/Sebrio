@@ -1,0 +1,14 @@
+.centralLineCard,
+.collectionNoteCard {
+    padding-top: 26px;
+}
+
+.centralLineToggle {
+    position: relative;
+    top: -1px;
+}
+
+.centralLineLabel {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.54);
+}

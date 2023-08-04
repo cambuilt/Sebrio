@@ -1,0 +1,30 @@
+<div *ngIf="showReschedule === true">
+	<mat-card class="rescheduleCard">
+		<div class="card-heading" l10nTranslate>Label.Reschedule collection</div>
+
+		<mat-form-field class="dateTime" style="position: relative; top: -8px;">
+			<input matInput class="pointerClick" (focus)=pickerDateFrom.open() (click)=pickerDateFrom.open() [min]="today"
+			 [matDatepicker]="pickerDateFrom" (dateChange)=updateTime() placeholder="Date" [forcedName]="'Date'" #rescheduleDate=ngModel
+			 [(ngModel)]="date" genericRequired readonly>
+			<mat-datepicker-toggle matSuffix [for]="pickerDateFrom"></mat-datepicker-toggle>
+			<mat-datepicker tabindex="-1" #pickerDateFrom></mat-datepicker>
+			<mat-error *ngIf="rescheduleDate.errors">{{rescheduleDate.errors.message}}</mat-error>
+		</mat-form-field>
+
+		<span class="dateSpan"></span>
+
+		<mat-form-field class="dateTime2" style="margin-top: 8px;position: relative; top: -1px;">
+			<input matInput placeholder="Time" #rescheduleTime=ngModel [(ngModel)]='time' [date]="date" previousTime timeNumeric
+			 genericRequired maxlength="5" />
+			<mat-error *ngIf="rescheduleTime.errors">{{rescheduleTime.errors.message}}</mat-error>
+		</mat-form-field>
+
+
+		<mat-form-field style="margin-top: -1px;">
+			<input matInput placeholder="Comments" #rescheduleReason=ngModel [(ngModel)]="reason" genericRequired />
+			<mat-error *ngIf="rescheduleReason.errors">{{rescheduleReason.errors.message}}</mat-error>
+		</mat-form-field>
+
+		<button class="rescheduleButton" mat-button (click)="reschedule()" l10nTranslate>Label.Submit</button>
+	</mat-card>
+</div>

@@ -1,0 +1,41 @@
+.collection-list-toggle {
+	color: rgba(0, 0, 0, 0.54);
+	font-size: 14px;
+	margin-top: 31px;
+	height: 8px;
+	vertical-align: middle;
+}
+
+.collection-list-toggle>* {
+	position: relative;
+	top: -5px;
+}
+
+.toggleAfterHeader {
+	margin-top: 31px;
+}
+
+.lineAfterToggle {
+	margin-top: 17px;
+}
+
+.lineToCard {
+	margin-bottom: -26px !important;
+}
+
+.lastLineToCard {
+	height: 72px !important;
+}
+
+.toggleToCard {
+	margin-bottom: 10px !important;
+}
+
+.toggleAfterLine {
+	margin-top: -3px !important;
+}
+
+.collectionListCard.mat-card {
+	padding-bottom: 0px;
+}
+

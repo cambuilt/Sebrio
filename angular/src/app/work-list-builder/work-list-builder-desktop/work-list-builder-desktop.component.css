@@ -1,0 +1,410 @@
+.scroll-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+table {
+    border-spacing: 0px;
+    width: 100%;
+}
+
+td,
+th {
+    border-bottom: 1px rgba(0, 0, 0, 0.12) solid;
+}
+
+th {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: 600;
+    text-align: left;
+    padding-right: 24px;
+}
+
+tr {
+    height: 47px;
+    line-height: 47px;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+td {
+    padding-right: 24px;
+}
+
+th:first-child,
+td:first-child {
+    padding-left: 24px;
+}
+
+th:first-child span:first-child,
+td:first-child span:first-child {
+    position: relative;
+    left: 18px;
+}
+
+.expand-icon {
+    padding: 0px;
+    position: relative;
+    margin-left: -9px;
+    margin-right: 3px;
+    top: 0px;
+    -moz-transition: all .05s linear;
+    -webkit-transition: all .05s linear;
+    transition: all .05s linear;
+}
+
+.expand-icon.expanded {
+    -ms-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.header-row {
+    height: 56px;
+}
+
+.column-name {
+    cursor: pointer;
+}
+
+.sort-header {
+    cursor: pointer;
+}
+
+.sort-arrow-container {
+    display: inline-block;
+    width: 1px;
+    position: absolute;
+    margin-left: 6px;
+}
+
+.sort-arrow-left {
+    position: relative;
+    margin: auto;
+    height: 2px;
+    width: 4px;
+    display: inline-block;
+    top: -6px;
+    left: -1px;
+    background-color: #757575;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.sort-arrow-right {
+    position: relative;
+    height: 2px;
+    width: 4px;
+    display: inline-block;
+    top: -6px;
+    left: -9px;
+    background-color: #757575;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.sort-arrow-middle {
+    margin: auto;
+    display: inline-block;
+    position: relative;
+    height: 2px;
+    top: -8px;
+    left: 2px;
+    width: 2px;
+    background-color: #757575;
+    transform: rotate(45deg);
+}
+
+.sort-arrow-stem {
+    display: inline-block;
+    width: 2px;
+    height: 8px;
+    background-color: #757575;
+}
+
+.sort-arrow-container {
+    opacity: 0;
+}
+
+.sort-header:hover>.sort-arrow-container {
+    opacity: .54;
+}
+
+.sort-header.sorted-asc>.sort-arrow-container {
+    opacity: 1;
+}
+
+.sort-header.sorted-desc>.sort-arrow-container {
+    opacity: 1;
+    transform: rotate(180deg);
+    margin-left: 11px;
+}
+
+.grid-header {
+    display: inline-block;
+    line-height: 55px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: 600;
+    padding-right: 24px;
+}
+
+.grid-row {
+    height: 45px;
+    line-height: 45px;
+    font-size: 13px;
+    /* min-width: 1657px; */
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.location-grid-row {
+    height: 48px;
+    line-height: 48px;
+}
+
+.location-grid-row.collapsed {
+    height: 47px;
+    line-height: 47px;
+}
+
+.grid-row-br {
+    margin-top: -5px;
+}
+
+.showColor {
+    color: #FF0000;
+}
+
+.rowDisabled .showColor {
+    color: rgb(255, 158, 158);
+}
+
+.locationCode {
+    position: relative;
+    top: -9px;
+    font-weight: 600;
+}
+
+.locationCode.showAddressCode {
+    top: -11px;
+}
+
+.mac .locationCode.showAddressCode {
+    top: -9px;
+}
+
+.locationAddress {
+    position: relative;
+    left: 17px;
+}
+
+/* .showAddressCode {
+    position: relative;
+    top: -8px;
+} */
+
+.showAddress {
+    position: relative;
+    top: -2px;
+}
+
+.mac .showAddress {
+    position: relative;
+    top: -3px;
+}
+
+.showAddressIcon {
+    position: relative;
+    top: 6px;
+}
+
+.grid-cell {
+    display: inline-block;
+    padding-right: 24px;
+}
+
+.Reserved-header-icon {
+    padding: 0px;
+    margin-left: -3px;
+    cursor: pointer;
+    position: relative;
+    top: 7px;
+}
+
+.reservationIcons {
+    padding: 0px;
+    margin-left: -3px;
+    cursor: pointer;
+    position: relative;
+    top: 7px;
+}
+
+.noPointer {
+    cursor: default;
+}
+
+.noPointer:hover {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.custom-paginator {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 56px;
+    vertical-align: middle;
+    padding: 0 8px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 12px;
+}
+
+.paginator-icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.paginator-range {
+    display: inline-block;
+    margin: 0 37px 0 36px;
+    position: relative;
+    top: -1px;
+}
+
+.paginator-icon {
+    padding: 0px;
+    font-size: 30px;
+    height: 30px;
+    width: 30px;
+}
+
+.items-per-page {
+    position: relative;
+    top: -1px;
+    margin-right: 5px;
+}
+
+.paginator-select {
+    width: 56px;
+    top: -1px;
+}
+
+.paginator-icon-disabled {
+    cursor: default;
+    color: rgba(0, 0, 0, 0.26)
+}
+
+.left-chevron {
+    margin-right: 10px;
+}
+
+.right-chevron {
+    margin-right: 5px;
+}
+
+.completeIcon {
+    padding: 0px;
+    margin-left: -3px;
+    margin-top: 3px;
+    cursor: default;
+    color: rgba(0, 0, 0, .38) !important;
+    position: relative;
+    top: 7px;
+}
+
+.rowDisabled {
+    color: rgba(0, 0, 0, .38) !important;
+}
+
+.problemListIcon {
+    padding: 0;
+    position: relative;
+    left: 21px;
+    top: 11px;
+    cursor: default;
+}
+
+.rowDisabled .problemListIcon {
+    color: rgba(0, 0, 0, .38) !important;
+}
+
+.grid-row .greenDotTransferred {
+    margin-right: 21px !important;
+    margin-left: -9px !important;
+    top: -4px !important;
+}
+
+.problemListIcon:hover {
+    color: rgba(0, 0, 0, .54);
+}
+
+/* Split Row */
+
+.splitRow {
+    height: 30px;
+    line-height: unset;
+    border: none;
+}
+
+.splitRow td {
+    border-bottom: none;
+}
+
+.splitRow td span {
+    position: relative;
+    top: -1px;
+}
+
+.splitRow td .reservationIcons,
+.splitRow td .completeIcon {
+    margin-top: 0px;
+    position: relative;
+    top: 11px;
+}
+
+.addressRow {
+    height: 18px;
+    line-height: unset;
+}
+
+.addressRow:last-child {
+    height: 17px;
+    line-height: unset;
+}
+
+.addressRow td span {
+    position: relative;
+    top: -6px;
+}
+
+.mac .splitRow td span {
+    top: -2px;
+}
+
+.mac .addressRow td span {
+    top: -6px;
+}
+
+.mac .splitRow {
+    height: 28px;
+}
+
+.mac .splitRow td {
+    height: 28px;
+    padding-bottom: 0px;
+}
+
+.mac .addressRow {
+    height: 15px;
+}
+
+.mac .addressRow td {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.mac .addressRow:last-child {
+    height: 14px !important;
+}

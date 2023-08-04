@@ -1,0 +1,11 @@
+<div class="unsaved-changes-dialog">
+	<ng-container *ngIf=data>
+		<div class="message" l10nTranslate>Label.{{data.message}}</div>
+	</ng-container>
+	<ng-container *ngIf=!data>
+		<div class="message" l10nTranslate>Label.Changes made Would you like to save</div>
+	</ng-container>
+
+	<button class="btn-alert-ok btn-alert-no" mat-button color="white" [mat-dialog-close]="false" l10nTranslate>Label.No</button>
+	<button class="btn-alert-ok btn-alert-yes" mat-button color="white" [mat-dialog-close]="true" l10nTranslate>Label.Yes</button>
+</div>

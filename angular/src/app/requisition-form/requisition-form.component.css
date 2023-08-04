@@ -1,0 +1,151 @@
+.codeDescription {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.reqForm {
+    font-size: 11px;
+    font-family: 'Helvetica Neue';
+    width: 760px;
+    overflow: auto;
+}
+
+.formHeader {
+    padding: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color:rgb(247, 247, 247);
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+}
+
+.reqInfo, .labInfo, .patientInfo, .clientInfo, .drawInfo, .responsibleParty, .orderDetails, .tertiaryInsurance, .primaryInurance, .secondaryInsurance {
+    display: inline-block;
+}
+
+.clientInfo {
+    margin-left: 16px;
+    margin-right: 16px;
+    width: 193px;
+    max-width: 193px;
+    position: relative;
+    top: 0px;
+}
+
+.patientInfo {
+    width: 297px;
+    max-width: 297px;
+}
+
+.drawInfo {
+    position: relative;
+    top: -26px;
+}
+
+.orderDetails {
+    width: 482px;
+    max-width: 482px;
+    margin-right: 16px;
+}
+
+.responsibleParty {
+    position: relative;
+    top: -26px;
+}
+
+.reqInfo {
+    float: right;
+}
+
+.firstSection, .secondSection, .thirdSection, .fourthSection {
+    padding-top: 11px;
+    padding-left: 16px;
+    padding-bottom: 14px;
+    padding-right: 16px;
+}
+
+.hr {
+    height: 1px;
+    width: 728px;;
+    margin-left: 16px;
+    background-color: rgb(0, 0, 0, .12)
+}
+
+.primaryInurance {
+    width: 228px;
+    max-width: 228px;
+    margin-right: 16px
+}
+
+.secondaryInsurance {
+    width: 238px;
+    max-width: 238px;
+    margin-right: 16px;
+}
+
+.userInput {
+    width: 185px;
+    max-width: 185px;
+}
+
+.fourthSection .mat-form-field {
+    width: 78px;
+    margin-left: 16px;
+    /* margin-right: 57px; */
+}
+
+/* .fourthSection .mat-form-field:last-child {
+    margin-right: 0px;
+} */
+
+.fourthSection .mat-input-element {
+    line-height: 17px !important;
+}
+
+.inputSpans {
+    position: relative; 
+    top: -4px;
+}
+
+.tableSection tr .mat-header-row, .tableSection th  {
+    background-color: rgb(204, 204, 204);
+    color: black;
+    font-weight: bold;
+    height: 17px;
+    border: none !important;
+}
+
+.tableSection tr, .tableSection .mat-cell, .tableSection td {
+    border: none !important;
+}
+
+.tableSection .formRow:hover {
+    background: none !important;
+}
+
+.formRow {
+    background: white;
+    height: 32px;
+}
+
+.tableSection .formRow.odd:hover {
+    background: rgb(247, 247, 247) !important;
+}
+
+.formRow.odd {
+    background: rgb(247, 247, 247);
+}
+
+.tableSection {
+    position: relative;
+    top: -16px;
+}
+
+.timeStamp {
+    position: relative;
+    bottom: 0;
+    left: 24px;
+}
+
+.tableSection th.mat-header-cell:first-child, td.mat-cell:first-child {
+    padding-left: 16px;
+}

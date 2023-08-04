@@ -1,0 +1,139 @@
+.associatedTitle {
+	margin-left: 24px;
+	padding-top: 24px;
+	margin-bottom: 6px;
+}
+
+.associatedSubTitle {
+	margin-left: 24px;
+	/* padding-bottom: 1px; */
+}
+
+.associatedTSA {
+	margin-bottom: 6px;
+}
+
+.iconInfo {
+	margin-left: 70%;
+	padding-top: 1.5%;
+	height: 18px;
+    width: 18px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.subtitle-right,
+.subtitle-right-users {
+	position: absolute;
+	right: 24px;
+}
+
+.associated-row {
+	vertical-align: middle;
+}
+
+.associated-hr {
+	border-color: #CCCCCC;
+	border-bottom-style: solid;
+	border-top-width: 0px;
+	border-bottom-width: 1px;
+	padding: 0px;
+	margin-top: 0px;
+	margin-bottom: 7px;
+}
+
+.associated-permission {
+	display: inline-block;
+	padding-left: 7%;
+	padding-bottom: 2%;
+	margin-top: -1.5%;
+	max-width: 265px !important;
+	width: 100% !important;
+}
+
+.removeAssociate {
+	padding: 0px;
+	position: absolute;
+	right: 34px;
+	margin-top: 2px;
+	margin-bottom: 12px;
+}
+
+.authenticationFactors {
+	font-size: 14px;
+}
+
+.user-hr {
+	color: #bfbfbf;
+	margin-bottom: 0px;
+}
+
+.user-name {
+	margin-left: 16px;
+}
+
+.removeUser {
+	padding: 0px;
+	position: absolute;
+	right: 34px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+.active {
+	margin-top: -17px;
+	padding-bottom: 5px;
+	color: rgba(0, 0, 0, 0.54);
+    font-size: 14px;
+}
+
+.drawer-toggle-container-2fa {
+	margin-top: -11px;
+	margin-bottom: 38px;
+}
+
+.drawer-authenticationFactors {
+    margin-top: -7px;
+    margin-bottom: 0px;
+}
+
+.bottomToggle {
+	margin-top: -2px;
+}
+
+.subheadingDiv {
+	margin-bottom: -1px;
+}
+
+.circle {
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	background-color: #D5D5D5;
+	display: inline-block;
+	margin-top: 7px;
+	height: 30px;
+	line-height: 30px;
+	width: 30px;
+	margin: 0px;
+	padding: 0px;
+}
+
+.avatarCircle {
+	background-color: #D5D5D5;
+	border-radius: 50%;
+	height: 30px;
+	width: 30px;
+	line-height: 30px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.info-span {
+	margin-left: 24px;
+	width: calc(100% - 131px);
+}
+
+.email-span {
+	width: 100% !important;
+}

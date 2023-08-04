@@ -1,0 +1,203 @@
+@import '~@angular/material/theming';
+
+// mixin name will be used in assets/custom-themes/themes.scss
+// mixin name: {component}-theme -> add @include to this mixin in themes.scss
+@mixin system-settings-theme($theme) {
+	// $theme is current theme, $primary is main color, add component color-related rules in this block
+	$primary: map-get($theme, primary);
+	$accent: map-get($theme, accent);
+	$warn: map-get($theme, accent);
+
+	span>.color-picker-icon {
+		color: mat-color(map-get($theme, primary));
+	}
+}
+
+.system-settings-overlay {
+	background-color: rgba(35, 34, 35, 0.1);
+	display: none;
+	height: 100%;
+	left: 0px;
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	z-index: 1;
+	cursor: pointer;
+}
+
+.system-settings-overlay.show {
+	animation-duration: 0.1s;
+	animation-name: fadeInShow;
+	display: block;
+	opacity: 1;
+}
+
+.system-settings {
+	background-color: #ffffff;
+	box-shadow: 0px 19px 36px 0px rgba(0, 0, 0, 0.26);
+	height: 100%;
+	right: 0px;
+	position: absolute;
+	top: 0px;
+	transform: translateX(440px);
+	transition: transform 0.25s;
+	width: 400px;
+	z-index: 1;
+}
+
+.system-settings.show {
+	transform: translateX(0px);
+}
+
+.system-settings .mat-toolbar {
+	color: #000000;
+	font-size: 24px;
+	padding-left: 24px;
+}
+
+.btn-system-settings-back {
+	position: absolute;
+	left: 27px;
+	top: 50%;
+	padding: 0px;
+	transform: translateY(-50%);
+}
+
+.system-settings-title {
+	position: absolute;
+	left: 80px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.ss-hr {
+	margin-top: 7px;
+	margin-bottom: 0px;
+	border: none;
+	height: 1px;
+	color: rgba(0, 0, 0, 0.25);
+	background-color: rgba(0, 0, 0, 0.25);
+}
+
+.form-field-label {
+	color: rgba(0, 0, 0, 0.54);
+	font-weight: 400;
+	font-size: 14px;
+	height: 14px;
+	padding-top: 17px;
+	margin-bottom: 11px;
+}
+
+.form-field-label-color {
+	color: rgba(0, 0, 0, 0.54);
+	font-weight: 400;
+	font-size: 14px;
+	height: 14px;
+	padding-top: 17px;
+	margin-bottom: 11px;
+}
+
+.labelSpan {
+	display: inline-block;
+	position: relative;
+	top: 4px;
+	left: 8px;
+}
+
+.themed-text {
+	font-size: 12px;
+	cursor: pointer;
+	font-weight: 500;
+}
+
+.file-dimensions {
+	font-size: 12px;
+}
+
+.file-name {
+	padding-right: 24px;
+	display: inline-block;
+	font-size: 12px;
+	position: relative;
+	width: 212px;
+	white-space: nowrap;
+	text-overflow: ellipsis !important;
+	overflow: hidden !important;
+}
+
+.color-picker-icon {
+	height: 20px;
+	width: 20px;
+	line-height: 20px;
+	font-size: 20px;
+	padding: 0px;
+	margin-bottom: 9px;
+}
+
+.mat-icon-button {
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	margin-bottom: 3px;
+	margin-top: -2px;
+}
+
+.undo-icon {
+	position: absolute;
+	right: 30px;
+	padding: 0px;
+	font-size: 14px;
+	margin-top: 6px;
+}
+
+.slideout-footer {
+	position: absolute;
+	bottom: 0px;
+	height: 56px;
+	width: 100%;
+}
+
+.saveadd {
+	position: absolute;
+	top: 20px;
+	left: 32px;
+}
+
+.save {
+	position: absolute;
+	top: 20px;
+	right: 32px;
+}
+
+.mat-menu-panel {
+	overflow: hidden !important;
+}
+
+.color-picker-menu {
+	display: flex !important;
+	flex-flow: row wrap;
+	align-content: flex-start;
+	padding: 0px !important;
+	margin: 0px !important;
+	width: 140px;
+	height: 108px;
+	position: absolute;
+}
+
+.picker-color-circle {
+	margin-left: 12px;
+	margin-top: 12px;
+	border-radius: 50%;
+	height: 20px;
+	width: 20px;
+	cursor: pointer;
+}
+
+.mat-menu-content {
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+}
+
+.lineAfterHeader {
+	margin-top: 6px;
+}

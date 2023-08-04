@@ -1,0 +1,127 @@
+/* Modifiers for PP */
+
+.lineAfterHeader {
+    margin-top: 8px;
+}
+
+.lineToCard {
+    /* margin-bottom: -26px !important; */
+    margin-bottom: -18px !important;
+    margin-top: -8px;
+}
+
+.lastLineToShortCard {
+    margin-bottom: -26px !important;
+}
+
+.ageInput {
+    text-align: center;
+}
+
+.ageField {
+    margin-top: 7px;
+    width: 10%;
+    float: left;
+    margin-bottom: 1px;
+}
+
+.ageSlider {
+    /* width: calc(70% - 2px); */
+    /* width: 234px; */
+    width: 72%;
+    float: left;
+    /* margin-left: 11px; */
+    margin-left: 4%;
+    /* margin-right: 11px; */
+    margin-right: 4%;
+    margin-top: 11px;
+}
+
+.dateTime,
+.dateTime2 {
+    /* width: 150px; */
+    width: 46.875%;
+}
+
+.startTimeUp {
+    position: relative;
+    top: -47px;
+}
+
+.timesUpSome {
+    margin-top: 7px;
+    margin-bottom: -25px !important;
+}
+
+.timesUp {
+    margin-top: 9px;
+    margin-bottom: -54px !important;
+}
+
+.timeToUp {
+    position: relative;
+    top: -2px;
+}
+
+.matError {
+    font-size: 10.5px;
+    line-height: 1.125;
+    position: relative;
+    top: -28px;
+}
+
+.timeField {
+    width: 46.875%;
+}
+
+.showNowTimeField {
+    width: 33%;
+}
+
+.showNowDivider {
+    display: inline-block;
+    width: 20px;
+}
+
+.showNowSpan {
+    display: inline-block;
+    width: 56px;
+}
+
+.nowLabel {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 14px;
+}
+
+.nowLabelDisabled,
+.checkboxDisabled {
+    color: rgba(0, 0, 0, 0.38) !important;
+    cursor: default;
+}
+
+.showNowSpan>* {
+    position: relative;
+    bottom: 7px;
+}
+
+.showNowSpan .selectorCheckbox {
+    top: 1px !important;
+    left: 7px !important;
+}
+
+.selectorCheckbox {
+    left: 6px !important;
+}
+
+.dateSpan {
+    /* padding-left: 20px; */
+    padding-left: 6.25%;
+}
+
+.defaultClick {
+    cursor: default;
+}
+
+.pointerClick {
+    cursor: pointer;
+}

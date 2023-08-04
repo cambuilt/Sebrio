@@ -1,0 +1,89 @@
+<div class="drawer-overlay" [ngClass]="{'show': properties.showOverlay === true && isLoading !== true, 'hide': properties.hideOverlay === true}"
+ (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()" id="labelBackArrow">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Details</div>
+			<mat-form-field class='firstFormField' id='firstFormField' style='margin-top: 10px;'>
+				<input matInput placeholder="{{translation.translate('Label.Code')}}" appCodeLabValidation (change)='resetExists();' [disabled]="!properties.isDrawerOpen || properties.rowID !== ''"
+				 id='firstField' (keydown.Tab)="tabEvent()" (input)='updateDescription()' (blur)="blurCode();" [(ngModel)]="label.Code"
+				 #code=ngModel  />
+				<mat-error *ngIf="code.errors">{{code.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" (change)="checkDescriptionChange();" placeholder="{{translation.translate('Label.Description')}}"
+				 id='descriptionField' [(ngModel)]="label.Description" />
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select id="labSelect" [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Lab')}}"
+				 #lab=ngModel genericRequired [(ngModel)]="label.LaboratoryId">
+					<mat-option *ngFor="let lab of labOptions" [value]="lab">{{ lab }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="lab.errors">{{lab.errors.message}}</mat-error>
+			</mat-form-field>
+			<div class="drawer-toggle-container">
+				<label l10nTranslate>Label.Active</label>
+				<mat-slide-toggle [disabled]="!properties.isDrawerOpen" color="primary" [(ngModel)]='label.IsActive'></mat-slide-toggle>
+			</div>
+		</mat-card>
+		<mat-card>
+			<div class="card-heading associatedTitle" l10nTranslate>Header.Label file import</div>
+			<br />
+			<div class='subheadingDiv'>
+				<span class="card-subheading associatedSubTitle" l10nTranslate>Label.Import label</span>
+			</div>
+			<div class='fileFormField'>
+				<mat-form-field style='height: 49px !important; margin-bottom: -1px;'>
+					<label class="uploadButton" (click)="uploadFile.click()" l10nTranslate>Label.Upload</label>
+					<input appFormatFileValidation #file=ngModel class='fileName' style='color: black' matInput [(ngModel)]="label.TemplateFile.FileName"
+					 readonly />
+					<mat-icon class="remove" [ngClass]="{'show': fileSelected === true, 'error': fileSelected === true && displayKeys.length < 1}"
+					 (click)="removeFile();">close</mat-icon>
+					<mat-error *ngIf="file.errors">{{file.errors.message}}</mat-error>
+				</mat-form-field>
+			</div>
+			<div>
+				<input [disabled]="!properties.isDrawerOpen" class='fileInput' accept='text/plain' type="file" id='uploadFile'
+				 #uploadFile (change)='openFile($event)' />
+			</div>
+			<mat-form-field style="margin-top: 25px; margin-bottom: -25px !important;">
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="Test line length" [(ngModel)]="label.TestLineLength" numeric />
+			</mat-form-field>
+		</mat-card>
+		<mat-card *ngIf="fileSelected === true && displayKeys.length > 0">
+			<div class="card-heading" style='font-size: 14px;' l10nTranslate>Header.Data mapping</div>
+			<div style='margin-top: 7px; margin-bottom: -18px; font-size: 11px;'>
+				<span class='card-subheading leftSubHeading' l10nTranslate>Label.File</span>
+				<span class='headingSpan'></span>
+				<span class='card-subheading rightSubHeading' l10nTranslate>Label.Orders table</span>
+			</div>
+			<div class='outerDiv' *ngFor="let option of displayKeys">
+				<div>
+					<span class="keysSpan">
+						<mat-form-field class='splitField'>
+							<input placeholder="{{option}}" disabled="true" matInput />
+						</mat-form-field>
+						<span class="spacer"></span>
+						<mat-form-field class='splitField2'>
+							<mat-select [disabled]="!properties.isDrawerOpen" [(ngModel)]="mapOptions[option]">
+								<mat-option *ngFor="let drop of dropdown" [value]="drop">{{ drop }}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</span>
+				</div>
+			</div>
+			<button [disabled]="!properties.isDrawerOpen" class='selectDrawerButton' mat-button (click)='testPrint();'
+			 l10nTranslate>Label.Test print</button>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]="!properties.isDrawerOpen" class="btn-save-and-add-another" mat-button (click)="checkForm(true)"
+		 *ngIf="headerText === translation.translate('Label.Add label')" l10nTranslate>Label.Save & Add Another</button>
+		<button [disabled]="!properties.isDrawerOpen" class="btn-save" mat-button (click)="checkForm(false)" id="labelSaveButton"
+		 l10nTranslate>Label.Save</button>
+	</div>
+</div>

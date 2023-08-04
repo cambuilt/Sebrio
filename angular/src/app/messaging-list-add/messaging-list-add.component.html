@@ -1,0 +1,72 @@
+<div class="drawer-overlay-blank" [ngClass]="{'show': isDrawerOpen == true}" (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': isDrawerOpen == true, 'hideShadow': true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card style="height:70px;">
+			<div class="card-heading" l10nTranslate>Header.List name</div>
+			<mat-form-field class='firstField'>
+				<input matInput placeholder="{{translation.translate('Label.Name')}}" id='firstListField' [(ngModel)]="broadcastGroup.Name" #name=ngModel charLimit [maximumLength]=25 
+				maxlength="25" genericRequired />
+				<mat-hint align="end">{{broadcastGroup.Name?.length}}/25</mat-hint>
+				<mat-error *ngIf="name.errors">{{name.errors.message}}</mat-error>
+			</mat-form-field>
+		</mat-card>
+		<mat-card style='padding: 0px;'>
+			<div class="card-heading associatedTitle" l10nTranslate>Header.Recipients</div>
+			<br />
+			<div class='subheadingDiv'>
+				<span *ngIf="listType === 'Users'" class="card-subheading associatedSubTitle" style="padding-left:0px;" l10nTranslate>Label.User</span>
+				<span *ngIf="listType === 'Tenants'" class="card-subheading associatedSubTitle" style="padding-left:0px;" l10nTranslate>MainMenu.Tenant</span>
+				<span class="card-subheading label-remove" l10nTranslate>Label.Remove</span>
+			</div>
+			<br />
+			<div class="selector-hr"></div>
+			<div *ngIf="listType === 'Users'">
+				<ng-container *ngFor="let user of broadcastGroup.Recipients">
+					<div class='selectorRow'>
+						<div style="float: left;">
+							<ng-container *ngIf="user.AvatarURL.length <= 1">
+								<span class="circle">{{utilsService.getInitials(user)}}</span>
+							</ng-container>
+							<ng-container *ngIf="user.AvatarURL.length > 1">
+								<img class="avatarCircle" src="{{user.AvatarURL}}" alt="" />
+							</ng-container>
+						</div>
+						<div class="info-span">
+							<span style="line-height: 14px;">{{user.FirstName}} {{user.LastName}}</span>
+							<br class="selector-br">
+							<span class="email-span">{{user.Email}}</span>
+						</div>
+						<mat-icon class='remove' (click)='removeRecipient(user);'>close</mat-icon>
+					</div>
+					<div class="selector-hr"></div>
+				</ng-container>
+			</div>
+			<div *ngIf="listType === 'Tenants'">
+				<ng-container *ngFor="let tenant of broadcastGroup.Recipients">
+					<div class='selectorRow'>
+						<div class="tenant-span">
+							<span style="line-height: 14px;">{{tenant}}</span>
+							<mat-icon class='remove' (click)='removeRecipient(tenant);'>close</mat-icon>
+						</div>
+					</div>
+					<div class="selector-hr"></div>
+				</ng-container>
+			</div>
+			<!-- These exact settings are needed for 24px top and bottom -->
+			<div class='selectDrawerButton' style="padding-top: 32px; padding-bottom: 14px;">
+				<button *ngIf="listType === 'Users'" id="selectUserButton" mat-button (click)="listUser.show(true)" l10nTranslate>Label.Select User</button>
+				<button *ngIf="listType === 'Tenants'" id="selectTenantButton" mat-button (click)="listTenant.show(true)" l10nTranslate>Label.Select Tenant</button>
+			</div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button class="btn-save" id="buttonCreate" *ngIf="selectedList === ''" (click)='save();' mat-button l10nTranslate>Label.Create</button>
+		<button class="btn-save" id="buttonEditSave" *ngIf="selectedList !== ''" (click)='save();' mat-button l10nTranslate>Label.Save</button>
+	</div>
+</div>
+<rmp-user-selector #listUser id="listUser" (onSave)='processRecipientSelect($event)' [usersInput]='broadcastGroup.Recipients' [parentData]="{title: 'MessagingListAdd'}"></rmp-user-selector>
+<app-tenant-selector #listTenant id="listTenant" (onSave)='processRecipientSelect($event)' [tenantsInput]='broadcastGroup.Recipients'></app-tenant-selector>

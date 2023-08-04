@@ -1,0 +1,9 @@
+.cancelCard {
+    padding-top: 26px;
+}
+
+.cancelButton {
+    margin-left: 0;
+    margin-top: -1px;
+    margin-bottom: 8px !important;
+}

@@ -1,0 +1,40 @@
+<div class="drawer-overlay" [ngClass]="{'show': isDrawerOpen == true, 'hideOverlay': hideOverlay == true}" (click)="closeDrawer()"></div>
+<div class="drawer-container" [ngClass]="{'show': isDrawerOpen == true, 'hideShadow': hideOverlay == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="closeDrawer()">arrow_back</mat-icon>
+		<div class="drawer-header-text" l10nTranslate>Label.Add Roles</div>
+		<mat-icon class='filter-icon' (click)="openFilter();txtFilter.focus()">filter_list</mat-icon>
+		<div class="filter-container" [ngClass]="{'show': showFilter == true}">
+			<input [disabled]=!isDrawerOpen #txtFilter matInput placeholder="{{translation.translate('Label.Filter')}}" (input)='applyFilter()'
+			 [(ngModel)]="filterValue" />
+			<mat-icon class="btn-close-filter" (click)="closeFilter();clearFilter()">close</mat-icon>
+		</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card style='padding: 0px;'>
+			<div class="card-heading associatedTitle" l10nTranslate>Header.Assign roles</div>
+			<br />
+			<div>
+				<span class="form-field-subtitle associatedSubTitle" l10nTranslate>Label.Roles</span>
+				<span class="form-field-subtitle subtitle-right" l10nTranslate>Label.Assigned</span>
+			</div>
+			<br />
+			<hr class="hr role-hr" />
+			<ng-container *ngFor="let role of rolesFiltered">
+				<div class='roleRow'>
+					<div class="role-info-span">
+						<span style="line-height: 14px;">{{role.Name}}</span>
+					</div>
+					<div style="float: left;">
+						<mat-checkbox class="checkBoxDiv" color="primary" [id]="'checkboxRole-' + role.Name" (change)='checkTheBox(role.Name);'
+						 [checked]='role.checked'></mat-checkbox>
+					</div>
+				</div>
+				<hr class="hr role-hr">
+			</ng-container>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]=!isDrawerOpen class="btn-save" mat-button (click)="save()" l10nTranslate>Label.Save</button>
+	</div>
+</div>

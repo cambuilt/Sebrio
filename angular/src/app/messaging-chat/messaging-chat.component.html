@@ -1,0 +1,33 @@
+<div [ngClass]="{'show': isDrawerOpen == true, 'drawer-overlay-blank': messageType.indexOf('Notify') === -1, 'drawer-overlay': messageType.indexOf('Notify') > -1}" (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': isDrawerOpen == true, 'hideShadow': messageType.indexOf('Notify') === -1}">
+	<mat-toolbar color="white">
+		<mat-icon class="back-arrow" id="messagingChatBackArrow" (click)="closeDrawer()">arrow_back</mat-icon>
+		<!-- this needs to be the name of user you're messaging -->
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content" id="{{messageFieldName}}-chatMessagingDrawer" style="max-height: calc(100% - 147px); padding-top: 18px;">
+		<div *ngIf="displayMessagesStore.length > 0">
+			<div class='messaging' *ngFor='let message of displayMessagesStore'>
+				<div style="width:100%;">
+					<div class="dateHeader" *ngIf="!!message.Date">{{ message.Date }}</div>
+					<table class="message-bubble-table" *ngIf="message.FromUser.Username !== this.authService.currentUser.username && message.FromUser.username !== this.authService.currentUser.username"><tr><td style="height: 44px;">
+						<mat-card class="message-bubble">
+							{{message.MessageText}}<span class="time">{{message.Time}}</span>
+						</mat-card>
+					</td></tr></table>
+					<table class="message-bubble-table" *ngIf="message.FromUser.Username === this.authService.currentUser.username || message.FromUser.username === this.authService.currentUser.username"><tr><td align="right" style="height: 44px;">
+						<mat-card class="message-currentuser-bubble" >
+							{{message.MessageText}}<span class="time">{{message.Time}}</span>
+						</mat-card>
+					</td></tr></table>	
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="message-footer">
+		<mat-form-field style="width: 309px; position: absolute; top: 2px; left: 24px;">
+			<input matInput [(ngModel)]="message" id='{{messageFieldName}}' (keyup)="handleEnter($event);" />
+		</mat-form-field>
+		<mat-icon color='primary' id="sendButton" class="sendButton" (click)="sendMessage();">send</mat-icon>
+	</div>
+</div>

@@ -1,0 +1,25 @@
+<div *ngIf="showCentralLine === true">
+	<mat-card class="centralLineCard" *ngIf=canUpdateCentralLineStatus>
+		<div class="card-heading" l10nTranslate>Header.Central line</div>
+
+		<div style="margin-top: 21px; margin-bottom: 4px;">
+			<label class="centralLineLabel" l10nTranslate>Header.Central line</label>
+			<mat-slide-toggle class="centralLineToggle" color="primary" [(ngModel)]="centralLine.IsActive"
+				(change)=updateCentralLine()></mat-slide-toggle>
+		</div>
+	</mat-card>
+	<mat-card class="fastingCard">
+		<div class="card-heading" l10nTranslate>Header.Fasting</div>
+
+		<mat-form-field style="margin-bottom: -25px; margin-top: 7px;">
+			<input matInput placeholder="{{translation.translate('Header.Fasting')}}" [(ngModel)]='FastingStatus' (change)=updateFastingStatus() />
+		</mat-form-field>
+	</mat-card>
+	<mat-card class="collectionNoteCard" *ngIf=canAddCollectionNote>
+		<div class="card-heading" l10nTranslate>Label.Collection note</div>
+
+		<mat-form-field style="margin-bottom: -25px; margin-top: 7px;">
+			<input matInput placeholder="Comment" [(ngModel)]='CollectionNote' (change)=updateCollectionNote() />
+		</mat-form-field>
+	</mat-card>
+</div>

@@ -1,0 +1,84 @@
+<div class="drawer-overlay" [ngClass]="{'show': isDrawerOpen == true}" (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content" style='overflow-x: hidden;'>
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Label.Patient identification - wristband</div>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Account number')}}" [(ngModel)]="accountNumber" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.MRN')}}" [(ngModel)]="MRN" />
+			</mat-form-field>
+		</mat-card>
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Label.Patient identification - ID documentation</div>
+			<mat-form-field>
+				<input matInput placeholder="DOB" [(ngModel)]="DOB" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Patient name')}}" [(ngModel)]="MRN" />
+			</mat-form-field>
+		</mat-card>
+		<div class='labelsDiv1'>
+			<div class="drawer-header-text labelsHeader" l10nTranslate>Label.Labels</div>
+
+			<mat-form-field>
+				<mat-select matSelect placeholder="{{translation.translate('Label.Cancel reason')}}" [(ngModel)]="cancelReason">
+					<mat-option *ngFor="let cancellation of cancellations" [value]="cancellation.Code">{{cancellation.Code}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			</div>
+			<div class='labelsDiv2'>
+				<mat-accordion>
+					<mat-expansion-panel #transferOrder  (click)='scrollDown(220);'>
+						<mat-expansion-panel-header style='margin-bottom: 0px;' [collapsedHeight]="'48px'" [expandedHeight]="'48px'">
+							<mat-panel-title>
+								<span class='menu-group-header' l10nTranslate>Label.Transfer order</span>
+							</mat-panel-title>
+						</mat-expansion-panel-header>
+						<div class='outer-expansion'>
+						<div class='expansion-content'>
+							<mat-form-field class='expansionDropdown'>
+								<mat-select matSelect placeholder="User" [(ngModel)]="transferUser">
+									<mat-option *ngFor="let user of hubUsers" [value]="user.Username">{{user.FirstName}} {{user.LastName}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+							<button class="btn-expansion" (click)=completeCollection() mat-button l10nTranslate>Label.Transfer</button>
+						</div>
+					</div>
+					</mat-expansion-panel>
+				</mat-accordion>
+				<mat-accordion>
+					<mat-expansion-panel  (click)='scrollDown(250);' #cancelOrder >
+						<mat-expansion-panel-header style='margin-bottom: 0px;'  [collapsedHeight]="'48px'" [expandedHeight]="'48px'">
+							<mat-panel-title>
+								<span class='menu-group-header' l10nTranslate>Label.Cancel order</span>
+							</mat-panel-title>
+						</mat-expansion-panel-header>
+						<div class='outer-expansion'>
+						<div class='expansion-content'>
+							<mat-form-field class='expansionDropdown'>
+								<mat-select matSelect placeholder="Cancel reason" [(ngModel)]="cancelReason">
+									<mat-option *ngFor="let cancellation of cancellations" [value]="cancellation.Code">{{cancellation.Code}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+							<mat-form-field>
+								<input matInput placeholder='Notes' [(ngModel)]="notes" />
+							</mat-form-field>
+							<button class="btn-expansion" (click)=completeCollection() mat-button l10nTranslate>Label.Cancel</button>
+						</div>
+					</div>
+					</mat-expansion-panel>
+				</mat-accordion>
+			</div>
+	</div>
+	<div class="drawer-footer">
+		<button *ngIf="(problemList | async)" (click)=moveToProblemList() class="btn-save-and-add-another" mat-button l10nTranslate>Label.Problem List</button>
+		<button class="btn-complete" (click)=completeCollection() mat-button l10nTranslate>Label.Complete</button>
+		<button class="btn-save" mat-button l10nTranslate>Label.Save</button>
+	</div>
+</div>

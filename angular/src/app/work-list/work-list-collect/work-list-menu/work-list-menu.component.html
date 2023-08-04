@@ -1,0 +1,31 @@
+<div id="menuContainer" [ngClass]="{'shadowed': showSlideup === true}">
+	<mat-card *ngIf=showMenu class="menuOptions themed">
+		<div style="margin-top: 1px;"></div>
+
+		<ng-container *ngIf=canCancelOrder>
+			<span (click)=cancel.emit()>Cancel collection</span>
+			<div style="margin-bottom: 13px;"></div>
+		</ng-container>
+
+		<ng-container *ngIf=canGenerateCommunicationLabel>
+			<span (click)=printComm.emit()>Print communication label</span>
+			<div style="margin-bottom: 13px;"></div>
+		</ng-container>
+
+		<span (click)=printPatient.emit()>Print patient label</span>
+		<div style="margin-bottom: 13px;"></div>
+
+		<ng-container *ngIf=canTransferToProblemList>
+			<span (click)=problemList.emit()>Problem list</span>
+			<div style="margin-bottom: 13px;"></div>
+		</ng-container>
+
+		<ng-container *ngIf=canRescheduleOrder>
+			<span (click)=reschedule.emit()>Reschedule collection</span>
+			<div style="margin-bottom: 13px;"></div>
+		</ng-container>
+
+		<span (click)=transfer.emit()>Transfer collection</span>
+		<div style="margin-bottom: 5px;"></div>
+	</mat-card>
+</div>

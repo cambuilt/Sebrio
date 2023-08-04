@@ -1,0 +1,16 @@
+/* .maintenance-page:before {
+	background-image: url('../../assets/banners/keyboard.png');
+} */
+
+.mat-column-User,
+.mat-column-Device,
+.mat-column-Status {
+	padding-right: 24px;
+	white-space: nowrap;
+}
+
+@media (max-width: 440px) {
+	.maintenance-page .page-header {
+		line-height: 48px !important;
+	}
+}

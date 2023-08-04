@@ -1,0 +1,159 @@
+<div class="notification-overlay" [ngClass]="{'show': showNotificationsPopup === true}" (click)="closeNotifications()">
+</div>
+<div class="notification-popup" [ngClass]="{'show': showNotificationsPopup === true}">
+	<div class="scroll-container">
+		<div class="messages" *ngIf="messagingService.unreadMessages.length > 0">
+			<div class="notification-header" [ngClass]="{'expanded': messagesExpanded === true}"
+				(click)=toggleMessagesExpanded()>
+				<mat-icon class="notification-header-icon themed offset-right-1px" svgIcon="message_outline"></mat-icon>
+				<span class="notification-header-text">{{translation.translate('Notifications.Messages')}}</span>
+				<span class="notification-header-dot">⋅</span>
+				<span class="notification-header-time">{{timeSinceLastMessage}}</span>
+				<mat-icon class="notification-header-icon expand-icon"
+					[ngClass]="{'expanded': messagesExpanded === true}">expand_more</mat-icon>
+			</div>
+			<div *ngIf="messagesExpanded === false" class="notification-subtext" (click)=toggleMessagesExpanded()>
+				<span class="notification-subtext-header">{{messageSenderCount}}
+					{{translation.translate('Notifications.Messages')}}</span>
+				<div class="container-header-br"></div>
+				<span class="notification-subtext-details">{{messageSenders.join(", ")}}</span>
+			</div>
+			<div *ngIf="messagesExpanded === true">
+				<ng-container *ngFor="let message of messagingService.unreadMessages">
+					<div class="message" (click)=clickMessage(message)>
+						<span class="avatar-circle"><img class="avatar-image" src={{message.AvatarURL}}
+								*ngIf="!!message.AvatarURL"></span>
+						<span class="circle" id="{{message.FromUser.FirstName}} {{message.FromUser.LastName}}"
+							*ngIf="message.FromUser.AvatarURL === undefined || message.FromUser.AvatarURL.length <= 1">{{utilsService.getInitials(message.FromUser)}}</span>
+						<div class="message-inner">
+							<span class="time-stamp">{{this.timeSinceLastMessage}}</span>
+							<div class="message-no-br"></div>
+							<span class="message-from">{{message.FromName}}</span>
+							<div class="message-no-br"></div>
+							<span class="message-content">{{message.MessageText.indexOf('~') > -1 ? message.MessageText.split('~')[1] :
+								message.MessageText }}</span>
+						</div>
+					</div>
+				</ng-container>
+			</div>
+		</div>
+
+		<div class="orders" *ngIf=collectionNotifications.length>
+			<div class="notification-header" [ngClass]="{'expanded': collectionsExpanded === true}"
+				(click)=toggleCollectionsExpanded()>
+				<mat-icon class="notification-header-icon themed" svgIcon="portrait_outline"></mat-icon>
+				<span class="notification-header-text">{{translation.translate('Notifications.Collections')}}</span>
+				<ng-container *ngIf=collectionNotifications.length>
+					<span class="notification-header-dot">⋅</span>
+					<span class="notification-header-time">{{getTimeAgo(collectionNotifications[0].CreatedDateTime)}}
+						min</span>
+				</ng-container>
+				<mat-icon *ngIf="collectionNotifications.length" class="notification-header-icon expand-icon"
+					[ngClass]="{'expanded': collectionsExpanded === true}">expand_more</mat-icon>
+			</div>
+			<div *ngIf="collectionsExpanded === false" class="notification-subtext" (click)=toggleCollectionsExpanded()>
+				<span class="notification-subtext-header">{{collectionNotifications.length}}
+					{{translation.translate('Notifications.Collections')}}</span>
+				<div class="container-header-br"></div>
+				<span class="notification-subtext-details"> {{getCollectionSenders()}}</span>
+			</div>
+			<div *ngIf="collectionsExpanded === true">
+				<ng-container *ngFor="let collection of collectionNotifications">
+					<div class="collection" (click)=clickOrder(collection)>
+						<div class="collection-inner">
+							<span class="time-stamp">{{getTimeAgo(collection.CreatedDateTime)}} min</span>
+							<div class="container-collection-br"></div>
+							<span class="collection-content">
+								{{collection.display.message}}
+							</span>
+						</div>
+					</div>
+				</ng-container>
+			</div>
+		</div>
+
+		<div class="newRecords" *ngIf="newRecordNotifications.length">
+			<div class="notification-header" [ngClass]="{'expanded': newRecordsExpanded === true}"
+				(click)=toggleNewRecordsExpanded()>
+				<mat-icon class="notification-header-icon themed" svgIcon="new_record"></mat-icon>
+				<span class="notification-header-text">{{translation.translate('Notifications.New records')}}</span>
+				<ng-container *ngIf=newRecordNotifications.length>
+					<span class="notification-header-dot">⋅</span>
+					<span class="notification-header-time">{{getTimeAgo(newRecordNotifications[0].CreatedDateTime)}}
+						min</span>
+				</ng-container>
+				<mat-icon *ngIf="newRecordNotifications.length" class="notification-header-icon expand-icon"
+					[ngClass]="{'expanded': newRecordsExpanded === true}">expand_more</mat-icon>
+			</div>
+			<div *ngIf="newRecordsExpanded === false" class="notification-subtext" (click)=toggleNewRecordsExpanded()>
+				<span class="notification-subtext-header">{{newRecordNotifications.length}}
+					{{translation.translate('Notifications.New records')}}</span>
+				<div class="container-header-br"></div>
+				<!-- <span class="notification-subtext-details"> {{getCollectionSenders()}}</span> -->
+			</div>
+			<div *ngIf="newRecordsExpanded === true">
+				<ng-container *ngFor="let newRecord of newRecordNotifications">
+					<div class="newRecord" (click)=clickNewRecord(newRecord)>
+						<div class="newRecord-inner">
+							<span class="time-stamp">{{getTimeAgo(newRecord.CreatedDateTime)}} min</span>
+							<div class="container-newRecord-br"></div>
+							<span class="newRecord-content">
+								{{newRecord.display.message}}
+							</span>
+						</div>
+					</div>
+				</ng-container>
+			</div>
+		</div>
+
+		<div class="requests" *ngIf=requestNotifications.length>
+			<div class="notification-header" [ngClass]="{'expanded': requestsExpanded === true}"
+				(click)=toggleRequestsExpanded()>
+				<mat-icon class="notification-header-icon themed" style="position: relative; top: -1px;">swap_horiz
+				</mat-icon>
+				<span class="notification-header-text">{{translation.translate('Notifications.Requests')}}</span>
+				<span class="notification-header-dot">⋅</span>
+				<span class="notification-header-time">{{getTimeAgo(requestNotifications[0].CreatedDateTime)}}
+					min</span>
+				<mat-icon *ngIf="requestNotifications.length" class="notification-header-icon expand-icon"
+					[ngClass]="{'expanded': requestsExpanded === true}">expand_more</mat-icon>
+			</div>
+			<div *ngIf="requestsExpanded === false" class="notification-subtext" (click)=toggleRequestsExpanded()>
+				<span class="notification-subtext-header">{{requestNotifications.length}}
+					{{translation.translate('Notifications.Requests')}}</span>
+				<div class="container-header-br"></div>
+				<span class="notification-subtext-details">{{getRequestSenders()}}</span>
+			</div>
+			<div *ngIf="requestsExpanded === true">
+				<ng-container *ngFor="let request of requestNotifications">
+					<div class="request" (click)="clickRequest($event, request)">
+						<span class="avatar-circle"><img class="avatar-image"
+								src={{request.display.from.avatarURL}}></span>
+						<div class="request-inner">
+							<span class="request-data">
+								<span class="time-stamp">{{getTimeAgo(request.CreatedDateTime)}} min</span>
+								<div class="container-br-seven"></div>
+								<span class="request-from">{{request.display.from.FullName}}</span>
+								<div class="container-br-eight"></div>
+								<ng-container *ngIf="request.display.reason">
+									<span class="request-content">{{request.display.message}}<br>
+										<div class="container-br-two"></div>{{request.display.reason}}
+									</span>
+								</ng-container>
+								<ng-container *ngIf="!request.display.reason">
+									<span class="request-content">{{request.display.Patient.Name}}</span>
+								</ng-container>
+							</span>
+						</div>
+						<div class="request-buttons">
+							<button class="transfer-button" (click)="transfer(request)" mat-button
+								l10nTranslate>Notifications.Transfer</button>
+							<button (click)="reject(request)" mat-button
+								l10nTranslate>Notifications.Reject</button>
+						</div>
+					</div>
+				</ng-container>
+			</div>
+		</div>
+	</div>
+</div>

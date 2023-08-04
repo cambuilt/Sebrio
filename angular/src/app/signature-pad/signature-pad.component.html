@@ -1,0 +1,8 @@
+<div class='signaturePad'>
+    <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()"></signature-pad>
+</div>
+<div class='selector-hr'></div>
+<div class='signatureButtons'>
+    <button mat-button (click)='finishSigning();'>Finish</button>
+    <button mat-button (click)='clearPad();'>Clear</button>
+</div>

@@ -1,0 +1,14 @@
+<div *ngIf="showPrintPatient === true">
+	<mat-card class="printCard">
+		<div class="card-heading" l10nTranslate>Header.Print patient label</div>
+
+		<mat-form-field style="margin-top: 8px;">
+			<mat-select matSelect placeholder="Quantity" #labelQuantity=ngModel [(ngModel)]="quantity" genericRequired>
+				<mat-option *ngFor="let q of quantities" [value]="q">{{ q }}</mat-option>
+			</mat-select>
+			<mat-error *ngIf="labelQuantity.errors">{{labelQuantity.errors.message}}</mat-error>
+		</mat-form-field>
+
+		<button class="printButton" mat-button (click)="print()" l10nTranslate>Label.Print</button>
+	</mat-card>
+</div>

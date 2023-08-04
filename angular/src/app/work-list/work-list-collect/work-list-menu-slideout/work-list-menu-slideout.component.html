@@ -1,0 +1,43 @@
+<div class="drawer-overlay" *ngIf="showOverlay" [ngClass]="{'show': showDrawer}" (click)="clickOverlay()"></div>
+<div class="drawer-overlay-clear" *ngIf="!showOverlay" [ngClass]="{'show': showDrawer}" (click)="clickOverlay()"></div>
+<div class="spinner-overlay" [ngClass]="{'show': (isLoading | async)}"></div>
+<div class="loading-indicator" *ngIf="(isLoading | async)">
+	<mat-progress-spinner *ngIf="(isLoading | async)" color="primary" mode="indeterminate"> </mat-progress-spinner>
+</div>
+<div class="drawer-container" [ngClass]="{'show': showDrawer === true, 'hideShadow': hideShadow}">
+	<div class="box-shadow-container" style="overflow: hidden; padding-bottom: 8px;">
+		<mat-toolbar style="z-index: 3;" color="white">
+			<mat-icon (click)="clickBack()">arrow_back</mat-icon>
+			<div>
+				<div class="drawer-header-text">{{collection.Patient.LastName}}, {{collection.Patient.FirstName}}</div>
+				<div class="patientMRN">
+					<span>{{collection.Patient.DateOfBirth}}</span>
+					<span style="margin-left: 7px;">{{collection.Patient.Gender}}</span>
+					<span style="margin-left: 7px;">{{collection.Patient.MRN}}</span>
+				</div>
+			</div>
+
+			<div class="navigationControls">
+				<mat-icon class="expand-icon" (click)="clickInfo()" [ngClass]="{'expanded': showPatientInfo}">expand_more</mat-icon>
+			</div>
+		</mat-toolbar>
+	</div>
+
+	<div class="drawer-content">
+		<app-work-list-patient #workListCollection (displayPatientInfo)=updateShowPatientInfo($event)></app-work-list-patient>
+		<app-work-list-menu (cancel)=openCancel() (printComm)=openPrintComm() (printPatient)=openPrintPatient() (problemList)=openProblemList()
+		 (reschedule)=openReschedule() (transfer)=openTransfer() (closeMenu)=menuClosed() #workListMenu></app-work-list-menu>
+
+		<app-work-list-cancel (cancelSubmit)=cancelSubmit($event) #workListCancel></app-work-list-cancel>
+		<app-work-list-print-comm (printComm)=submitPrintComm($event) #workListPrintComm></app-work-list-print-comm>
+		<app-work-list-print-patient (printPatient)=submitPrintPatient($event) #workListPrintPatient></app-work-list-print-patient>
+		<app-work-list-problem-list (problemList)=sendToProblemList($event) #workListProblemList></app-work-list-problem-list>
+		<app-work-list-reschedule (submitReschedule)=submitReschedule($event) #workListReschedule></app-work-list-reschedule>
+		<app-work-list-transfer (submitTransfer)=submitTransfer($event) #workListTransfer></app-work-list-transfer>
+
+	</div>
+	<div class="drawer-footer" [ngClass]="{'shadowed': showMenu}">
+		<mat-icon class="menuIcon themed" (click)="toggleMenu()">menu</mat-icon>
+		<button class="btn-save" mat-button *ngIf="showingMenuOption" (click)="closeButton()" l10nTranslate>Label.Close</button>
+	</div>
+</div>

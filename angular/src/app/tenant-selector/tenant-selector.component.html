@@ -1,0 +1,41 @@
+<div class="drawer-overlay" [ngClass]="{'show': isDrawerOpen == true, 'hideOverlay': hideOverlay == true}" (click)="closeDrawer()"></div>
+<div class="drawer-container" [ngClass]="{'show': isDrawerOpen == true, 'hideShadow': hideOverlay == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="closeDrawer()">arrow_back</mat-icon>
+		<div class="drawer-header-text" l10nTranslate>Label.Add Tenants</div>
+		<mat-icon class='filter-icon' (click)="openFilter();txtFilter.focus()">filter_list</mat-icon>
+		<div class="filter-container" [ngClass]="{'show': showFilter == true}">
+			<input [disabled]=!isDrawerOpen #txtFilter matInput placeholder="{{translation.translate('Label.Filter')}}" (input)='applyFilter()'
+			 [(ngModel)]="filterValue" />
+			<mat-icon class="btn-close-filter" (click)="closeFilter();clearFilter()">close</mat-icon>
+		</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card style='padding: 0px;' id="tenantSelectorCard">
+			<div class="card-heading associatedTitle" l10nTranslate>Header.Assign tenants</div>
+			<br />
+			<div class='subheadingDiv'>
+				<span class="card-subheading associatedSubTitle" l10nTranslate>Label.Tenants</span>
+				<span class="card-subheading subtitle-right" l10nTranslate>Label.Assigned</span>
+			</div>
+			<br />
+			<div class="selector-hr"></div>
+			<ng-container *ngFor="let tenant of tenantsFiltered">
+				<div class='tenantRow'>
+					<div class="info-span">
+						<span style="line-height: 14px;">{{tenant.Name}}</span>
+					</div>
+					<div style="float: left;">
+						<mat-checkbox class="checkBoxDiv" color="primary" [id]="'checkboxTenant-' + tenant.Name" [checked]=tenant.check></mat-checkbox>
+					</div>
+				</div>
+				<div class="selector-hr"></div>
+			</ng-container>
+			<div class="card-bottom-space"></div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]=!isDrawerOpen class="btn-save" id="tenantSelectorSaveButton" mat-button (click)="save()"
+		 l10nTranslate>Label.Save</button>
+	</div>
+</div>

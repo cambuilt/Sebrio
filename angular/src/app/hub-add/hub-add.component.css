@@ -1,0 +1,125 @@
+.subtitle-right {
+	position: absolute;
+	right: 24px;
+}
+
+.associatedTitle {
+	margin-left: 24px;
+	padding-top: 24px;
+	margin-bottom: 6px;
+}
+
+.associatedSubTitle {
+	margin-left: 80px;
+}
+
+.hasError {
+	display: none;
+}
+
+.hasError.show {
+    background-color: #f44336;;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    position: relative;
+    left: -14px;
+    top: 6px;
+    display: inline-block;
+}
+
+.labCode.shift {
+	position: relative;
+    left: -6px;
+}
+
+.labErrorMessage {
+	display: none;
+}
+
+.labErrorMessage.show {
+	position: relative;
+    width: fit-content;
+    display: inline-block;
+    top: -2px;
+	left: 24px;
+	font-size: 10px;
+}
+
+.labAddButton.error {
+	position: relative;
+    top: -21px;
+    padding-bottom: 0px;
+    margin-bottom: -3px;
+}
+
+.circle {
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	background-color: #D5D5D5;
+	display: inline-block;
+	margin-top: 7px;
+	height: 30px;
+	line-height: 30px;
+	width: 30px;
+	margin: 0px;
+	padding: 0px;
+}
+
+.avatarCircle {
+	background-color: #D5D5D5;
+	border-radius: 50%;
+	height: 30px;
+	width: 30px;
+	line-height: 30px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.info-span {
+	margin-left: 24px;
+}
+
+.email-span {
+	width: 187px;
+}
+
+.user-name {
+	margin-left: 16px;
+}
+
+.removeUser {
+	padding: 0px;
+	position: absolute;
+	right: 34px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+.subheadingDiv {
+	margin-bottom: -1px;
+	line-height: 12px;
+}
+
+.associatedTitleLab {
+	margin-left: 24px;
+	padding-top: 24px;
+	margin-bottom: 6px;
+}
+
+.associatedSubTitleLab {
+	margin-left: 24px;
+}
+
+.subheadingDivLab {
+	margin-bottom: -1px;
+	line-height: 12px;
+}
+
+.labSpan {
+	margin-left: 0px;
+}
+
+
+

@@ -1,0 +1,17 @@
+.formContainer {
+    display: inline-block;
+    width: 100%;
+}
+
+.formContainer label {
+    float: left;
+    font-size: 14px;
+    color: rgba(0, 0, 0, .54);
+}
+
+.formContainer span {
+    float: right;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+}

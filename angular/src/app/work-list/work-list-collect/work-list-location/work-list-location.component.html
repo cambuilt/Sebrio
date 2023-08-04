@@ -1,0 +1,39 @@
+<div *ngIf="showLocation === true">
+	<mat-card class="locationCard">
+		<div class="card-heading" l10nTranslate>Label.Collection location</div>
+
+		<ng-container *ngIf=canIdentifyCollectionSite>
+			<mat-form-field class="firstInput" [ngClass]="{'noWorkload': !canWorkloadCodeEntry}">
+				<mat-select matSelect placeholder="{{translation.translate('Label.Collection site')}}" #collectionSite=ngModel
+				 [(ngModel)]="collectionLocation.CollectionSite" (selectionChange)=updateCollectionSite() genericRequired>
+					<mat-option *ngFor="let collectionSite of collectionSites" [value]="collectionSite.Code">{{ collectionSite.Code }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="collectionSite.errors">{{collectionSite.errors.message}}</mat-error>
+			</mat-form-field>
+		</ng-container>
+
+		<ng-container *ngIf=canWorkloadCodeEntry>
+			<mat-form-field [ngClass]="{'firstInput': !canIdentifyCollectionSite}">
+				<mat-select matSelect placeholder="{{translation.translate('MainMenu.Workload')}}" #collectionWorkload=ngModel
+				 [(ngModel)]="collectionLocation.Workload" (selectionChange)=updateWorkload() genericRequired>
+					<mat-option *ngFor="let workload of workloads" [value]="workload.Code">{{ workload.Code }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="collectionWorkload.errors">{{collectionWorkload.errors.message}}</mat-error>
+			</mat-form-field>
+
+			<mat-form-field style="margin-top: -1px; margin-bottom: 1px;">
+				<input matInput placeholder="
+			 {{translation.translate('Label.Quantity')}}" #collectionQuantity=ngModel
+				 [(ngModel)]='collectionLocation.Quantity' (change)=updateQuantity() numeric genericRequired />
+				<mat-error *ngIf="
+			 collectionQuantity.errors">{{collectionQuantity.errors.message}}</mat-error>
+			</mat-form-field>
+		</ng-container>
+		<div *ngIf="!canWorkloadCodeEntry && canIdentifyCollectionSite" style="margin-top: 26px"></div>
+		<mat-form-field style="margin-top: -1px; margin-bottom: -25px;">
+			<input matInput placeholder="{{translation.translate('Label.Comments')}}" [(ngModel)]='collectionLocation.Comments' (change)=updateComments() />
+		</mat-form-field>
+
+
+	</mat-card>
+</div>

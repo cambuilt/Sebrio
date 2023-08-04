@@ -1,0 +1,73 @@
+<div class="drawer-overlay" [ngClass]="{'show': properties.showOverlay === true && loading !== true, 'hide': properties.hideOverlay === true}" (click)="editBroadcastMode = false;editPrivateMode = false;utilsService.closeDrawer(this.properties);"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+	<mat-toolbar [ngClass]="{'mat-toolbar-tabs': hasBroadcastPermission === true}" color="white">
+		<mat-icon class="drawer-header-back" id="messagingBackArrow" (click)="editBroadcastMode = false;editPrivateMode = false;utilsService.closeDrawer(this.properties);">arrow_back</mat-icon>
+		<div class="drawer-header-text" l10nTranslate>Messaging.Messaging</div>
+        <mat-tab-group *ngIf="hasBroadcastPermission === true" #tabGroup style="margin-top:50px;margin-left:-43.7px;height:58px;padding:0px;" (click)="tabClick()">
+			<mat-tab #privateTab>
+				<ng-template mat-tab-label>
+					<span id='privateTab' [ngClass]="privateTab.isActive === true ? 'themedText' : 'gray'">Private</span>
+				</ng-template>
+			</mat-tab>
+			<mat-tab #broadcastTab>
+				<ng-template mat-tab-label>
+					<span  id="broadcastTab" [ngClass]="broadcastTab.isActive === true ? 'themedText' : 'gray'">Broadcast</span>
+				</ng-template>
+			</mat-tab>
+		</mat-tab-group>
+	</mat-toolbar>
+	<div class="drawer-content" [ngClass]="{'drawer-height-tabs': hasBroadcastPermission === true}" *ngIf="selectedTab === 'Private' && editBroadcastMode === false && loading === false" style="overflow-x:hidden !important;">
+		<mat-card class="inboxCard" *ngIf="inboxes && inboxes.length > 0">
+			<ng-container *ngFor="let inbox of inboxes">
+				<div class='inboxRow'>
+					<div *ngIf="editPrivateMode === true" >
+						<mat-checkbox class="inbox-checkbox" color="primary" [checked]=inbox.Check (change)="propagateCheckbox($event, inbox)"></mat-checkbox>
+					</div>
+					<div class="inbox-avatar row-element" [ngClass]="{'edit':editPrivateMode === true}">
+						<ng-container *ngIf="inbox.AvatarURL === undefined || inbox.AvatarURL.length <= 1">
+							<span class="circle row-element" id="{{inbox.FirstName}} {{inbox.LastName}}">{{utilsService.getInitials(inbox)}}</span>
+						</ng-container>
+						<ng-container *ngIf="inbox.AvatarURL !== undefined && inbox.AvatarURL.length > 1">
+							<img class="avatarCircle row-element" src="{{inbox.AvatarURL}}" alt="" id="{{inbox.FirstName}} {{inbox.LastName}}"/>
+						</ng-container>
+					</div>
+					<div class="inbox-span row-element" [ngClass]="{'edit':editPrivateMode === true}" (click)="clickPrivate(inbox)">
+						<span style="line-height: 14px;" class="row-element">{{inbox.FirstName}} {{inbox.LastName}}</span><span class="row-element" id="time-span" [ngClass]="{'edit':editPrivateMode === true}">{{inbox.LastMessageTime}}</span>
+						<br class="inbox-br row-element" [ngClass]="{'edit':editPrivateMode === true}">
+						<span class="inbox-small-span row-element" [ngClass]="{'edit':editPrivateMode === true}">{{inbox.LastMessage}}</span>
+						<div class="inbox-hr row-element" [ngClass]="{'edit':editPrivateMode === true}"></div>
+					</div>					
+				</div>
+				<div class="redDelete"><mat-icon class="themed" style="width:17px;position:relative;bottom:14.5px;right:-8px;color:white;" svgIcon="delete_sweep_outline"></mat-icon></div>				
+			</ng-container>
+		</mat-card>
+	</div>
+	<div class="drawer-content" [ngClass]="{'drawer-height-tabs': hasBroadcastPermission === true}" *ngIf="selectedTab === 'Broadcast' && listAdd.addEditTenantList === false">
+		<mat-card class="broadcastGroupCard" *ngIf="broadcastGroups.length > 0">
+			<ng-container *ngFor="let group of broadcastGroups">
+				<div class="broadcastGroupRow">
+					<mat-checkbox class="checkBoxbroadcastGroups" color="primary" [checked]=group.Check *ngIf="editBroadcastMode === true" (change)="propagateCheckbox($event, group)"></mat-checkbox>
+					<div  (click)="clickBroadcast(group.Id, group.Name, group.GroupType)">
+						<div class="broadcastGroupTitle" [ngClass]="{'edit':editBroadcastMode === true}">{{group.Name}}</div>
+						<div class="broadcastGroupRecipientList" [ngClass]="{'edit':editBroadcastMode === true}">{{group.RecipientList === '' ? '&nbsp;' : group.RecipientList}}</div>
+						<!-- <mat-icon class="broadcastGroupInfo" (click)='clickEditBroadcast(group);'>info_outline</mat-icon>
+						<div class="broadcastGroup-hr" [ngClass]="{'edit':editBroadcastMode === true}"></div> -->
+					</div>
+					<mat-icon class="broadcastGroupInfo" (click)='clickEditBroadcast(group);'>info_outline</mat-icon>
+						<div class="broadcastGroup-hr" [ngClass]="{'edit':editBroadcastMode === true}"></div>
+				</div>
+				<!-- <div class="redbroadcastGroupDelete"><mat-icon class="themed" style="width:23px;position:relative;bottom:10px;right:-8px;color:white;" svgIcon="delete_sweep_outline"></mat-icon></div>				 -->
+			</ng-container>		
+	</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button class="btn-save-and-add-another" id="editButton" [disabled]="(selectedTab === 'Private' && inboxes.length < 1) || (selectedTab === 'Broadcast' && broadcastGroups.length < 1)" *ngIf="listAdd.addEditTenantList === false && editBroadcastMode === false && editPrivateMode === false" (click)='edit();' (dblclick)="edit();utilsService.closeDrawer(this.properties);" mat-button l10nTranslate>Label.Edit</button>
+		<button class="btn-save-and-add-another" id="doneButton" *ngIf="editBroadcastMode === true || editPrivateMode === true" (click)='editDone();' mat-button l10nTranslate>Label.Done</button>
+		<button class="btn-save" id="newButton" *ngIf="selectedTab === 'Private' && editPrivateMode === false" (click)='messagingUser.newInbox = true;observeNewUserChatMessages();messagingUser.show(true);' mat-button l10nTranslate>Label.New</button>
+		<button class="btn-save" id="addButton" *ngIf="selectedTab === 'Broadcast'" (click)="authService.currentUser.role === 'RMP_RSA' ? showAddListMenu($event) : listAdd.addList();" mat-button l10nTranslate>Label.Add</button>
+		<button class="btn-save" id="deleteButton" *ngIf="editBroadcastMode === true || editPrivateMode === true" (click)='deleteByCheckbox();' mat-button l10nTranslate>Label.Delete</button>
+	</div>
+</div>
+<app-messaging-chat #messagingChat [messageFieldName]="'messagingMessageField'"></app-messaging-chat>
+<app-messaging-list-add #listAdd id="listAdd" (onSave)='saveGroup($event)' [listType]="'Users'"></app-messaging-list-add>
+<rmp-user-selector #messagingUser id="messagingUser" (onFullClose)="fullClose($event)" (onSelect)='processUserSelect($event)' [usersInput]='inboxes' [singleSelect]='true' [parentData]="{title:'Messaging'}"></rmp-user-selector>

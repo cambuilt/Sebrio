@@ -1,0 +1,151 @@
+<div class="drawer-overlay" [ngClass]="{'show': isDrawerOpen === true}" (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': isDrawerOpen === true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="card-heading">{{ headerText }}</div>
+			<div class='outerDiv' *ngFor="let option of options">
+				<mat-form-field *ngIf="option.dropdown === false && option.dateTime === false && option.name !== 'Initials' && option.name !== 'Volume' && option.name !== 'Action' && option.name !== 'Email' && option.model !== 'Phone' && option.model !== 'Cell phone' && option.model !== 'TsuRequest'"
+				 class="ageField">
+					<input [disabled]="!isDrawerOpen" id="filterInput{{option.id}}" placeholder="{{translation.translate('Label.' + option.model)}}"
+					 [(ngModel)]="filterObject[option.name]" class="ageInput" matInput />
+				</mat-form-field>
+				<mat-form-field *ngIf="option.model === 'Phone'" class="ageField">
+					<input [disabled]="!isDrawerOpen" id="filterInput{{option.id}}" placeholder="{{translation.translate('Label.' + option.model)}}"
+					 [(ngModel)]="filterObject[option.name]" #phoneForm=ngModel class="ageInput" matInput numeric [isRequired]=false
+					 filterPhoneValidator maxlength="14" />
+					<mat-error *ngIf="phoneForm.errors">{{phoneForm.errors.message}}</mat-error>
+				</mat-form-field>
+				<mat-form-field *ngIf="option.model === 'Cell phone'" class="ageField">
+					<input [disabled]="!isDrawerOpen" id="filterInput{{option.id}}" placeholder="{{translation.translate('Label.' + option.model)}}"
+					 [(ngModel)]="filterObject[option.name]" #cellPhoneForm=ngModel class="ageInput" matInput numeric [isRequired]=false
+					 filterPhoneValidator maxlength="14" />
+					<mat-error *ngIf="cellPhoneForm.errors">{{cellPhoneForm.errors.message}}</mat-error>
+				</mat-form-field>
+				<mat-form-field *ngIf="option.name === 'Email'" class="ageField">
+					<input [disabled]="!isDrawerOpen" id="filterInput{{option.id}}" placeholder="{{translation.translate('Label.' + option.model)}}"
+					 [(ngModel)]="filterObject[option.name]" #emailForm=ngModel class="ageInput" matInput [isRequired]=false
+					 filterEmailValidator />
+					<mat-error *ngIf="emailForm.errors">{{emailForm.errors.message}}</mat-error>
+				</mat-form-field>
+				<mat-form-field *ngIf="option.dropdown === false && option.dateTime === false && option.name === 'Volume'" class="ageField">
+					<input [disabled]="!isDrawerOpen" matInput id="filterInput{{option.id}}" placeholder="{{translation.translate('Label.' + option.model)}}"
+					 [(ngModel)]="filterObject[option.name]" #volume=ngModel class="ageInput" volume />
+				</mat-form-field>
+				<mat-form-field *ngIf="option.dropdown === true && option.name !== 'Action' && reporting !== true">
+					<mat-select [disabled]="!isDrawerOpen" id="filterInput{{option.id}}" matSelect [(ngModel)]="filterObject[option.name]"
+					 placeholder="{{translation.translate('Label.' + option.model)}}">
+						<mat-option *ngFor="let content of option.array" [value]="content">{{content}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field *ngIf="option.dropdown === true && option.name === 'Action'">
+					<mat-select [disabled]="!isDrawerOpen" id="filterInput{{option.id}}" matSelect [(ngModel)]="filterObject[option.name]"
+					 placeholder="{{translation.translate('Label.' + option.model)}}" #actionForm=ngModel genericRequired>
+						<div *ngIf='users.length > 1'>
+							<mat-option *ngFor="let content of userSelectedReporting" [value]="content">{{content}}</mat-option>
+						</div>
+						<div *ngIf='users.length <= 1'>
+							<mat-option *ngFor="let content of option.array" [value]="content">{{content}}</mat-option>
+						</div>
+					</mat-select>
+					<mat-error *ngIf="actionForm.errors">{{actionForm.errors.message}}</mat-error>
+				</mat-form-field>
+
+				<div *ngIf="option.dateTime === true" style='display:none;'>
+					<mat-form-field class='dateTime'>
+						<input [disabled]="!isDrawerOpen" style="cursor: pointer;" (focus)=pickerDateFrom.open() (click)="clickDatepickerFrom($event)"
+						 readonly="readonly" [max]="getMaxDate('from')" matInput [matDatepicker]="pickerDateFrom" [(ngModel)]="filterObject[option.name].dateFrom"
+						 placeholder="{{translation.translate('Label.Date from')}}" (dateChange)="checkIfToday($event)">
+						<mat-datepicker-toggle matSuffix [for]="pickerDateFrom"></mat-datepicker-toggle>
+						<mat-datepicker tabindex="-1" #pickerDateFrom></mat-datepicker>
+					</mat-form-field>
+					<span class='dateSpan'></span>
+					<mat-form-field class='dateTime'>
+						<input [ngClass]="{'clickable': filterObject[option.name].dateFrom !== ''}" (focus)=pickerDateTo.open() (click)="clickDatepickerTo($event)"
+						 readonly="readonly" matInput [matDatepicker]="pickerDateTo" [(ngModel)]="filterObject[option.name].dateTo"
+						 placeholder="{{translation.translate('Label.Date to')}}" [min]="getMinDate('to')" [max]="getMaxDate('to')"
+						 [disabled]="!isDrawerOpen || filterObject[option.name].dateFrom === ''" #dateToForm=ngModel [otherDate]=filterObject[option.name].dateFrom
+						 dateRangeLimit>
+						<mat-datepicker-toggle matSuffix [for]="pickerDateTo"></mat-datepicker-toggle>
+						<mat-datepicker tabindex="-1" #pickerDateTo></mat-datepicker>
+						<mat-error *ngIf="dateToForm.errors">{{dateToForm.errors.message}}</mat-error>
+					</mat-form-field>
+					<mat-form-field class='dateTime2'>
+						<input [disabled]="!isDrawerOpen" placeholder="{{translation.translate('Label.Time from')}}" (blur)=timeToForm.control.updateValueAndValidity()
+						 [timeType]="'Military'" fillTime maxlength="5" #timeFromForm=ngModel [(ngModel)]="filterObject[option.name].timeFrom"
+						 class="ageInput" matInput />
+						<mat-error *ngIf="timeFromForm.errors">{{timeFromForm.errors.message}}</mat-error>
+					</mat-form-field>
+					<span class='dateSpan'></span>
+					<mat-form-field class='dateTime2'>
+						<input [disabled]="!isDrawerOpen" placeholder="{{translation.translate('Label.Time to')}}" [timeType]="'Military'"
+						 [otherTime]="filterObject[option.name].timeFrom" timeRangeValidator maxlength="5" #timeToForm=ngModel
+						 [(ngModel)]="filterObject[option.name].timeTo" class="ageInput" matInput />
+						<mat-error *ngIf="timeToForm.errors">{{timeToForm.errors.message}}</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+
+			<mat-form-field *ngIf="collectionData === true" class='dateTime' style='margin-bottom: -18px; margin-top: -7px;'>
+				<input [disabled]="!isDrawerOpen" style="cursor: pointer;" [(ngModel)]="collectionDate" (click)="clickDatepicker($event)"
+				 readonly="readonly" matInput [matDatepicker]="pickerDate" [max]="getMaxDatePicker()" placeholder="{{translation.translate('Label.Date')}}">
+				<mat-datepicker-toggle matSuffix [for]="pickerDate"></mat-datepicker-toggle>
+				<mat-datepicker tabindex="-1" #pickerDate></mat-datepicker>
+			</mat-form-field>
+
+			<mat-form-field *ngIf="reporting === true" class='datePeriodField'>
+				<mat-select [disabled]="!isDrawerOpen" matSelect [(ngModel)]="datePeriod" (selectionChange)="determineDatePeriod();"
+				 placeholder="{{translation.translate('Label.Date period')}}">
+					<mat-option *ngFor="let content of datePeriodOptions" [value]="content">{{content}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</mat-card>
+
+		<mat-card *ngIf="reporting === true || collectionData === true" style='padding: 0px;'>
+			<div class="card-heading associatedTitle" [ngClass]="{'error': needsUsersInput === true}" l10nTranslate>Label.Users<span>
+					<mat-error class='userLengthError' *ngIf="needsUsersInput === true">User is required.</mat-error>
+				</span></div>
+			<br />
+			<div class='subheadingDiv'>
+				<span class="card-subheading associatedSubTitle" style="padding-left:0px;" l10nTranslate>Label.Users</span>
+				<span class="card-subheading subtitle-right" l10nTranslate>Label.Remove</span>
+			</div>
+			<br />
+			<div class="selector-hr"></div>
+			<ng-container *ngFor="let user of users">
+				<div class='selectorRow'>
+					<div style="float: left;">
+						<ng-container *ngIf="user.AvatarURL.length <= 1">
+							<span class="circle">{{utilsService.getInitials(user)}}</span>
+						</ng-container>
+						<ng-container *ngIf="user.AvatarURL.length > 1">
+							<img class="avatarCircle" src="{{user.AvatarURL}}" alt="" />
+						</ng-container>
+					</div>
+					<div class="info-span">
+						<span style="line-height: 14px;">{{user.FirstName}} {{user.LastName}}</span>
+						<br class="selector-br">
+						<span class="email-span">{{user.Email}}</span>
+					</div>
+					<mat-icon class='removeUser' (click)='removeUser(user);'>close</mat-icon>
+				</div>
+				<div class="selector-hr"></div>
+			</ng-container>
+			<div class='selectDrawerButton' style="padding-top: 30px; padding-bottom: 16px;">
+				<button [disabled]="!isDrawerOpen" mat-button id='filterUserSelectorButton' (click)="filterUser.show(true)"
+				 l10nTranslate>Label.Select User</button>
+			</div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]="!isDrawerOpen" class="btn-save-and-add-another" id='clearFilterButton' (click)='resetForm(false);'
+		 (dblclick)="resetForm(true);" mat-button l10nTranslate>Label.Clear</button>
+		<button [disabled]="!isDrawerOpen" class="btn-save" id='submitFilter' (click)='save(false);' mat-button>{{ headerText
+			}}</button>
+	</div>
+</div>
+<rmp-user-selector #filterUser id="filterUser" (onFullClose)="fullClose($event)" (onSave)='processUserSelect($event)'
+ [usersInput]='users' [parentData]="{title:'Filter'}"></rmp-user-selector>

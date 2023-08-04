@@ -1,0 +1,181 @@
+<div class="drawer-overlay"
+	[ngClass]="{'show': properties.showOverlay === true, 'hide': properties.hideOverlay === true}"
+	(click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card *ngIf=!search>
+			<div class="card-heading" l10nTranslate>Label.Hub</div>
+			<mat-form-field class="lineAfterHeader lastLineToShortCard">
+				<mat-select matSelect id="hubSelect" placeholder="{{translation.translate('Label.Hub')}}"
+					[(ngModel)]="workList.Hub" (selectionChange)=getAssociatedCollectionLists()
+					[disabled]="!properties.isDrawerOpen || ((!(canClearSearch | async) && !search) && !search)"
+					#hubForm=ngModel genericRequired>
+					<mat-option *ngFor="let hub of hubs" [value]="hub.Id">{{hub.Code}}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="hubForm.errors">{{hubForm.errors.message}}</mat-error>
+			</mat-form-field>
+		</mat-card>
+		<mat-card *ngIf=!search>
+			<div class="card-heading" l10nTranslate>Label.Collection List</div>
+			<mat-form-field class="lineAfterHeader lastLineToShortCard">
+				<mat-select matSelect id="collectionListSelect"
+					placeholder="{{translation.translate('Label.Collection List')}}"
+					[(ngModel)]="workList.CollectionList" (selectionChange)="changeCollectionList()"
+					[disabled]="!properties.isDrawerOpen || !workList.Hub || (!(canClearSearch | async) && !search)"
+					#collectionListForm=ngModel genericRequired>
+					<mat-option *ngFor="let collectionList of associatedCollectionLists" [value]="collectionList.Id">
+						{{collectionList.Code}}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="collectionListForm.errors">{{collectionListForm.errors.message}}</mat-error>
+			</mat-form-field>
+		</mat-card>
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Label.Filter</div>
+			<mat-form-field class="ageField" id='formField1'>
+				<input numeric class="ageInput" matInput placeholder="{{translation.translate('Label.Age')}}"
+					[(ngModel)]="workList.Filter.AgeRange.lower" (blur)=updateLower()
+					[disabled]="!properties.isDrawerOpen || (disableFilter && search) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search) || (search && workList.Filter.AgeRange.upper===workList.Filter.AgeRange.lower)" />
+			</mat-form-field>
+			<div class="ageSlider">
+				<igx-slider [isContinuous]=true #ageSlider [type]="sliderType.RANGE" [minValue]="workList.Filter.AgeMin"
+					[maxValue]="workList.Filter.AgeMax" [(ngModel)]="workList.Filter.AgeRange"
+					[disabled]="!properties.isDrawerOpen || (disableFilter && search) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search) || (search && workList.Filter.AgeRange.upper===workList.Filter.AgeRange.lower)"
+					[thumbLabelVisibilityDuration]=0></igx-slider>
+			</div>
+			<mat-form-field class="ageField" id='formField2'>
+				<input numeric class="ageInput" matInput [(ngModel)]="workList.Filter.AgeRange.upper"
+					(blur)=updateUpper()
+					[disabled]="!properties.isDrawerOpen || (disableFilter && search) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search) || (search && workList.Filter.AgeRange.upper===workList.Filter.AgeRange.lower)" />
+			</mat-form-field>
+
+			<mat-form-field>
+				<mat-select matSelect placeholder="{{translation.translate('Label.Gender')}}"
+					[(ngModel)]="workList.Filter.Gender"
+					[disabled]="!properties.isDrawerOpen || (disableFilter && search) || (workList.Filter.GenderSet === true && search === true) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search)">
+					<mat-option *ngFor="let gender of genders" [value]="gender.value">{{gender.value}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select matSelect placeholder="{{translation.translate('Label.Priority')}}"
+					[(ngModel)]="workList.Filter.Priority"
+					[disabled]="!properties.isDrawerOpen || (disableFilter && search) || (workList.Filter.PrioritySet === true && search === true) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search)">
+					<mat-option *ngFor="let priority of priorities" [value]="priority.Id">{{priority.Code}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select matSelect placeholder="{{translation.translate('Label.Problem list')}}"
+					[(ngModel)]="workList.Filter.ProblemList"
+					[disabled]="!properties.isDrawerOpen || (disableFilter && search) || (workList.Filter.ProblemListSet === true && search === true) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search)">
+					<mat-option *ngFor="let value of yesNo" [value]="value.value">{{value.value}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select matSelect placeholder="{{translation.translate('Label.Location')}}"
+					[(ngModel)]="workList.Filter.Location"
+					[disabled]="!properties.isDrawerOpen || (disableFilter && search) || (workList.Filter.LocationSet === true && search === true) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search)">
+					<mat-option *ngFor="let location of associatedLocations" [value]="location.Id">{{location.Code}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field *ngIf=search>
+				<mat-select matSelect placeholder="{{translation.translate('Label.Reserved')}}"
+					[(ngModel)]="workList.Filter.Reserved"
+					[disabled]="!properties.isDrawerOpen || (disableFilter && search) || (workList.Filter.ReservedSet === true && search === true) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search)">
+					<mat-option *ngFor="let res of reservations" [value]="res">{{res}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+
+			<div style="margin-top: -8px;">
+				<mat-form-field class='dateTime ' id='formField3'>
+					<input id="dateFrom"
+						[ngClass]="{'defaultClick': (disableFilter && search) || (workList.Filter.ReservedSet === true && search === true) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search),'pointerClick': !((disableFilter && search) || (workList.Filter.ReservedSet === true && search === true) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search))}"
+						(focus)=pickerDateFrom.open() (click)="clickDatepickerFrom($event)" readonly="readonly"
+						[max]="dateRange.dateFrom.maxDate" [min]="dateRange.dateFrom.minDate"
+						[disabled]="!properties.isDrawerOpen || (disableFilter && search) || (dateRange.dateFrom.maxDate._i === dateRange.dateFrom.minDate._i && search === true) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search)"
+						matInput [matDatepicker]="pickerDateFrom"
+						placeholder="{{this.translation.translate('Label.Date from')}}"
+						[(ngModel)]="workList.Filter.DateFrom" (dateChange)="updateDateTo($event)">
+					<mat-datepicker-toggle matSuffix [for]="pickerDateFrom"></mat-datepicker-toggle>
+					<mat-datepicker tabindex="-1" #pickerDateFrom></mat-datepicker>
+				</mat-form-field>
+				<span class='dateSpan'></span>
+				<mat-form-field class='dateTime ' id='formField4'>
+					<input id="dateTo"
+						[ngClass]="{'defaultClick': (disableFilter && search) || (workList.Filter.ReservedSet === true && search === true) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search),'pointerClick': !((disableFilter && search) || (workList.Filter.ReservedSet === true && search === true) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search))}"
+						(focus)=pickerDateTo.open() (click)="clickDatepickerTo($event)" readonly="readonly" matInput
+						[matDatepicker]="pickerDateTo" placeholder="{{this.translation.translate('Label.Date to')}}"
+						[max]="dateRange.dateTo.maxDate" [min]="dateRange.dateTo.minDate"
+						[disabled]="!properties.isDrawerOpen || (disableFilter && search) || (dateRange.dateTo.maxDate._i === dateRange.dateTo.minDate._i && search === true) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search)"
+						#dateToForm=ngModel [(ngModel)]="workList.Filter.DateTo" (dateChange)="updateDateFrom($event)">
+					<mat-datepicker-toggle matSuffix [for]="pickerDateTo"></mat-datepicker-toggle>
+					<mat-datepicker tabindex="-1" #pickerDateTo></mat-datepicker>
+					<!-- <mat-error *ngIf="dateToForm.errors">{{dateToForm.errors.message}}</mat-error> -->
+				</mat-form-field>
+			</div>
+
+			<div [ngClass]="{'timesUpSome': !timeTo.errors, 'timesUp': timeTo.errors}">
+				<mat-form-field [ngClass]="{'startTimeUp': timeTo.errors}" class='showNowTimeField lineToCard'
+					id='formField5'>
+					<input id="timeFrom" matInput placeholder="{{this.translation.translate('Label.Start time')}}"
+						[disabled]="!properties.isDrawerOpen || (disableFilter && search) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search)"
+						#timeFrom=ngModel [(ngModel)]="workList.Filter.TimeFrom" [timeType]="'Military'" fillTime
+						timeNumeric maxlength="5" (keydown)=changeTimes() (blur)=checkTimes()>
+					<mat-error *ngIf="timeFrom.errors">{{timeFrom.errors.message}}</mat-error>
+				</mat-form-field>
+				<span class='showNowDivider'></span>
+				<span [ngClass]="{'timeToUp': timeTo.errors}" style="display: inline-block; width: 60%;">
+					<mat-form-field style="width: 50%;" id='formField6'>
+						<input id="timeTo" matInput placeholder="{{this.translation.translate('Label.End time')}}"
+							[disabled]="!properties.isDrawerOpen || (disableFilter && search) || (!workList.CollectionList && !search) || (!(canClearSearch | async) && !search)"
+							#timeTo=ngModel (focus)='workList.Filter.Now = false' [(ngModel)]="workList.Filter.TimeTo"
+							[timeType]="'Military'" fillTime searchTime timeNumeric maxlength="5"
+							(keydown)=changeTimes() (blur)=checkTimes()>
+					</mat-form-field>
+					<span class='showNowDivider'></span>
+					<span class='showNowSpan'>
+						<span class="nowLabel"
+							[ngClass]="{'nowLabelDisabled': (!workList.CollectionList && !search)}">Now</span>
+						<span style="display: inline-block; width: 3px;"></span>
+						<ng-container
+							*ngIf="(!workList.CollectionList && !search) || (!(canClearSearch | async) && !search)">
+							<mat-icon class="checkBoxDiv selectorCheckbox checkboxDisabled"
+								*ngIf="!workList.Filter.Now">
+								check_box_outline_blank</mat-icon>
+							<mat-icon class="checkBoxDiv selectorCheckbox checkboxDisabled checked"
+								*ngIf="workList.Filter.Now">
+								check_box</mat-icon>
+						</ng-container>
+						<ng-container
+							*ngIf="!(!workList.CollectionList && !search) && !(!(canClearSearch | async) && !search)">
+							<mat-icon class="checkBoxDiv selectorCheckbox" *ngIf="!workList.Filter.Now"
+								(click)="changeNow($event)">check_box_outline_blank</mat-icon>
+							<mat-icon class="checkBoxDiv selectorCheckbox checked" *ngIf="workList.Filter.Now"
+								(click)="changeNow($event)">check_box</mat-icon>
+						</ng-container>
+					</span>
+					<mat-error class="matError" *ngIf="timeTo.errors">
+						{{timeTo.errors.message}}</mat-error>
+				</span>
+
+			</div>
+
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button *ngIf=search class="btn-save-and-add-another" l10nTranslate mat-button
+			(click)="clearFilter(false, false)" (dblclick)="clearFilter(false, true)">Label.Clear</button>
+		<button *ngIf=!search [disabled]="!properties.isDrawerOpen || !(search !== true && (canClearSearch | async))"
+			class="btn-save-and-add-another" mat-button (click)="clearFilter(true, false)"
+			l10nTranslate>Label.Clear</button>
+		<button id="workListCreateSearchButton" *ngIf=!search
+			[disabled]="!properties.isDrawerOpen || (!(!search && (canClearSearch | async)))" class="btn-save"
+			mat-button (click)=saveList(!search) l10nTranslate>Label.Search</button>
+		<button [disabled]="!properties.isDrawerOpen" id="workListBuilderSearchButton" *ngIf=search class="btn-save"
+			mat-button (click)=saveList(!search) l10nTranslate>Label.Filter</button>
+	</div>
+</div>

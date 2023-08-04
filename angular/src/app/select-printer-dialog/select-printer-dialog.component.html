@@ -1,0 +1,22 @@
+<div class='printerDialog'>
+	<p class='printDialogHeading' l10nTranslate>Label.Please select a printer</p>
+	<div class='mainDiv'>
+		<p style='margin-left: 24px; font-size: 14px;' *ngIf='printers.length < 1' l10nTranslate>Label.There are no printers available at this time</p>
+		<mat-radio-group [(ngModel)]="selectedPrinter" #radioGroup="matRadioGroup">
+			<ng-container *ngFor="let printer of printers">
+				<div class='printerRow' [ngClass]="{'noCordova': cordova === false}">
+					<span class="printer-span">
+						<span class='printerName' [ngClass]="{'noCordova': cordova === false}">{{printer.name}}</span>
+						<br style='height: 0px;'>
+						<span *ngIf="cordova === true" class="address-span">{{printer.address}}</span>
+					</span>
+					<mat-radio-button color='primary' [ngClass]="{'noCordova': cordova === false}" class='printerRadio' value="{{printer.address}}"></mat-radio-button>
+				</div>
+			</ng-container>
+		</mat-radio-group>
+	</div>
+	<div class='printButtons' [ngClass]="{'addSpace': printers.length > 4}">
+		<button class='printButton' [disabled]="selectedPrinter === undefined" mat-button (click)="submitToPrinter()" l10nTranslate>Label.Print</button>
+		<button class='cancelButton' mat-button (click)="cancel()" l10nTranslate>Label.Cancel</button>
+	</div>
+</div>

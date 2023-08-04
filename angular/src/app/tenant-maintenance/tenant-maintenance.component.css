@@ -1,0 +1,31 @@
+/* .maintenance-page:before {
+	background-image: url('../../assets/banners/buildings.png');
+} */
+
+.mat-column-Name,
+.mat-column-Address,
+.mat-column-Website,
+.mat-column-Email {
+	padding-right: 24px;
+	white-space: nowrap;
+}
+
+.mat-column-Phone {
+	padding-left: 24px;
+	padding-right: 24px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.mat-column-IsActive {
+	padding-left: 24px;
+	padding-right: 24px;
+	text-align: center;
+	width: 36px;
+}
+
+/* THIS SOULD BE A STYLE ON THE COMPONENTS ITSELF */
+
+rmp-tenant-add {
+	z-index: 2;
+}

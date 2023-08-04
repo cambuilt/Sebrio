@@ -1,0 +1,30 @@
+<div #legendContainer id="legendContainer" class="legendContainer" [ngClass]="{'show': showLegend}">
+	<div class="legend-row">
+		<mat-icon class="legend-icon">check_box_outline_blank</mat-icon>
+		<span class="legendIconText">Available</span>
+	</div>
+	<div class="legend-row">
+		<mat-icon class="legend-icon">check_box</mat-icon>
+		<span class="legendIconText">Reserved</span>
+	</div>
+	<div class="legend-row">
+		<mat-icon class="legend-icon" svgIcon="locked"></mat-icon>
+		<span class="legendIconText">Locked</span>
+	</div>
+	<div class="legend-row" *ngIf='showOtherReserves === true'>
+		<mat-icon class="legend-icon" svgIcon="other_reserved"></mat-icon>
+		<span class="legendIconText">Other Reserved</span>
+	</div>
+	<div class="legend-row" *ngIf='showOtherReserves === true'>
+		<mat-icon class="legend-icon" svgIcon="blocked"></mat-icon>
+		<span class="legendIconText">Other Locked</span>
+	</div>
+	<div class="legend-row">
+		<mat-icon class="legend-icon">done</mat-icon>
+		<span class="legendIconText">Complete</span>
+	</div>
+	<div class="legend-row">
+		<mat-icon class="legend-icon">close</mat-icon>
+		<span class="legendIconText">Cancelled</span>
+	</div>
+</div>

@@ -1,0 +1,72 @@
+<div>
+    <rmp-nav-bar (onBroadcast)="notifyBroadcast($event)"></rmp-nav-bar>
+    <app-notification-message #notificationMessage></app-notification-message>
+    <div class="maintenance-page" hidden>
+        <div class="page-content" [ngClass]="{'noData': dataSource.data.length === 0, 'oneEntry': dataSource.data.length === 1}">
+            <div class="page-header" l10nTranslate>ScreenTitle.Role Maintenance</div>
+            <button class="page-button" mat-button color="white" (click)="roleAdd.addRole()" l10nTranslate>Label.Add
+                Role</button>
+                <!-- <button class="page-button" mat-button color="white" (click)="showForm();" >Financial Form</button> -->
+            <mat-card class="maintenance-card" id='roleCard'>
+                <div class="action-buttons">
+                    <mat-icon id='roleConfiguratorIcon' (click)="tableConfiguration.show(columns.table)" title="{{translation.translate('Label.Table Configuration')}}">settings</mat-icon>
+                    <mat-icon id='roleFilterIcon' *ngIf='filterComponent.filterApplied === false' (click)="filterComponent.show(columns.filter)"
+                        title="{{translation.translate('ScreenTitle.Filter')}}">filter_list</mat-icon>
+                    <mat-icon id='roleFilterIcon2' *ngIf='filterComponent.filterApplied === true' (click)="filterComponent.show(columns.filter)"
+                        title="{{translation.translate('ScreenTitle.Filter')}}" svgIcon='filter_applied'></mat-icon>
+                    <mat-icon id='roleEditIcon' (click)="editClick()" title="{{translation.translate('Label.Edit')}}">create</mat-icon>
+                </div>
+                <div class="table-container" id='role-maintenance-table'>
+                    <table mat-table [dataSource]="dataSource" matSort>
+                        <ng-container matColumnDef="Name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Code</th>
+                            <td mat-cell *matCellDef="let element"><span>{{element.Name}}</span></td>
+                        </ng-container>
+                        <ng-container matColumnDef="Description">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Description</th>
+                            <td mat-cell *matCellDef="let element"><span>{{element.Description}}</span></td>
+                        </ng-container>
+                        <ng-container matColumnDef="Users">
+                            <th mat-header-cell *matHeaderCellDef l10nTranslate>Label.Users</th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-chip-list [selectable]='false' [disabled]='true' #chipList>
+                                    <mat-chip *ngIf="element.Users.length > 0" [disabled]='true' [selectable]='false'>
+                                        <img class="avatarCircle" *ngIf="element.Users[0].AvatarURL.length > 1" [src]="element.Users[0].AvatarURL"
+                                            alt="" />
+                                        <span class="circleUser" *ngIf="element.Users[0].AvatarURL.length <= 1">{{element.Users[0].FirstName.substr(0,
+                                            1) + element.Users[0].LastName.substr(0, 1)}}</span>
+                                        <span class="chipUserName">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{element.Users[0].FirstName}}
+                                            {{element.Users[0].LastName}}
+                                        </span>
+
+                                    </mat-chip>
+                                    <mat-icon class="verticalEllipsisButton" *ngIf='element.Users.length > 1' svgIcon='ellipsis'
+                                        (click)=roleChip.editAssociatedUsers(element)></mat-icon>
+                                </mat-chip-list>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="IsActive">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Active</th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-icon class="tableCheckBox" *ngIf="!element.IsActive">check_box_outline_blank</mat-icon>
+                                <mat-icon class="tableCheckBox" *ngIf="element.IsActive">check_box</mat-icon>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="columns.display"></tr>
+                        <tr mat-row *matRowDef="let row; columns: columns.display;" [ngClass]="{'selected': selectedRowId == row.Id}"
+                            (click)="selectedRowId = row.Id" (dblclick)="roleAdd.editRole(row.Id)"></tr>
+                    </table>
+                </div>
+                <mat-paginator #tablePaginator (page)=paginatorChange($event) [ngClass]="{'noBorderPaginator': !(dataSource.data && dataSource.data.length)}"
+                    [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator>
+            </mat-card>
+        </div>
+        <div class="poweredBy2"></div><img src="assets/eMyLabCollect.com.svg" class="eMyLabCollect2" />
+        <div class="watermark2"></div>
+    </div>
+    <app-role-add #roleAdd (onSave)="roleOnSave($event)"></app-role-add>
+    <rmp-table-configuration #tableConfiguration (onSave)="tableColumnsOnSave($event)"></rmp-table-configuration>
+    <app-filter #filterComponent (onSave)='receiveFilter($event);'></app-filter>
+    <rmp-user-chip #roleChip (onSave)='chipSave($event)' id="roleChip" style="z-index: 2;" [parentData]="{title: 'Role', source: 'chip'}"></rmp-user-chip>
+</div>

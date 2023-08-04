@@ -1,0 +1,28 @@
+/* .maintenance-page:before {
+	background-image: url('../../assets/banners/filters.png');
+} */
+
+.mat-column-Code,
+.mat-column-Description,
+.mat-column-HandlingInstructions,
+.mat-column-Lab,
+.mat-column-LabDepartment,
+.mat-column-DefaultContainer,
+.mat-column-Volume,
+.mat-column-Destination {
+	padding-right: 24px;
+	white-space: nowrap;
+}
+
+.mat-column-IsActive {
+	padding-left: 24px;
+	padding-right: 24px;
+	text-align: center;
+	width: 36px;
+}
+
+/* THIS SOULD BE A STYLE ON THE COMPONENTS ITSELF */
+
+rmp-test-add {
+	z-index: 2;
+}

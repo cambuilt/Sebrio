@@ -1,0 +1,31 @@
+.subtitle-right {
+	position: absolute;
+	right: 24px;
+}
+
+.associatedTitle {
+	margin-left: 24px;
+	padding-top: 24px;
+	margin-bottom: 6px;
+}
+
+.associatedSubTitle {
+	margin-left: 24px;
+}
+
+.removeAssociate {
+	padding: 0px;
+	position: absolute;
+	right: 34px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+.formSpace {
+	height: 15px;
+}
+
+.subheadingDiv {
+	margin-bottom: -1px;
+	line-height: 12px;
+}

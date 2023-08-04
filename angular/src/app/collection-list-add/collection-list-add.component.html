@@ -1,0 +1,607 @@
+<div class="drawer-overlay"
+	[ngClass]="{'show': properties.showOverlay === true, 'hide': properties.hideOverlay === true}"
+	(click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Details</div>
+			<mat-form-field class="lineAfterHeader" id="firstFormField">
+				<input placeholder="{{translation.translate('Label.Code')}}" appCodeLabValidation
+					(change)='resetExists();' matInput [disabled]="properties.rowID !== '' || !properties.isDrawerOpen"
+					id='firstField' [(ngModel)]="collectionList.Code" (input)='updateDescription()'
+					(keydown.Tab)="tabEvent()" (blur)="blurCode();" #code=ngModel />
+				<mat-error *ngIf="code.errors">{{code.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input [disabled]=!properties.isDrawerOpen matInput (change)="checkDescriptionChange();"
+					placeholder="{{translation.translate('Label.Description')}}" id='descriptionField'
+					[(ngModel)]="collectionList.Description" />
+			</mat-form-field>
+			<mat-form-field>
+				<input [disabled]=!properties.isDrawerOpen matInput
+					placeholder="{{translation.translate('Label.Notes')}}" [(ngModel)]="collectionList.Note" />
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]=!properties.isDrawerOpen matSelect
+					placeholder="{{translation.translate('Label.Lab')}}" [(ngModel)]="collectionList.Laboratory.Id"
+					id='labSelectCollection' (selectionChange)=labChange() #labForm=ngModel genericRequired>
+					<mat-option *ngFor="let lab of labs" (click)="getHubs(lab.Id);" [value]="lab.Id">{{ lab.Code }}
+					</mat-option>
+				</mat-select>
+				<mat-error *ngIf="labForm.errors">{{labForm.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field class="hub">
+				<mat-select [disabled]="!properties.isDrawerOpen || !collectionList.Laboratory.Id" matSelect
+					id='hubSelectCollection' placeholder="{{translation.translate('Label.Hub')}}"
+					[(ngModel)]="collectionList.Hub.Id" #hubForm=ngModel genericRequired>
+					<mat-option *ngFor="let hub of hubs" [value]="hub.Id">{{ hub.Code }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="hubForm.errors">{{hubForm.errors.message}}</mat-error>
+			</mat-form-field>
+			<div class="collection-list-toggle activeAfterLine toggleToCard">
+				<label l10nTranslate>Label.Active</label>
+				<mat-slide-toggle id='collectionListActiveToggle' color="primary" [(ngModel)]="collectionList.IsActive">
+				</mat-slide-toggle>
+			</div>
+		</mat-card>
+		<mat-card class="cardEndingWithInput">
+			<div class="card-heading" l10nTranslate>Header.Refresh</div>
+			<mat-form-field class="lineAfterHeader">
+				<input #autoRefresh=ngModel [disabled]=!properties.isDrawerOpen matInput [timeType]="'Duration'"
+					id='autoRefreshCollection' fillTime timeNumeric maxlength="5"
+					placeholder="{{translation.translate('Label.Automatic collection list refresh')}} (MM:SS)"
+					[(ngModel)]="collectionList.RefreshTimeAutomatic" genericRequired />
+				<mat-error *ngIf="autoRefresh.errors">{{autoRefresh.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input #manualRefresh=ngModel [disabled]=!properties.isDrawerOpen matInput [timeType]="'Duration'"
+					id='manualRefreshCollection' fillTime timeNumeric maxlength="5"
+					placeholder="{{translation.translate('Label.Manual collection list refresh')}} (MM:SS)"
+					[(ngModel)]="collectionList.RefreshTimeManual" genericRequired />
+				<mat-error *ngIf="manualRefresh.errors">{{manualRefresh.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field style="margin-bottom: -1px !important;">
+				<input #cleanListForm=ngModel [disabled]=!properties.isDrawerOpen matInput [timeType]="'Duration'"
+					id='cleanListForm' fillTime timeNumeric maxlength="5"
+					placeholder="{{translation.translate('Label.Clean collection list')}} (HH:MM)"
+					[(ngModel)]="collectionList.CleanCollectionListTimer" genericRequired />
+				<mat-error *ngIf="cleanListForm.errors">{{cleanListForm.errors.message}}</mat-error>
+			</mat-form-field>
+		</mat-card>
+		<mat-card style="padding-bottom: 1px;" class="cardEndingWithInput">
+			<div class="card-heading" l10nTranslate>Header.Collect period</div>
+			<div class="lineAfterHeader">
+				<mat-form-field class="tee">
+					<input style="color: rgba(0, 0, 0, 0.50); cursor: default;" [disabled]=!properties.isDrawerOpen
+						matInput value="T" readonly tabindex="-1" />
+				</mat-form-field>
+				<mat-form-field class="teeSelect">
+					<mat-select #startTee #startTeeForm=ngModel [disabled]=!properties.isDrawerOpen matSelect
+						id='teeSelect' (selectionChange)=startSelect()
+						[(ngModel)]="collectionList.CollectionPeriodStartSelect">
+						<mat-option *ngFor="let option of plusMinus" [value]="option.value"
+							[disabled]="teeDisabled('start', option.value)">{{
+							option.value }}</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field class="date-field">
+					<input #startDaysForm=ngModel #startDays numeric matInput
+						placeholder="&nbsp;{{translation.translate('Label.Days from')}}" style="padding-left: 3px;"
+						[(ngModel)]="collectionList.CollectionPeriodStartDays" id='daysFrom'
+						[disabled]="!properties.isDrawerOpen || collectionList.CollectionPeriodStartSelect === ' ' || collectionList.CollectionPeriodStartSelect === ''"
+						[fieldName]="'startDaysField'" collectionPeriodValidator />
+					<mat-error *ngIf="startDaysForm.errors">{{startDaysForm.errors.message}}</mat-error>
+				</mat-form-field>
+				<span class="half-field-splitter"></span>
+				<mat-form-field class="half-field">
+					<input #startTime [timeType]="'Military'" fillTime timeNumeric id='startTime'
+						[disabled]=!properties.isDrawerOpen matInput maxlength="5"
+						placeholder="{{translation.translate('Label.Start time')}}"
+						[(ngModel)]="collectionList.CollectionPeriodStartTime" #startTimeForm=ngModel
+						[fieldName]="'startTimeField'" collectionPeriodValidator />
+					<mat-error *ngIf="startTimeForm.errors">{{startTimeForm.errors.message}}</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="lastLineToMediumCard" style="margin-top: -5px !important;">
+				<mat-form-field
+					[ngClass]="{'pushUp': endTimeForm.touched && endTimeForm.errors && !startTimeForm.errors, 
+					'pushUp3': endTimeForm.touched && endTimeForm.errors && !startTimeForm.errors && collectionList.CollectionPeriodEndTime === '', 
+					'pushUp2': endTimeForm.touched && endTimeForm.errors && startTimeForm.errors,
+					'pushUp4': endTimeForm.errors && startTimeForm.errors && collectionList.CollectionPeriodStartTime === '' && collectionList.CollectionPeriodEndTime !== ''}"
+					class="tee">
+					<input style="color: rgba(0, 0, 0, 0.50); cursor: default;" [disabled]=!properties.isDrawerOpen
+						matInput value="T" readonly tabindex="-1" />
+				</mat-form-field>
+				<mat-form-field [ngClass]="{'pushUpSelect': endTimeForm.touched && endTimeForm.errors && !startTimeForm.errors,
+					'pushUp3Select': endTimeForm.touched && endTimeForm.errors && !startTimeForm.errors && collectionList.CollectionPeriodEndTime === '',
+					'pushUp2Select': endTimeForm.touched && endTimeForm.errors && startTimeForm.errors,
+					'pushUp4Select': endTimeForm.errors && startTimeForm.errors && collectionList.CollectionPeriodStartTime === '' && collectionList.CollectionPeriodEndTime !== ''}" class="teeSelect">
+					<mat-select #endTee #endTeeForm=ngModel id='teeSelect2' [disabled]=!properties.isDrawerOpen
+						matSelect (selectionChange)=endSelect() [(ngModel)]="collectionList.CollectionPeriodEndSelect">
+						<mat-option *ngFor="let option of plusMinus" [value]="option.value"
+							[disabled]="teeDisabled('end', option.value)">{{
+							option.value }}</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field
+					[ngClass]="{'pushUp': endTimeForm.touched && endTimeForm.errors && !startTimeForm.errors, 
+					'pushUp3': endTimeForm.touched && endTimeForm.errors && !startTimeForm.errors && collectionList.CollectionPeriodEndTime === '', 
+					'pushUp2': endTimeForm.touched && endTimeForm.errors && startTimeForm.errors,
+					'pushUp4': endTimeForm.errors && startTimeForm.errors && collectionList.CollectionPeriodStartTime === '' && collectionList.CollectionPeriodEndTime !== ''}"
+					class="date-field">
+					<input #endDays numeric matInput placeholder="&nbsp;{{translation.translate('Label.Days to')}}"
+						style="padding-left: 3px;" [(ngModel)]="collectionList.CollectionPeriodEndDays" id='daysTo'
+						[disabled]="collectionList.CollectionPeriodEndSelect === ' ' || collectionList.CollectionPeriodEndSelect === '' || !properties.isDrawerOpen"
+						#endDaysForm=ngModel [fieldName]="'endDaysField'" collectionPeriodValidator />
+					<mat-error *ngIf="endDaysForm.errors">{{endDaysForm.errors.message}}</mat-error>
+				</mat-form-field>
+				<span class="half-field-splitter"></span>
+				<span style="display: inline-block;" class="half-field">
+					<mat-form-field [ngClass]="{'mat-form-field-invalid': endTimeForm.touched && endTimeForm.errors}"
+						style="width: calc(100% - 79px);">
+						<input #endTime [timeType]="'Military'" fillTime timeNumeric [disabled]=!properties.isDrawerOpen
+							matInput maxlength="5" placeholder="{{translation.translate('Label.End time')}}"
+							[(ngModel)]="collectionList.CollectionPeriodEndTime" (focus)='nowChecked = false'
+							name="endTime" #endTimeForm=ngModel [fieldName]="'endTimeField'" id='endTime'
+							collectionPeriodValidator />
+					</mat-form-field>
+					<span class="half-field-splitter"></span>
+					<span style="display: inline-block; width: 56px; position: relative; top: -7px;">
+						<span class="nowLabel">Now</span>
+						<span style="display: inline-block; width: 3px;"></span>
+						<mat-icon class="checkBoxDiv selectorCheckbox otherSelector" *ngIf="!nowChecked"
+							(click)="changeNow($event)">check_box_outline_blank</mat-icon>
+						<mat-icon class="checkBoxDiv selectorCheckbox otherSelector checked" *ngIf="nowChecked"
+							(click)="changeNow($event)">check_box</mat-icon>
+					</span>
+					<mat-error class="matError" *ngIf="endTimeForm.touched && endTimeForm.errors">
+						{{endTimeForm.errors.message}}</mat-error>
+				</span>
+
+				<!-- <mat-form-field class="quarter-field">
+					<input #endTime [timeType]="'Military'" fillTime timeNumeric [disabled]=!properties.isDrawerOpen
+						matInput maxlength="5" placeholder="{{translation.translate('Label.End time')}}"
+						[(ngModel)]="collectionList.CollectionPeriodEndTime" (focus)='nowChecked = false' name="endTime"
+						#endTimeForm=ngModel [fieldName]="'endTimeField'" id='endTime' collectionPeriodValidator />
+					<mat-error *ngIf="endTimeForm.errors">{{endTimeForm.errors.message}}</mat-error>
+				</mat-form-field>
+				<span class="half-field-splitter"></span>
+				<span class="quarter-field nowLabelSpan" style="display: inline-block;">
+					<span class="nowLabel">Now</span>
+					<span style="display: inline-block; width: 3px;"></span>
+					<mat-icon class="checkBoxDiv selectorCheckbox otherSelector" *ngIf="!nowChecked"
+						(click)="changeNow($event)">check_box_outline_blank</mat-icon>
+					<mat-icon class="checkBoxDiv selectorCheckbox otherSelector checked" *ngIf="nowChecked"
+						(click)="changeNow($event)">check_box</mat-icon>
+				</span> -->
+
+			</div>
+		</mat-card>
+		<mat-card style='padding: 0px;'>
+			<div class="card-heading associatedTitle" l10nTranslate>Header.Associated locations</div>
+			<br />
+			<div class="selectorColumns">
+				<span class="form-field-subtitle associatedSubTitle" l10nTranslate>Label.Locations</span>
+				<span class="form-field-subtitle subtitle-right" l10nTranslate>Label.Remove</span>
+			</div>
+			<br />
+			<div class="selector-hr tableHead"></div>
+			<ng-container *ngIf=!collectionList.SelectedAllAssociatedCollectionLocations>
+				<ng-container *ngFor="let location of collectionList.AssociatedCollectionLocations">
+					<div class='selectorRow'>
+						<div class="info-span" style="float: left">
+							<span style="line-height: 14px;">{{location.Code}}</span>
+							<br class="selector-br">
+							<span class="details-span">{{location.Description}}</span>
+						</div>
+						<mat-icon class='removeRow' (click)='removeLocation(location);'>close</mat-icon>
+					</div>
+					<div class="selector-hr"></div>
+				</ng-container>
+			</ng-container>
+
+			<div class="selectButton">
+				<button mat-button (click)="collectionListLocations.show(false, true)" id='addLocationCollection'
+					[disabled]=!properties.isDrawerOpen l10nTranslate>Label.Select Locations</button>
+			</div>
+		</mat-card>
+
+		<mat-card style='padding: 0px;'>
+			<div class="card-heading associatedTitle" l10nTranslate>Header.Associated clients</div>
+			<br />
+			<div class="selectorColumns">
+				<span class="form-field-subtitle associatedSubTitle" l10nTranslate>Label.Clients</span>
+				<span class="form-field-subtitle subtitle-right" l10nTranslate>Label.Remove</span>
+			</div>
+			<br />
+			<div class="selector-hr tableHead"></div>
+			<ng-container *ngIf=!collectionList.SelectedAllAssociatedClients>
+				<ng-container *ngFor="let client of collectionList.AssociatedClients">
+					<div class='selectorRow'>
+						<div class="info-span" style="float: left">
+							<span style="line-height: 14px;">{{client.Code}}</span>
+							<br class="selector-br">
+							<span class="details-span">{{client.Name}}</span>
+						</div>
+						<mat-icon class='removeRow' (click)='removeClient(client);'>close</mat-icon>
+					</div>
+					<div class="selector-hr"></div>
+				</ng-container>
+			</ng-container>
+			<div class="selectButton">
+				<button mat-button (click)="collectionListClients.show(false, true)" id='addClientCollection'
+					[disabled]=!properties.isDrawerOpen l10nTranslate>Label.Select Clients</button>
+			</div>
+		</mat-card>
+
+		<mat-card style='padding: 0px;'>
+			<div class="card-heading associatedTitle" l10nTranslate>Header.Associated providers</div>
+			<br />
+			<div class="selectorColumns">
+				<span class="form-field-subtitle associatedSubTitle" l10nTranslate>Label.Providers</span>
+				<span class="form-field-subtitle subtitle-right" l10nTranslate>Label.Remove</span>
+			</div>
+			<br />
+			<div class="selector-hr tableHead"></div>
+			<ng-container *ngIf=!collectionList.SelectedAllAssociatedProviders>
+				<ng-container *ngFor="let provider of collectionList.AssociatedProviders">
+					<div class='selectorRow'>
+						<div class="info-span" style="float: left">
+							<span style="line-height: 14px;">{{provider.Code}}</span>
+							<br class="selector-br">
+							<span class="details-span">{{provider.CompanyName}}</span>
+						</div>
+						<mat-icon class='removeRow' (click)='removeProvider(provider);'>close</mat-icon>
+					</div>
+					<div class="selector-hr"></div>
+				</ng-container>
+			</ng-container>
+			<div class="selectButton">
+				<button mat-button (click)="collectionListProviders.show(false, true)" id='addProviderCollection'
+					[disabled]=!properties.isDrawerOpen l10nTranslate>Label.Select Providers</button>
+			</div>
+		</mat-card>
+
+		<mat-card style='padding: 0px;'>
+			<div class="card-heading associatedTitle" l10nTranslate>Header.Associated priorities</div>
+			<br />
+			<div class="selectorColumns">
+				<span class="form-field-subtitle associatedSubTitle" l10nTranslate>Label.Priorities</span>
+				<span class="form-field-subtitle subtitle-right" l10nTranslate>Label.Remove</span>
+			</div>
+			<br />
+			<div class="selector-hr tableHead"></div>
+			<ng-container *ngIf=!collectionList.SelectedAllAssociatedPriorities>
+				<ng-container *ngFor="let priority of collectionList.AssociatedPriorities">
+					<div class='selectorRow'>
+						<div class="info-span" style="float: left">
+							<span style="line-height: 14px;">{{priority.Code}}</span>
+							<br class="selector-br">
+							<span class="details-span">{{priority.Description}}</span>
+						</div>
+						<mat-icon class='removeRow' (click)='removePriority(priority);'>close</mat-icon>
+					</div>
+					<div class="selector-hr"></div>
+				</ng-container>
+			</ng-container>
+			<div class="selectButton">
+				<button mat-button (click)="collectionListPriorities.show(false, true)" id='addPriorityCollection'
+					[disabled]=!properties.isDrawerOpen l10nTranslate>Label.Select Priorities</button>
+			</div>
+		</mat-card>
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Reservation</div>
+			<mat-form-field class="lineAfterHeader">
+				<input [disabled]=!properties.isDrawerOpen matInput [timeType]="'Duration'"
+					id='collectionReservationExp' fillTime timeNumeric maxlength="5"
+					placeholder="{{translation.translate('Label.Reservation expiration time')}} (HH:MM)"
+					[(ngModel)]="collectionList.ReservationExpireTime" #reservationTimeForm=ngModel genericRequired />
+				<mat-error *ngIf="reservationTimeForm.errors">{{reservationTimeForm.errors.message}}</mat-error>
+			</mat-form-field>
+			<div class="collection-list-toggle toggleAfterLine">
+				<label l10nTranslate>Label.Supersede a reservation</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.ReservationIsSuperseded"></mat-slide-toggle>
+			</div>
+			<mat-form-field style="margin-top: 17px; margin-bottom: -25px !important;"
+				class="lineAfterToggle lineToCard">
+				<mat-select #wristbandSelector matSelect
+					placeholder="{{translation.translate('Label.Collection staff')}}"
+					[(ngModel)]="collectionList.CollectStaff" [disabled]="!properties.isDrawerOpen"
+					#collectionStaffForm=ngModel genericRequired>
+					<mat-option *ngFor="let option of collectionStaff" [value]="option.value">{{ option.value }}
+					</mat-option>
+				</mat-select>
+				<mat-error *ngIf="collectionStaffForm.errors">{{collectionStaffForm.errors.message}}</mat-error>
+			</mat-form-field>
+		</mat-card>
+		<mat-card id="wristbandIDs">
+			<div class="card-heading" l10nTranslate>Header.Patient identification - wristband</div>
+			<div class="collection-list-toggle toggleAfterHeader">
+				<label l10nTranslate>Label.Scan wristband</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary" id='patientWristbandToggle'
+					(change)=scanWristbandChange() [(ngModel)]="collectionList.PatientScanWristband"></mat-slide-toggle>
+			</div>
+			<mat-form-field class="lineAfterToggle">
+				<mat-select #wristbandSelector matSelect
+					placeholder="{{translation.translate('Label.Number of wristband identifiers')}}"
+					[(ngModel)]="collectionList.PatientWristbandCount"
+					[disabled]="!collectionList.PatientScanWristband || !properties.isDrawerOpen"
+					(selectionChange)=wristbandsChange() #wristbandSelectorForm=ngModel genericRequired>
+					<mat-option *ngFor="let option of oneTwo" [value]="option">{{ option }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="wristbandSelectorForm.errors">{{wristbandSelectorForm.errors.message}}</mat-error>
+			</mat-form-field>
+			<span>
+				<mat-form-field class="wristbandIdentifier">
+					<mat-select #wristbandSelect1 matSelect
+						placeholder="{{translation.translate('Label.Wristband identifier 1')}}"
+						[(ngModel)]="collectionList.PatientWristband1"
+						[disabled]="!properties.isDrawerOpen || collectionList.PatientWristbandCount === '' || !collectionList.PatientScanWristband"
+						#wristbandSelect1Form=ngModel genericRequired>
+						<mat-option *ngFor="let option of wristbandSelect" [value]="option.value"
+							[disabled]="option.value === collectionList.PatientWristband2">{{
+							option.value }}</mat-option>
+					</mat-select>
+					<mat-error *ngIf="wristbandSelect1Form.errors">{{wristbandSelect1Form.errors.message}}</mat-error>
+				</mat-form-field>
+				<span class="wristbandGap"></span>
+				<mat-form-field class="wristbandSegment">
+					<input numeric matInput placeholder="{{translation.translate('Label.Barcode segment')}}"
+						[disabled]="!properties.isDrawerOpen || collectionList.PatientWristbandCount === '' || !collectionList.PatientScanWristband"
+						[(ngModel)]="collectionList.PatientWristbandBarcodeSegment1"
+						#wristbandSelect1SegmentForm=ngModel />
+					<mat-error *ngIf="wristbandSelect1SegmentForm.errors">{{wristbandSelect1SegmentForm.errors.message}}
+					</mat-error>
+				</mat-form-field>
+			</span>
+			<span>
+				<mat-form-field class="wristbandIdentifier">
+					<mat-select #wristbandSelect2 matSelect
+						placeholder="{{translation.translate('Label.Wristband identifier 2')}}"
+						[(ngModel)]="collectionList.PatientWristband2"
+						[disabled]="!properties.isDrawerOpen || collectionList.PatientWristbandCount === '1' || collectionList.PatientWristbandCount === '' || !collectionList.PatientScanWristband"
+						#wristbandSelect2Form=ngModel genericRequired>
+						<mat-option *ngFor="let option of wristbandSelect" [value]="option.value"
+							[disabled]="option.value === collectionList.PatientWristband1">{{
+							option.value }}</mat-option>
+					</mat-select>
+					<mat-error *ngIf="wristbandSelect2Form.errors">{{wristbandSelect2Form.errors.message}}</mat-error>
+				</mat-form-field>
+				<span class="wristbandGap"></span>
+				<mat-form-field class="wristbandSegment">
+					<input numeric matInput placeholder="{{translation.translate('Label.Barcode segment')}}"
+						[disabled]="!properties.isDrawerOpen || collectionList.PatientWristbandCount === '1' || collectionList.PatientWristbandCount === '' || !collectionList.PatientScanWristband"
+						[(ngModel)]="collectionList.PatientWristbandBarcodeSegment2"
+						#wristbandSelect2SegmentForm=ngModel />
+					<mat-error *ngIf="wristbandSelect2SegmentForm.errors">{{wristbandSelect2SegmentForm.errors.message}}
+					</mat-error>
+				</mat-form-field>
+			</span>
+			<mat-form-field class="lineToCard">
+				<input matInput placeholder="{{translation.translate('Label.Barcode delimiter')}}"
+					[disabled]="!properties.isDrawerOpen || collectionList.PatientWristbandCount === '' || !collectionList.PatientScanWristband"
+					[(ngModel)]="collectionList.PatientWristbandBarcodeDelimiter" #wristbandDelimiterForm=ngModel
+					genericRequired />
+				<mat-error *ngIf="wristbandDelimiterForm.errors">{{wristbandDelimiterForm.errors.message}}</mat-error>
+			</mat-form-field>
+
+
+		</mat-card>
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Patient identification - ID documentation</div>
+			<!-- <div class="collection-list-toggle toggleAfterHeader">
+				<label l10nTranslate>Label.Scan ID</label>
+				<mat-slide-toggle color="primary" (change)=idToggleChange() [(ngModel)]="collectionList.PatientScanId"></mat-slide-toggle>
+			</div> -->
+			<div class="collection-list-toggle toggleAfterHeader">
+				<label l10nTranslate>Label.Manual ID</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary" (change)=idToggleChange()
+					[(ngModel)]="collectionList.PatientManualId"></mat-slide-toggle>
+			</div>
+			<mat-form-field class="lineAfterToggle">
+				<mat-select #documentationSelector matSelect
+					placeholder="{{translation.translate('Label.Number of ID documentation identifiers')}}"
+					[(ngModel)]="collectionList.PatientIdDocCount" id='numberOfIdentifiers'
+					(selectionChange)=documentationChange()
+					[disabled]="!collectionList.PatientManualId || !properties.isDrawerOpen"
+					#documentationSelectorForm=ngModel genericRequired>
+					<mat-option *ngFor="let option of oneTwo" [value]="option">{{ option }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="documentationSelectorForm.errors">{{documentationSelectorForm.errors.message}}
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select #documentationSelect1 matSelect
+					placeholder="{{translation.translate('Label.ID documentation identifier 1')}}"
+					[(ngModel)]="collectionList.PatientIdDoc1" id='documentId1'
+					[disabled]="!properties.isDrawerOpen || collectionList.PatientIdDocCount === ''"
+					#documentationSelect1Form=ngModel genericRequired>
+					<mat-option *ngFor="let option of documentationSelect" [value]="option.value"
+						[disabled]="option.value === collectionList.PatientIdDoc2 || (!collectionList.PatientManualId)">{{
+						option.value }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="documentationSelect1Form.errors">{{documentationSelect1Form.errors.message}}
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field class="lineToCard">
+				<mat-select #documentationSelect2 matSelect
+					placeholder="{{translation.translate('Label.ID documentation identifier 2')}}"
+					[(ngModel)]="collectionList.PatientIdDoc2"
+					[disabled]="!properties.isDrawerOpen || collectionList.PatientIdDocCount === '1' || collectionList.PatientIdDocCount === ''"
+					#documentationSelect2Form=ngModel genericRequired>
+					<mat-option *ngFor="let option of documentationSelect" [value]="option.value"
+						[disabled]="option.value === collectionList.PatientIdDoc1 || (!collectionList.PatientManualId)">{{
+						option.value }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="documentationSelect2Form.errors">{{documentationSelect2Form.errors.message}}
+				</mat-error>
+			</mat-form-field>
+		</mat-card>
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Collection actions</div>
+			<div class="collection-list-toggle toggleAfterHeader">
+				<label l10nTranslate>Label.Cancel order</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.CanCancelOrder"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Reschedule order</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.CanRescheduleOrder"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Transfer collection to problem list</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.CanTransferToProblemList"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Identify collection site</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.CanIdentifyCollectionSite"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Add collection note</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.CanAddCollectionNote"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Workload code entry</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.CanWorkloadCodeEntry"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Enable GPS support</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.CanEnableGPSSupport"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Trigger exception report</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.CanTriggerExceptionReport"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle toggleToCard">
+				<label l10nTranslate>Label.Group by location</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.CanGroupByLocation"></mat-slide-toggle>
+			</div>
+		</mat-card>
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Patient collection information</div>
+			<div class="collection-list-toggle toggleAfterHeader">
+				<label l10nTranslate>Label.Display room/bed</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.DisplayPatientRoomBed"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Display hospital/nursing home address</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.DisplayCollectionLocation" (change)="changeInstitutionAddress()">
+				</mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Display home draw address</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.DisplayHomeDrawAddress" (change)="changeHomeDraw()"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Display client</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.DisplayClient"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Display client address & phone</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.DisplayClientAddressAndPhone"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle toggleToCollectionInfoCard">
+				<label l10nTranslate>Label.Display patient address & phone</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.DisplayPatientAddressAndPhone"></mat-slide-toggle>
+			</div>
+		</mat-card>
+		<mat-card class="cardEndingWithInput">
+			<div class="card-heading" l10nTranslate>Header.Communication label</div>
+			<div class="collection-list-toggle toggleAfterHeader">
+				<label l10nTranslate>Label.Generate communication label</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen (change)=changeCommunicationLabel()
+					color="primary" [(ngModel)]="collectionList.CanGenerateCommunicationLabel"></mat-slide-toggle>
+			</div>
+			<mat-form-field class="lineAfterToggle">
+				<input numeric matInput (change)=validateCommLabels()
+					placeholder="{{translation.translate('Label.Default number of labels')}}"
+					[(ngModel)]="collectionList.LabelNumberDefault"
+					[disabled]="!properties.isDrawerOpen || !collectionList.CanGenerateCommunicationLabel"
+					#defaultLabels=ngModel genericRequired />
+				<mat-error *ngIf="defaultLabels.errors">{{defaultLabels.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field class="lastLineToShortCard">
+				<input numeric matInput (change)=validateCommLabels()
+					placeholder="{{translation.translate('Label.Maximum number of labels')}}"
+					[(ngModel)]="collectionList.LabelNumberMaximum"
+					[disabled]="!properties.isDrawerOpen || !collectionList.CanGenerateCommunicationLabel" />
+			</mat-form-field>
+		</mat-card>
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Central line</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Update central line status</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.CanUpdateCentralLineStatus"></mat-slide-toggle>
+			</div>
+			<mat-form-field class="lineToCard lineAfterToggle">
+				<input numeric [disabled]=!properties.isDrawerOpen matInput
+					placeholder="{{translation.translate('Label.Central line duration (days)')}}"
+					[(ngModel)]="collectionList.CentralLineDuration" />
+			</mat-form-field>
+		</mat-card>
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Forms</div>
+			<div class="collection-list-toggle toggleAfterHeader">
+				<label l10nTranslate>Label.ABN form</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.RequiredFormABN"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Financial responsibility form</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.RequiredFormFinancialResponsibility"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle toggleToCard">
+				<label l10nTranslate>Label.Requisition form</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary"
+					[(ngModel)]="collectionList.RequiredFormRequisition"></mat-slide-toggle>
+			</div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]=!properties.isDrawerOpen class="btn-save-and-add-another" mat-button
+			(click)="checkForm(true)" *ngIf="headerText === translation.translate('Label.Add collection list')"
+			l10nTranslate>Label.Save
+			& Add Another</button>
+		<button [disabled]=!properties.isDrawerOpen id="collectionListSaveButton" class="btn-save" mat-button
+			(click)="checkForm(false)" l10nTranslate>Label.Save</button>
+	</div>
+</div>
+<rmp-location-selector #collectionListLocations id="collectionListLocations" (onFullClose)="fullClose($event)"
+	(onSave)='processLocationSelect($event)'
+	[selectedInput]='collectionList.SelectedAllAssociatedCollectionLocations ? [] : collectionList.AssociatedCollectionLocations'
+	[locationsInput]='locationsAssociated'></rmp-location-selector>
+<rmp-client-selector #collectionListClients id="collectionListClients" (onFullClose)="fullClose($event)"
+	(onSave)='processClientSelect($event)'
+	[selectedInput]='collectionList.SelectedAllAssociatedClients ? [] : collectionList.AssociatedClients'
+	[clientsInput]='clientsAssociated'></rmp-client-selector>
+<rmp-provider-selector #collectionListProviders id="collectionListProviders" (onFullClose)="fullClose($event)"
+	(onSave)='processProviderSelect($event)'
+	[selectedInput]='collectionList.SelectedAllAssociatedProviders ? [] : collectionList.AssociatedProviders'
+	[providersInput]='providersAssociated'></rmp-provider-selector>
+<rmp-priority-selector #collectionListPriorities id="collectionListPriorities" (onFullClose)="fullClose($event)"
+	(onSave)='processPrioritySelect($event)'
+	[selectedInput]='collectionList.SelectedAllAssociatedPriorities ? [] : collectionList.AssociatedPriorities'
+	[prioritiesInput]='prioritiesAssociated'></rmp-priority-selector>
+<rmp-hub-selector #collectionListHubs id="collectionListHubs" (onSave)='processHubSelect($event)'
+	[hubsInput]='collectionList.AssociatedHubs'></rmp-hub-selector>

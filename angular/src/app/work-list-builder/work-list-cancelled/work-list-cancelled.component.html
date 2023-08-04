@@ -1,0 +1,43 @@
+<div class="drawer-overlay" *ngIf="showOverlay" [ngClass]="{'show': showDrawer}" (click)="clickOverlay()"></div>
+<div class="drawer-overlay-clear" *ngIf="!showOverlay" [ngClass]="{'show': showDrawer}" (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': showDrawer === true}">
+	<mat-toolbar style="z-index: 3;" color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div>
+			<div class="drawer-header-text">{{collection.Patient.LastName}}, {{collection.Patient.FirstName}}</div>
+			<div class="patientMRN">
+				<span>{{collection.Patient.DateOfBirth}}</span>
+				<span style="margin-left: 7px;">{{collection.Patient.Gender}}</span>
+				<span style="margin-left: 7px;">{{collection.Patient.MRN}}</span>
+			</div>
+		</div>
+
+		<div class="navigationControls">
+			<mat-icon class="expand-icon" (click)="clickInfo()" [ngClass]="{'expanded': showPatientInfo}">expand_more</mat-icon>
+		</div>
+	</mat-toolbar>
+
+	<div class="drawer-content">
+		<app-work-list-patient #workListCollection></app-work-list-patient>
+
+		<mat-card class="cancellationCard">
+			<div class="card-heading" l10nTranslate>MainMenu.Cancellation</div>
+			<mat-form-field class="noCaret" style="margin-top: 7px;">
+				<input (mousedown)=preventSelect($event) matInput placeholder="{{translation.translate('Label.Assigned phlebotomist')}}"
+				 readonly [(ngModel)]="AssignedPhleb" />
+			</mat-form-field>
+			<mat-form-field class="noCaret">
+				<input (mousedown)=preventSelect($event) matInput placeholder="{{translation.translate('Label.Reason')}}" readonly
+				 [(ngModel)]="collection.CancellationReason" />
+			</mat-form-field>
+			<mat-form-field class="noCaret" style='margin-bottom: -25px'>
+				<input (mousedown)=preventSelect($event) matInput placeholder="{{translation.translate('Label.Comments')}}" readonly
+				 [(ngModel)]="collection.CancellationComments" />
+			</mat-form-field>
+		</mat-card>
+
+	</div>
+	<div class="drawer-footer">
+		<button class="btn-save" mat-button (click)="close()" l10nTranslate>Label.Close</button>
+	</div>
+</div>

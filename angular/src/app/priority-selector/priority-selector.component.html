@@ -1,0 +1,41 @@
+<div class="drawer-overlay" [ngClass]="{'show': isDrawerOpen == true, 'hideOverlay': hideOverlay == true}" (click)="clickOverlay(false)"></div>
+<div class="drawer-container" [ngClass]="{'show': isDrawerOpen == true, 'hideShadow': hideOverlay == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay(true)">arrow_back</mat-icon>
+		<div class="drawer-header-text" l10nTranslate>Label.Select priorities</div>
+		<mat-icon class='filter-icon prioritySelectorFilterIcon' (click)="openFilter();txtFilter.focus()">filter_list</mat-icon>
+		<div class="filter-container" [ngClass]="{'show': showFilter == true}">
+			<input [disabled]=!isDrawerOpen class='prioritySelectorFilterInput' #txtFilter matInput placeholder="{{translation.translate('Label.Filter')}}" (input)='applyFilter()'
+			 [(ngModel)]="filterValue" />
+			<mat-icon class="btn-close-filter" (click)="closeFilter();clearFilter()">close</mat-icon>
+		</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card style='padding: 0px;'>
+			<div class="card-heading associatedTitle" l10nTranslate>Header.Assign priorities</div>
+			<br />
+			<div class="subheadingDiv">
+				<span class="form-field-subtitle associatedSubTitle" l10nTranslate>Label.Priorities</span>
+				<span class="form-field-subtitle subtitle-right" l10nTranslate>Label.Assigned</span>
+			</div>
+			<br />
+			<div class="selector-hr"></div>
+			<ng-container *ngFor="let priority of prioritiesFiltered">
+				<div class='selectorRow'>
+					<mat-icon class="checkBoxDiv selectorCheckbox otherSelector" *ngIf="priority.check === false" (click)="propagateCheckbox($event, priority)">check_box_outline_blank</mat-icon>
+					<mat-icon class="checkBoxDiv selectorCheckbox otherSelector checked" *ngIf="priority.check === true" (click)="propagateCheckbox($event, priority)">check_box</mat-icon>
+					<div class="info-span" style="float: left">
+						<span style="line-height: 14px;">{{priority.Code}}</span>
+						<br class="selector-br">
+						<span class="email-span">{{priority.Description}}</span>
+					</div>
+				</div>
+				<div class="selector-hr"></div>
+			</ng-container>
+			<div class="card-bottom-space"></div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]=!isDrawerOpen class="btn-save" id='prioritySelectorSaveButton' mat-button (click)="save()" l10nTranslate>Label.Save</button>
+	</div>
+</div>

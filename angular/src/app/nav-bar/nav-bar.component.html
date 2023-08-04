@@ -1,0 +1,239 @@
+<mat-toolbar color="white" style="z-index: 2;" (click)="clickToolbar($event)">
+	<mat-icon class="btn-menu" (click)="openMenu()" title="{{translation.translate('Label.Menu')}}">menu</mat-icon>
+	<img #navbarImage id="navbarImage" class='nav-logo' alt='' />
+	<div *ngIf="currentWindowWidth > 416 || hasPermission('System') !== true">
+		<mat-icon *ngIf="authService.currentUser.role === 'RMP_TSA'" class="system-settings-icon"
+			[ngClass]="{'show': hasPermission('System')}" (click)="openSystemSettings()"
+			title="{{translation.translate('Settings.Settings')}}">settings</mat-icon>
+		<mat-icon class="messaging-icon" (click)="openMessaging()" [ngClass]="{'show': true}"
+			title="{{translation.translate('Messaging.Messaging')}}">message</mat-icon>
+		<div class="bell-container">
+			<div class="pulse-emitter" [ngClass]="{'unread': notifications.haveUnread() === true}"></div>
+		</div>
+		<mat-icon class="notifications-icon" [ngClass]="{'unread': notifications.haveUnread() === true}"
+			(click)="notifications.openNotifications()"
+			title="{{translation.translate('Notifications.Notifications')}}">notification_important</mat-icon>
+		<div class="profile-button" (click)="notifications.closeNotifications();openProfile()"
+			title="{{translation.translate('Label.User Profile')}}">
+			<div class="profile-avatar-text" *ngIf="!avatarUrl">{{ getAvatarText() }}</div>
+			<img class="img-profile-avatar" src="{{ avatarUrl ? avatarUrl : '' }}" alt="" />
+		</div>
+	</div>
+	<div *ngIf="currentWindowWidth <= 416 && hasPermission('System') === true" class="mobile">
+		<mat-icon class="navbar-ellipsis" (click)=openEllipsisMenu()>more_vert</mat-icon>
+		<div class="bell-container">
+			<div class="pulse-emitter-responsive" [ngClass]="{'unread': notifications.haveUnread() === true}"></div>
+		</div>
+		<mat-icon class="notifications-icon" style="right: 40px;"
+			[ngClass]="{'unread': notifications.haveUnread() === true}" (click)="notifications.openNotifications()"
+			title="{{translation.translate('Notifications.Notifications')}}">notification_important</mat-icon>
+	</div>
+</mat-toolbar>
+<div class="menu-overlay" [ngClass]="{'show': showMenu == true}" (click)="closeMenu()"></div>
+<div class="main-menu" [ngClass]="{'show': showMenu == true}">
+	<mat-toolbar color="white">
+		<span class="menu-title" l10nTranslate>MainMenu.MainMenu</span>
+		<mat-icon class="btn-menu-back" (click)="closeMenu()">arrow_back</mat-icon>
+	</mat-toolbar>
+	<div class="menu-group" *ngIf="authService.currentUser.role === 'RMP_RSA'">
+		<mat-accordion>
+			<mat-expansion-panel #rsaSecurity class="menu-group-panel"
+				[ngClass]="{'show': hasPermission('Tenant,User')}">
+				<mat-expansion-panel-header [collapsedHeight]="'48px'" [expandedHeight]="'48px'">
+					<mat-panel-title>
+						<mat-icon class="menu-group-icon" svgIcon="security"></mat-icon>
+						<span class='menu-group-header' l10nTranslate>MainMenu.Security</span>
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<div class="menu-item" [ngClass]="{'show': true}" id="menu-tenants" (click)="menuItemClick('/tenants')"
+					l10nTranslate>MainMenu.Tenant</div>
+				<div class="menu-item" [ngClass]="{'show': true}" id="menu-users" (click)="menuItemClick('/users')"
+					l10nTranslate>MainMenu.User</div>
+			</mat-expansion-panel>
+		</mat-accordion>
+	</div>
+	<div class="menu-group" *ngIf="authService.currentUser.role === 'RMP_TSA' && online === false">
+		<mat-accordion>
+			<mat-expansion-panel #tsaList class="menu-group-panel"
+				[ngClass]="{'show': hasPermission('CancelReason,CollectionList,Container,Priority,Test,WorkList,Collection-Site,Workload')}">
+				<mat-expansion-panel-header [collapsedHeight]="'48px'" [expandedHeight]="'48px'">
+					<mat-panel-title>
+						<mat-icon class="menu-group-icon" svgIcon='list'></mat-icon>
+						<span class='menu-group-header' l10nTranslate>MainMenu.List</span>
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<div class="menu-item" id="menu-work-list" [ngClass]="{'show': hasPermission('WorkList')}"
+					(click)="menuItemClick('/work-list')" l10nTranslate>MainMenu.WorkList</div>
+			</mat-expansion-panel>
+		</mat-accordion>
+	</div>
+	<div class="menu-group" *ngIf="authService.currentUser.role === 'RMP_TSA' && online === true">
+		<mat-accordion>
+			<mat-expansion-panel #tsaList class="menu-group-panel" id='listPanel'
+				[ngClass]="{'show': hasPermission('CancelReason,CollectionList,Container,Priority,Test,WorkList,Collection-Site,Workload')}">
+				<mat-expansion-panel-header [collapsedHeight]="'48px'" [expandedHeight]="'48px'">
+					<mat-panel-title>
+						<mat-icon class="menu-group-icon" svgIcon='list'></mat-icon>
+						<span class='menu-group-header' l10nTranslate>MainMenu.List</span>
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<div class="menu-item" id="menu-cancellations" [ngClass]="{'show': hasPermission('CancelReason')}"
+					(click)="menuItemClick('/cancellations')" l10nTranslate>MainMenu.Cancellation</div>
+				<div class="menu-item" id="menu-collection-list" [ngClass]="{'show': hasPermission('CollectionList')}"
+					(click)="menuItemClick('/collection-list')" l10nTranslate>MainMenu.CollectionList</div>
+				<div class="menu-item" id="menu-collection-maintenance"
+					[ngClass]="{'show': hasPermission('CollectionMaintenance')}"
+					(click)="menuItemClick('/collection-maintenance')" l10nTranslate>MainMenu.Collection</div>
+				<div class="menu-item" id="menu-collection-site" [ngClass]="{'show': hasPermission('CollectionSite')}"
+					(click)="menuItemClick('/collection-site')" l10nTranslate>MainMenu.CollectionSite</div>
+				<div class="menu-item" id="menu-containers" [ngClass]="{'show': hasPermission('Container')}"
+					(click)="menuItemClick('/containers')" l10nTranslate>MainMenu.Container</div>
+				<div class="menu-item" id="menu-labels" [ngClass]="{'show': hasPermission('LabelMaintenance')}"
+					(click)="menuItemClick('/labels')" l10nTranslate>MainMenu.Label</div>
+				<div class="menu-item" id="menu-priorities" [ngClass]="{'show': hasPermission('Priority')}"
+					(click)="menuItemClick('/priorities')" l10nTranslate>MainMenu.Priority</div>
+				<div class="menu-item" id="menu-tests" [ngClass]="{'show': hasPermission('Test')}"
+					(click)="menuItemClick('/tests')" l10nTranslate>MainMenu.Test</div>
+				<div class="menu-item" id="menu-workload" [ngClass]="{'show': hasPermission('Workload')}"
+					(click)="menuItemClick('/workload')" l10nTranslate>MainMenu.Workload</div>
+				<div class="menu-item" id="menu-work-list" [ngClass]="{'show': hasPermission('WorkList')}"
+					(click)="menuItemClick('/work-list')" l10nTranslate>MainMenu.WorkList</div>
+				<div class="menu-item" id="menu-work-list-builder" [ngClass]="{'show': hasPermission('WorkList')}"
+					(click)="menuItemClick('/work-list-builder')" l10nTranslate>MainMenu.WorkListBuilder</div>
+			</mat-expansion-panel>
+		</mat-accordion>
+		<mat-accordion>
+			<mat-expansion-panel #tsaRelationship id='relationshipPanel' class="menu-group-panel"
+				[ngClass]="{'show': hasPermission('Client,Hub,Lab,Location,Provider')}">
+				<mat-expansion-panel-header [collapsedHeight]="'48px'" [expandedHeight]="'48px'">
+					<mat-panel-title>
+						<mat-icon class="menu-group-icon" svgIcon='relationship'></mat-icon>
+						<span class='menu-group-header' l10nTranslate>MainMenu.Relationship</span>
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<div class="menu-item" id="menu-clients" [ngClass]="{'show': hasPermission('Client')}"
+					(click)="menuItemClick('/clients')" l10nTranslate>MainMenu.Client</div>
+				<div class="menu-item" id="menu-hubs" [ngClass]="{'show': hasPermission('Hub')}"
+					(click)="menuItemClick('/hubs')" l10nTranslate>MainMenu.Hub</div>
+				<div class="menu-item" id="menu-labs" [ngClass]="{'show': hasPermission('Lab')}"
+					(click)="menuItemClick('/labs')" l10nTranslate>MainMenu.Lab</div>
+				<div class="menu-item" id="menu-locations" [ngClass]="{'show': hasPermission('Location')}"
+					(click)="menuItemClick('/locations')" l10nTranslate>MainMenu.Location</div>
+				<div class="menu-item" id="menu-providers" [ngClass]="{'show': hasPermission('Provider')}"
+					(click)="menuItemClick('/providers')" l10nTranslate>MainMenu.Provider</div>
+			</mat-expansion-panel>
+		</mat-accordion>
+		<mat-accordion>
+			<mat-expansion-panel #tsaReporting id='reportingPanel' class="menu-group-panel"
+				[ngClass]="{'show': hasPermission('Audit', 'Utilization')}">
+				<mat-expansion-panel-header [collapsedHeight]="'48px'" [expandedHeight]="'48px'">
+					<mat-panel-title>
+						<mat-icon class="menu-group-icon" svgIcon='reports'></mat-icon>
+						<span class='menu-group-header' l10nTranslate>MainMenu.Reports</span>
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<div class="menu-item" id="menu-auditing" [ngClass]="{'show': hasPermission('Audit')}"
+					(click)="menuItemClick('/auditing')" l10nTranslate>MainMenu.Auditing</div>
+				<div class="menu-item" id="menu-collection-data" [ngClass]="{'show': hasPermission('CollectionData')}"
+					(click)="menuItemClick('/collection-data')" l10nTranslate>MainMenu.Collection Data</div>
+				<div class="menu-item" id="menu-collection-duration"
+					[ngClass]="{'show': hasPermission('CollectionDuration')}"
+					(click)="menuItemClick('/collection-duration')" l10nTranslate>MainMenu.Collection Duration</div>
+				<div class="menu-item" id="menu-utilization" [ngClass]="{'show': hasPermission('Utilization')}"
+					(click)="menuItemClick('/utilization')" l10nTranslate>MainMenu.Utilization</div>
+			</mat-expansion-panel>
+		</mat-accordion>
+		<mat-accordion>
+			<mat-expansion-panel #tsaSecurity class="menu-group-panel" id='securityPanel'
+				[ngClass]="{'show': hasPermission('Device,Role,User')}">
+				<mat-expansion-panel-header [collapsedHeight]="'48px'" [expandedHeight]="'48px'">
+					<mat-panel-title>
+						<mat-icon class="menu-group-icon" svgIcon='security'></mat-icon>
+						<span class='menu-group-header' l10nTranslate>MainMenu.Security</span>
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<div class="menu-item" id="menu-devices" [ngClass]="{'show': hasPermission('Device')}"
+					(click)="menuItemClick('/devices')" l10nTranslate>MainMenu.Device</div>
+				<div class="menu-item" id="menu-roles" [ngClass]="{'show': hasPermission('Role')}"
+					(click)="menuItemClick('/roles')" l10nTranslate>MainMenu.Role</div>
+				<div class="menu-item" id="menu-users" [ngClass]="{'show': hasPermission('User')}"
+					(click)="menuItemClick('/users')" l10nTranslate>MainMenu.User</div>
+				<div class="menu-item" id="menu-user-mode" [ngClass]="{'show': hasPermission('UserMode')}"
+					(click)="menuItemClick('/user-mode')" l10nTranslate>MainMenu.UserMode</div>
+			</mat-expansion-panel>
+		</mat-accordion>
+	</div>
+</div>
+
+<div class="profile-overlay" [ngClass]="{'show': showProfilePopup == true}" (click)="closeProfile()"></div>
+<div class="profile-popup"
+	[ngClass]="{'show': showProfilePopup == true, 'mobile': currentWindowWidth <= 416 && hasPermission('System') === false}">
+	<div class="profile-image">
+		<div class="profile-avatar-text" *ngIf="!avatarUrl">{{ getAvatarText() }}</div>
+		<img class="img-profile-avatar" src="{{ avatarUrl ? avatarUrl : '' }}" alt="" />
+		<div class="profile-avatar-buttons">
+			<mat-icon class="btn-edit-profile" svgIcon="edit_profile" (click)="profileImageUpload.click()"></mat-icon>
+			<div class="profile-button-seperator"></div>
+			<mat-icon class="btn-delete-profile" (click)="clickDeleteAvatar()">delete_outline</mat-icon>
+		</div>
+		<input hidden type="file" #profileImageUpload accept="image/*" (change)="uploadFile($event)">
+	</div>
+	<div class="profile-name">{{ authService.currentUser.name }}</div>
+	<div class="profile-email">{{ authService.currentUser.email }}</div>
+	<div class="profile-sub-heading" l10nTranslate>Settings.Settings</div>
+	<mat-form-field class="prof-field-item" id='selectLanguageField'>
+		<mat-select matSelect placeholder="{{translation.translate('Label.Language')}}"
+			[(ngModel)]="authService.currentUser.language" (selectionChange)=languageChange()>
+			<mat-option *ngFor="let language of languages" [value]="language.code">{{language.display}}</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<div class="prof-menu-item" (click)="openSetLandingPage()" l10nTranslate>
+		<mat-icon class="prof-group-icon" svgIcon="landing_page"></mat-icon>
+		Settings.SetLandingPage
+	</div>
+	<div class="prof-menu-item" (click)="openChangePassword()" l10nTranslate>
+		<mat-icon class="prof-group-icon" svgIcon="change-pass"></mat-icon>
+		Settings.ChangePassword
+	</div>
+	<div class="prof-menu-item" id="signOutButton" (click)="signOut()" l10nTranslate>
+		<mat-icon class="prof-group-icon" svgIcon="logout"></mat-icon>
+		Settings.SignOut
+	</div>
+</div>
+
+<ng-container *ngIf="currentWindowWidth <= 416">
+	<div class="ellipsis-overlay" [ngClass]="{'show': showEllipsisMenu === true}" (click)="closeEllipsisMenu()"></div>
+	<div class="ellipsis-popup" [ngClass]="{'show': showEllipsisMenu === true}">
+		<div class="ellipsis-popup-profile" (click)="closeEllipsisMenu();openProfile()"
+			title="{{translation.translate('Label.User Profile')}}">
+			<div class="ellipsis-popup-profile-avatar-text" *ngIf=!avatarUrl>{{ getAvatarText() }}</div>
+			<img class="ellipsis-popup-profile-avatar" src="{{ avatarUrl }}" alt="" *ngIf=avatarUrl />
+		</div>
+		<div>
+			<mat-icon class="ellipsis-popup-messaging outline-message" (click)="openMessaging()"
+				[ngClass]="{'show': true}" title="{{translation.translate('Messaging.Messaging')}}">message</mat-icon>
+		</div>
+		<mat-icon *ngIf="authService.currentUser.role === 'RMP_TSA'" class="ellipsis-popup-system-settings"
+			[ngClass]="{'show': hasPermission('System')}" (click)="closeEllipsisMenu();openSystemSettings()"
+			title="{{translation.translate('Settings.Settings')}}">settings</mat-icon>
+	</div>
+</ng-container>
+
+<app-notifications #notifications
+	[ngClass]="{'ellipsis': currentWindowWidth <= 416 && hasPermission('System') === true}"
+	(onBroadcast)="receivedBroadcast($event)" (onMessageClick)="clickedNotificationMessage($event)"></app-notifications>
+<rmp-system-settings #systemSettings [navbarImageRef]='navbarImage'></rmp-system-settings>
+<app-change-password-drawer #changePasswordDrawer></app-change-password-drawer>
+<rmp-landing-page #landingPage id="landingPage" style="z-index: 2;"></rmp-landing-page>
+<app-messaging #messaging></app-messaging>
+<!-- <app-work-list *ngIf='online === false'></app-work-list> -->
+<div style="height: 0px;">
+	<mat-icon svgIcon=library_books style="display:none;"></mat-icon>
+	<mat-icon svgIcon="locked" style="display:none;"></mat-icon>
+	<img src="assets/icon-registry/outline-library_books-24px.svg" style="display:none;" />
+	<img src="assets/icon-registry/outline-lock-24px.svg" style="display:none;" />
+	<img src="assets/icon-registry/baseline-center_focus_strong-24px.svg" style="display:none;" />
+	<img src="assets/icon-registry/No_check_box-24px.svg" style="height: 0px; width: 0px;" />
+	<mat-icon svgIcon="disabled_collection" style="height: 0px; width: 0px;"></mat-icon>
+	<mat-icon style="display:none;">close</mat-icon>
+</div>

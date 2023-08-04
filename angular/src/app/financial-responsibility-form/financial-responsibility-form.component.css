@@ -1,0 +1,1093 @@
+
+    .ap {
+    background-color: Transparent;
+    border: 1pt none Black;
+    }
+
+    .codeDescription {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .a6c {
+    border: 1pt none Black;
+    background-color: Transparent;
+    }
+
+    .a6 {
+    min-width: 196.77mm;
+    min-height: 27.50mm;
+    WIDTH: 196.77mm;
+    border: 1pt none Black;
+    background-color: Transparent;
+    }
+
+    .a1 {
+    min-width: 50.80mm;
+    HEIGHT: 13.97mm;
+    WIDTH: 50.80mm;
+    overflow: hidden;
+    padding-left: 0pt;
+    padding-top: 0pt;
+    padding-right: 0pt;
+    padding-bottom: 2pt;
+    border: 1pt none Black;
+    }
+
+    .a4 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    border: 1pt none Black;
+    background-color: Transparent;
+    font-style: normal;
+    font-family: Arial;
+    font-size: 12pt;
+    font-weight: 700;
+    text-decoration: none;
+    unicode-bidi: normal;
+    color: Black;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: middle;
+    text-align: center;
+    }
+
+    .a269xBc {
+    border: 1pt none Black;
+    background-color: Transparent;
+    }
+
+    .a269xB {
+    border: 1pt none Black;
+    background-color: Transparent;
+    }
+
+    .a220 {
+    border: 1pt none Black;
+    background-color: Transparent;
+    }
+
+    .a37cl {
+    padding-left: 2pt;
+    padding-top: 1pt;
+    padding-right: 0.5pt;
+    padding-bottom: 1pt;
+    border: 1pt none Black;
+    background-color: Transparent;
+    vertical-align: middle;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 102.38mm;
+    WIDTH: 103.26mm;
+    }
+
+    .a37 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-style: normal;
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 700;
+    text-decoration: none;
+    unicode-bidi: normal;
+    color: Black;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: middle;
+    text-align: left;
+    }
+
+    .a44c {
+    padding-left: 1pt;
+    padding-top: 1pt;
+    padding-right: 10pt;
+    padding-bottom: 1pt;
+    border: 1pt none Black;
+    background-color: Transparent;
+    vertical-align: middle;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 88.72mm;
+    WIDTH: 92.60mm;
+    }
+
+    .a44 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-style: normal;
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 700;
+    text-decoration: none;
+    unicode-bidi: normal;
+    color: Black;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: middle;
+    text-align: left;
+    }
+
+    .a52c {
+    padding-left: 2pt;
+    padding-top: 0.5pt;
+    padding-right: 0.5pt;
+    padding-bottom: 0.5pt;
+    border: 1pt none Black;
+    border-bottom: 3pt solid Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: center;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 194.97mm;
+    WIDTH: 195.85mm;
+    }
+
+    .a64c {
+    padding-left: 2pt;
+    padding-top: 10pt;
+    padding-right: 0.5pt;
+    padding-bottom: 0.5pt;
+    border: 0.5pt none Black;
+    background-color: Transparent;
+    vertical-align: middle;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 194.97mm;
+    WIDTH: 195.85mm;
+    }
+
+    .a64 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-size: 0pt;
+    unicode-bidi: normal;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: middle;
+    }
+
+    .a63 {
+    text-align: center;
+    }
+
+    .a62 {
+    font-family: Arial;
+    font-size: 12pt;
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: none;
+    color: Black;
+    }
+
+    .a76c {
+    padding-left: 2pt;
+    padding-top: 10pt;
+    padding-right: 0.5pt;
+    padding-bottom: 0.5pt;
+    border: 0.5pt none Black;
+    background-color: Transparent;
+    vertical-align: top;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 194.97mm;
+    WIDTH: 195.85mm;
+    }
+
+    .a76 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-size: 0pt;
+    unicode-bidi: normal;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    }
+
+    .a75 {
+    text-align: left;
+    }
+
+    .a74 {
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: none;
+    color: Black;
+    }
+
+    .a88c {
+    padding-left: 2pt;
+    padding-top: 5pt;
+    padding-right: 0.5pt;
+    padding-bottom: 0.5pt;
+    border: 0.5pt none Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 194.97mm;
+    WIDTH: 195.85mm;
+    }
+
+    .a100c {
+    padding-left: 2pt;
+    padding-top: 5pt;
+    padding-right: 0.5pt;
+    padding-bottom: 0.5pt;
+    border: 0.5pt none Black;
+    background-color: Transparent;
+    vertical-align: top;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 194.97mm;
+    WIDTH: 195.85mm;
+    }
+
+    .a100 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-size: 0pt;
+    unicode-bidi: normal;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    }
+
+    .a99 {
+    text-align: left;
+    }
+
+    .a98 {
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    color: Black;
+    }
+
+    .a112c {
+    padding-left: 2pt;
+    padding-top: 5pt;
+    padding-right: 0.5pt;
+    padding-bottom: 0.5pt;
+    border: 0.5pt none Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 194.97mm;
+    WIDTH: 195.85mm;
+    }
+
+    .a124c {
+    padding-left: 2pt;
+    padding-top: 5pt;
+    padding-right: 0.5pt;
+    padding-bottom: 0.5pt;
+    border: 0.5pt none Black;
+    background-color: Transparent;
+    vertical-align: top;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 194.97mm;
+    WIDTH: 195.85mm;
+    }
+
+    .a124 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-size: 0pt;
+    unicode-bidi: normal;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    }
+
+    .a123 {
+    text-align: left;
+    }
+
+    .a122 {
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    color: Black;
+    }
+
+    .a136c {
+    padding-left: 2pt;
+    padding-top: 5pt;
+    padding-right: 0.5pt;
+    padding-bottom: 0.5pt;
+    border: 0.5pt none Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 30.13mm;
+    WIDTH: 31.01mm;
+    }
+
+    .a140c {
+    padding-left: 2pt;
+    padding-top: 5pt;
+    padding-right: 0.5pt;
+    padding-bottom: 0.5pt;
+    border: 0.5pt none Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 71.37mm;
+    WIDTH: 72.25mm;
+    }
+
+    .a146c {
+    padding-left: 2pt;
+    padding-top: 5pt;
+    padding-right: 0.5pt;
+    padding-bottom: 0.5pt;
+    border: 0.5pt none Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 24.57mm;
+    WIDTH: 25.45mm;
+    }
+
+    .a150c {
+    padding-left: 2pt;
+    padding-top: 5pt;
+    padding-right: 2pt;
+    padding-bottom: 0.5pt;
+    border: 0.5pt none Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: right;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 65.73mm;
+    WIDTH: 67.14mm;
+    }
+
+    .a157c {
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    border: 2pt none Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 29.60mm;
+    WIDTH: 31.01mm;
+    }
+
+    .a157 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-style: normal;
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 700;
+    text-decoration: none;
+    unicode-bidi: normal;
+    color: Black;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    text-align: left;
+    }
+
+    .a161cl {
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    border: 1pt none Black;
+    border-bottom: 1pt solid Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 59.09mm;
+    WIDTH: 60.50mm;
+    }
+
+    .a161 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-style: normal;
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 700;
+    text-decoration: none;
+    unicode-bidi: normal;
+    color: Black;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    text-align: left;
+    }
+
+    .a166c {
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    border: 1pt none Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 10.34mm;
+    WIDTH: 11.75mm;
+    }
+
+    .a170c {
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    border: 2pt none Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 65.95mm;
+    WIDTH: 67.37mm;
+    }
+
+    .a170 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-style: normal;
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 700;
+    text-decoration: none;
+    unicode-bidi: normal;
+    color: Black;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    text-align: left;
+    }
+
+    .a176cl {
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    border: 1pt none Black;
+    border-bottom: 1pt solid Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 23.82mm;
+    WIDTH: 25.23mm;
+    }
+
+    .a176 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-style: normal;
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 700;
+    text-decoration: none;
+    unicode-bidi: normal;
+    color: Black;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    text-align: left;
+    }
+
+    .a181c {
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 193.03mm;
+    WIDTH: 195.85mm;
+    }
+
+    .a193c {
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 70.56mm;
+    WIDTH: 73.38mm;
+    }
+
+    .a198c {
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    border: 2pt none Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 16.71mm;
+    WIDTH: 18.13mm;
+    }
+
+    .a202c {
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    border: 2pt none Black;
+    background-color: Transparent;
+    vertical-align: middle;
+    text-align: right;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 77.71mm;
+    WIDTH: 79.12mm;
+    }
+
+    .a202 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-style: normal;
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 700;
+    text-decoration: none;
+    unicode-bidi: normal;
+    color: Black;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: middle;
+    text-align: right;
+    }
+
+    .a209cl {
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    border-bottom: 1pt solid Black;
+    background-color: Transparent;
+    vertical-align: middle;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 23.12mm;
+    WIDTH: 25.23mm;
+    }
+
+    .a209 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-style: normal;
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 700;
+    text-decoration: none;
+    unicode-bidi: normal;
+    color: Black;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: middle;
+    text-align: left;
+    }
+
+    .a252 {
+    border: 1pt none Black;
+    background-color: Transparent;
+    }
+
+    .a230c {
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    border: 1pt none Black;
+    border-bottom: 1pt solid Black;
+    border-left: 1pt solid Black;
+    border-right: 1pt solid Black;
+    border-top: 1pt solid Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 193.58mm;
+    WIDTH: 195.70mm;
+    }
+
+    .a230 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-style: normal;
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 700;
+    text-decoration: none;
+    unicode-bidi: normal;
+    color: Black;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    text-align: left;
+    }
+
+    .a237c {
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    border: 1pt none Black;
+    border-bottom: 1pt solid Black;
+    border-left: 1pt solid Black;
+    border-right: 1pt solid Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 193.58mm;
+    WIDTH: 195.70mm;
+    }
+
+    .a237 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-style: normal;
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 700;
+    text-decoration: none;
+    unicode-bidi: normal;
+    color: Black;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    text-align: left;
+    }
+
+    .a244c {
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    border: 1pt none Black;
+    border-bottom: 1pt solid Black;
+    border-left: 1pt solid Black;
+    border-right: 1pt solid Black;
+    background-color: Transparent;
+    vertical-align: top;
+    text-align: left;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    min-width: 193.58mm;
+    WIDTH: 195.70mm;
+    }
+
+    .a244 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    font-style: normal;
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 700;
+    text-decoration: none;
+    unicode-bidi: normal;
+    color: Black;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    text-align: left;
+    }
+
+    .a255 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    padding-left: 0.5pt;
+    padding-top: 0.5pt;
+    padding-right: 0.5pt;
+    padding-bottom: 0.5pt;
+    border: 0.5pt none Black;
+    background-color: Transparent;
+    font-size: 0pt;
+    unicode-bidi: normal;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    }
+
+    .a254 {
+    text-align: left;
+    }
+
+    .a253 {
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    color: Black;
+    }
+
+    .a258 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    padding-left: 2pt;
+    padding-top: 5pt;
+    padding-right: 0.5pt;
+    padding-bottom: 5pt;
+    border: 0.5pt none Black;
+    background-color: Transparent;
+    font-size: 0pt;
+    unicode-bidi: normal;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    }
+
+    .a257 {
+    text-align: left;
+    }
+
+    .a256 {
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    color: Black;
+    }
+
+    .a261 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    padding-left: 2pt;
+    padding-top: 5pt;
+    padding-right: 0.5pt;
+    padding-bottom: 5pt;
+    border: 0.5pt none Black;
+    background-color: Transparent;
+    font-size: 0pt;
+    unicode-bidi: normal;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    }
+
+    .a260 {
+    text-align: left;
+    }
+
+    .a259 {
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    color: Black;
+    }
+
+    .a264 {
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        padding-left: 0.5pt;
+        padding-top: 0.5pt;
+        padding-right: 0.5pt;
+        /* padding-bottom: 40pt; */
+        border-bottom: 0.5pt solid Black;
+        border-left: 0.5pt solid Black;
+        border-right: 0.5pt solid Black;
+        border-top: 0.5pt solid Black;
+        background-color: Transparent;
+        font-size: 0pt;
+        unicode-bidi: normal;
+        direction: ltr;
+        layout-flow: horizontal;
+        writing-mode: lr-tb;
+        vertical-align: top;
+        }
+    
+
+    .a264.hasSignature {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    padding-left: 0.5pt;
+    padding-top: 0;
+    padding-right: 0.5pt;
+    padding-bottom: 0;
+    border-bottom: 0.5pt solid Black;
+    border-left: 0.5pt solid Black;
+    border-right: 0.5pt solid Black;
+    border-top: 0.5pt solid Black;
+    background-color: Transparent;
+    font-size: 0pt;
+    unicode-bidi: normal;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    }
+
+
+
+    .a263 {
+    text-align: left;
+    }
+
+    .a262 {
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: none;
+    color: Black;
+    }
+
+    .a267 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    padding-left: 0.5pt;
+    padding-top: 0.5pt;
+    padding-right: 0.5pt;
+    padding-bottom: 20pt;
+    border-bottom: 0.5pt solid Black;
+    border-left: 0.5pt solid Black;
+    border-right: 0.5pt solid Black;
+    border-top: 0.5pt solid Black;
+    background-color: Transparent;
+    font-size: 0pt;
+    unicode-bidi: normal;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: top;
+    }
+
+    .a266 {
+    text-align: left;
+    }
+
+    .a265 {
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: none;
+    color: Black;
+    }
+
+    .a11c {
+    border: 1pt none Black;
+    background-color: Transparent;
+    }
+
+    .a11 {
+    min-width: 196.77mm;
+    min-height: 8.98mm;
+    WIDTH: 196.77mm;
+    border: 1pt none Black;
+    background-color: Transparent;
+    }
+
+    .a9 {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    padding-left: 2pt;
+    padding-top: 2pt;
+    padding-right: 2pt;
+    padding-bottom: 2pt;
+    border: 1pt none Black;
+    background-color: Transparent;
+    font-style: normal;
+    font-family: Arial;
+    font-size: 11pt;
+    font-weight: 700;
+    text-decoration: none;
+    unicode-bidi: normal;
+    color: DimGray;
+    direction: ltr;
+    layout-flow: horizontal;
+    writing-mode: lr-tb;
+    vertical-align: middle;
+    text-align: center;
+    }
+
+    .r1 {
+    HEIGHT: 100%;
+    WIDTH: 100%
+    }
+
+    .r2 {
+    HEIGHT: 100%;
+    WIDTH: 100%;
+    overflow: hidden
+    }
+
+    .r3 {
+    HEIGHT: 100%
+    }
+
+    .r4 {
+    border-style: none
+    }
+
+    .r5 {
+    border-left-style: none
+    }
+
+    .r6 {
+    border-right-style: none
+    }
+
+    .r7 {
+    border-top-style: none
+    }
+
+    .r8 {
+    border-bottom-style: none
+    }
+
+    .r10 {
+    border-collapse: collapse
+    }
+
+    .r9 {
+    border-collapse: collapse;
+    table-layout: fixed
+    }
+
+    .r11 {
+    WIDTH: 100%;
+    overflow-x: hidden
+    }
+
+    .r12 {
+    position: absolute;
+    display: none;
+    background-color: white;
+    border: 1px solid black;
+    }
+
+    .r13 {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    }
+
+    .r14 {
+    font-size: 0pt
+    }
+
+    .r15 {
+    direction: RTL;
+    unicode-bidi: embed
+    }
+
+    .r16 {
+    margin-top: 0pt;
+    margin-bottom: 0pt
+    }
+
+    .r17 {
+    HEIGHT: 100%;
+    WIDTH: 100%;
+    display: inline-table
+    }
+
+    .r18 {
+    HEIGHT: 100%;
+    display: inline-table
+    }
+
+    * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+    }
+
+

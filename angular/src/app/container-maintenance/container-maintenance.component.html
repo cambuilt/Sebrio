@@ -1,0 +1,76 @@
+<div>
+<rmp-nav-bar (onBroadcast)="notifyBroadcast($event)"></rmp-nav-bar>
+<app-notification-message #notificationMessage></app-notification-message>
+<div class="maintenance-page" hidden>
+  <div class="page-content" [ngClass]="{'noData': dataSource.data.length === 0, 'oneEntry': dataSource.data.length === 1}">
+    <div class="page-header" l10nTranslate>ScreenTitle.Container Maintenance</div>
+    <button class="page-button" id="containerAddButton" mat-button color="white" (click)="containerAdd.addContainer()" l10nTranslate>Label.Add Container</button>
+    <mat-card class="maintenance-card">
+      <div class="action-buttons">
+        <mat-icon (click)="tableConfiguration.show(columns.table)" title="{{translation.translate('Label.Table Configuration')}}">settings</mat-icon>
+        <mat-icon *ngIf='filterComponent.filterApplied === false' (click)="filterComponent.show(columns.filter)" title="{{translation.translate('ScreenTitle.Filter')}}">filter_list</mat-icon>
+					<mat-icon *ngIf='filterComponent.filterApplied === true'  (click)="filterComponent.show(columns.filter)" title="{{translation.translate('ScreenTitle.Filter')}}" svgIcon='filter_applied'></mat-icon>
+        <mat-icon (click)="editClick()" id="editIcon" title="{{translation.translate('Label.Edit')}}">create</mat-icon>
+      </div>
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="Code">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Code</th>
+            <td mat-cell *matCellDef="let element">{{element.Code}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Name</th>
+            <td mat-cell *matCellDef="let element">{{element.Name}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Description">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Description</th>
+            <td mat-cell *matCellDef="let element">{{element.Description}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Volume">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Volume</th>
+            <td mat-cell *matCellDef="let element">{{element.Volume}}</td>
+          </ng-container>
+          <ng-container matColumnDef="ContainerType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Container type</th>
+            <td mat-cell *matCellDef="let element">{{element.ContainerType}}</td>
+          </ng-container>
+          <ng-container matColumnDef="ContainerRank">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Container rank</th>
+            <td mat-cell style='padding-left: 35px;' *matCellDef="let element">{{element.ContainerRank}}</td>
+          </ng-container>
+          <ng-container matColumnDef="SpecimenCode">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Specimen code</th>
+            <td mat-cell *matCellDef="let element">{{element.SpecimenCode}}</td>
+          </ng-container>
+          <ng-container matColumnDef="DrawOrder">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Draw order</th>
+            <td mat-cell *matCellDef="let element">{{element.DrawOrder}}</td>
+          </ng-container>
+          <ng-container matColumnDef="StorageCode">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Storage code</th>
+            <td mat-cell *matCellDef="let element">{{element.StorageCode}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Laboratory">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Lab</th>
+              <td mat-cell *matCellDef="let element">{{element.Laboratory.Code}}</td>
+            </ng-container>
+          <ng-container matColumnDef="IsActive">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Active</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-checkbox class='tableCheckBox' [checked]="element.IsActive" disabled="true"></mat-checkbox>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columns.display"></tr>
+          <tr mat-row *matRowDef="let row; columns: columns.display;" [ngClass]="{'selected': selectedRowId == row.Id}" (click)="selectedRowId = row.Id"
+            (dblclick)="containerAdd.editContainer(row.Id)"></tr>
+        </table>
+      </div>
+      <mat-paginator #tablePaginator (page)=paginatorChange($event) [ngClass]="{'noBorderPaginator': !(dataSource.data && dataSource.data.length)}" [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator>
+    </mat-card>
+  </div>
+  <div class="poweredBy2"></div><img src="assets/eMyLabCollect.com.svg" class="eMyLabCollect2" />
+  <div class="watermark2"></div>
+  <rmp-container-add #containerAdd (onSave)="containerOnSave($event)"></rmp-container-add>
+  <rmp-table-configuration #tableConfiguration (onSave)="tableColumnsOnSave($event)"></rmp-table-configuration>
+  <app-filter #filterComponent (onSave)='receiveFilter($event);'></app-filter>
+</div>

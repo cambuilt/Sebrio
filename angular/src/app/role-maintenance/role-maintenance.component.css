@@ -1,0 +1,28 @@
+/* .maintenance-page:before {
+	background-image: url('../../assets/banners/buildings.png');
+} */
+
+.mat-column-Name,
+.mat-column-Description {
+	padding-right: 24px;
+	white-space: nowrap;
+}
+
+.mat-column-Users {
+	min-width: 240px;
+	padding-right: 24px;
+	white-space: nowrap;
+}
+
+.mat-column-IsActive {
+	padding-left: 24px;
+	padding-right: 24px;
+	text-align: center;
+	width: 36px;
+}
+
+/* THIS SOULD BE A STYLE ON THE COMPONENTS ITSELF */
+
+app-role-add {
+	z-index: 5;
+}

@@ -1,0 +1,72 @@
+<div>
+<rmp-nav-bar (onBroadcast)="notifyBroadcast($event)"></rmp-nav-bar>
+<app-notification-message #notificationMessage></app-notification-message>
+<div class="maintenance-page" hidden>
+	<div class="page-content" [ngClass]="{'noData': dataSource.data.length === 0, 'oneEntry': dataSource.data.length === 1}">
+		<div class="page-header" l10nTranslate>ScreenTitle.User Maintenance</div>
+		<button class="page-button" mat-button color="white" id="userAddButton" (click)="userAdd.addUser()" l10nTranslate>Label.Add User</button>
+		<mat-card class="maintenance-card">
+			<div class="action-buttons">
+				<mat-icon id='userMainConfiguratorIcon' (click)="tableConfiguration.show(columns.table)" title="{{translation.translate('Label.Table Configuration')}}">settings</mat-icon>
+				<mat-icon id='userMainFilterIcon' *ngIf='filterComponent.filterApplied === false' (click)="filterComponent.show(columns.filter)" title="{{translation.translate('ScreenTitle.Filter')}}">filter_list</mat-icon>
+				<mat-icon *ngIf='filterComponent.filterApplied === true' (click)="filterComponent.show(columns.filter)" title="{{translation.translate('ScreenTitle.Filter')}}"
+				 svgIcon='filter_applied'></mat-icon>
+				<mat-icon id='userMainEditIcon' (click)="editClick()" title="{{translation.translate('Label.Edit')}}">create</mat-icon>
+			</div>
+			<div class="table-container" id='user-maintenance-table'>
+				<table mat-table [dataSource]="dataSource" matSort>
+					<ng-container matColumnDef="Initials">
+						<th mat-header-cell *matHeaderCellDef></th>
+						<td mat-cell *matCellDef="let element">
+							<div *ngIf="element.Role && element.Role.Name === 'TSA'" class="greenDotTSA"></div>
+							<ng-container>
+								<span *ngIf="element.AvatarURL !== undefined && element.AvatarURL.length <= 1" class="circle">{{utilsService.getInitials(element)}}</span>
+								<img *ngIf="element.AvatarURL !== undefined && element.AvatarURL.length > 1" class="avatarCircle" src={{element.AvatarURL}} alt="" />
+							</ng-container>
+						</td>
+					</ng-container>
+					<ng-container matColumnDef="Code">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Badge ID</th>
+						<td mat-cell *matCellDef="let element">{{element.BadgeId}}</td>
+					</ng-container>
+					<ng-container matColumnDef="FirstName">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.First Name</th>
+						<td mat-cell *matCellDef="let element">{{element.FirstName}}</td>
+					</ng-container>
+					<ng-container matColumnDef="LastName">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Last Name</th>
+						<td mat-cell *matCellDef="let element">{{element.LastName}}</td>
+					</ng-container>
+					<ng-container matColumnDef="Phone">
+						<th mat-header-cell *matHeaderCellDef l10nTranslate>Label.Phone</th>
+						<td mat-cell *matCellDef="let element">{{blur(element.PhoneNumber)}}</td>
+					</ng-container>
+					<ng-container matColumnDef="Email">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Email</th>
+						<td mat-cell *matCellDef="let element">{{element.Email}}</td>
+					</ng-container>
+					<ng-container matColumnDef="Role">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>MainMenu.Role</th>
+						<td mat-cell *matCellDef="let element">{{element.Role.Name}}</td>
+					</ng-container>
+					<ng-container matColumnDef="IsActive">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Active</th>
+						<td mat-cell *matCellDef="let element">
+							<mat-checkbox class='tableCheckBox' [checked]="element.IsActive" disabled="true"></mat-checkbox>
+						</td>
+					</ng-container>
+					<tr mat-header-row *matHeaderRowDef="columns.display"></tr>
+					<tr mat-row *matRowDef="let row; columns: columns.display;" [ngClass]="{'selected': selectedRowId == row.Username}"
+					 (click)="selectedRowId = row.Username" (dblclick)="userAdd.editUser(row.Username)"></tr>
+				</table>
+			</div>
+			<mat-paginator #tablePaginator (page)=paginatorChange($event) [ngClass]="{'noBorderPaginator': !(dataSource.data && dataSource.data.length)}"
+			 [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator>
+		</mat-card>
+	</div>
+	<div class="poweredBy2"></div><img src="assets/eMyLabCollect.com.svg" class="eMyLabCollect2" />
+	<div class="watermark2"></div>
+	<app-user-add #userAdd (onSave)="userOnSave($event)"></app-user-add>
+	<rmp-table-configuration #tableConfiguration (onSave)="tableColumnsOnSave($event)"></rmp-table-configuration>
+	<app-filter #filterComponent (onSave)='receiveFilter($event);'></app-filter>
+</div>

@@ -1,0 +1,101 @@
+<div *ngIf="showIdentify === true" [ngClass]="{'mac': !(platform === 'Win32' || platform === 'Win64')}">
+
+	<mat-card style="padding-top: 26px;" class="scan" *ngIf="patientScanWristband">
+		<div class="statusOverlay"
+			[ngClass]="{'pass': scanVerified === true, 'animated': animation === true, 'fail': scanError === true }">
+			<div *ngIf="scanVerified === true">
+				<mat-icon>done</mat-icon>
+				<span>Passed</span>
+			</div>
+			<div *ngIf="scanError === true">
+				<mat-icon>error_outline</mat-icon>
+				<span>Failed</span>
+			</div>
+		</div>
+		<div class="card-heading" l10nTranslate>
+			Header.Patient ID - wristband
+			<mat-icon class="scanErrorRemind" *ngIf="scanErrorIcon === true">error_outline</mat-icon>
+		</div>
+		<span class="scanSpan">
+			<span>Scan</span>
+			<mat-icon class="themed" (click)=scanWristband()>center_focus_strong</mat-icon>
+		</span>
+	</mat-card>
+
+	<mat-card style="padding-top: 26px;" class="form" *ngIf="patientManualId">
+
+		<div class="statusOverlay" [ngClass]="{'pass': formVerified === true, 'animated': animation === true}">
+			<div *ngIf="formVerified === true">
+				<mat-icon>done</mat-icon>
+				<span>Passed</span>
+			</div>
+		</div>
+
+		<div class="card-heading" l10nTranslate>Header.Patient ID - ID documentation</div>
+		<div style="margin-top: 7px;"></div>
+		<ng-container *ngFor="let id of [patientIDDoc1, patientIDDoc2]">
+			<ng-container *ngIf="id === 'DOB'">
+				<mat-form-field class="noCaret">
+					<input (mousedown)=preventSelect($event) matInput
+						placeholder="{{translation.translate('Label.DOB')}}"
+						[(ngModel)]="collection.Patient.DateOfBirth" readonly />
+				</mat-form-field>
+			</ng-container>
+			<ng-container *ngIf="id === 'Patient Name'">
+				<mat-form-field class="noCaret">
+					<input (mousedown)=preventSelect($event) matInput
+						placeholder="{{translation.translate('Label.Patient name')}}"
+						[(ngModel)]="collection.Patient.FullName" readonly />
+				</mat-form-field>
+			</ng-container>
+		</ng-container>
+		<div style="margin-top: -3px;"></div>
+
+		<span class="confirmationOptions">
+			<span style="margin-right: 12px;">Verbal</span>
+			<span style="margin-right: 11px;">Visual</span>
+			<span style="margin-right: 9px;">Caregiver</span>
+		</span>
+		<div style="clear: both; "></div>
+
+		<div>
+			<span class="IDType">{{patientIDDoc1}}</span>
+			<mat-radio-group class="radioBar" [(ngModel)]="option1Confirm" (change)=option1Change()>
+				<mat-radio-button style="margin-right: 15px;" value="1"></mat-radio-button>
+				<mat-radio-button style="margin-right: 21px;" value="2"></mat-radio-button>
+				<mat-radio-button style="margin-right: 14px;" value="3"></mat-radio-button>
+			</mat-radio-group>
+		</div>
+
+		<ng-container *ngIf="patientIdDocCount === 2">
+			<div style="clear: both; margin-top: 21px;"></div>
+			<div>
+				<span class="IDType">{{patientIDDoc2}}</span>
+				<mat-radio-group class="radioBar" [(ngModel)]="option2Confirm" (change)=option2Change()>
+					<mat-radio-button style="margin-right: 15px;" value="1"></mat-radio-button>
+					<mat-radio-button style="margin-right: 21px;" value="2"></mat-radio-button>
+					<mat-radio-button style="margin-right: 14px;" value="3"></mat-radio-button>
+				</mat-radio-group>
+			</div>
+		</ng-container>
+
+		<mat-form-field *ngIf="option1Confirm === '3' || option2Confirm === '3'"
+			style="margin-top: 27px; margin-bottom: 2px;">
+			<input matInput placeholder="Caregiver name" [(ngModel)]="caregiverName" (change)=caregiverChange()
+				#caregiverNameForm=ngModel genericRequired />
+			<mat-error *ngIf="caregiverNameForm.errors">{{caregiverNameForm.errors.message}}</mat-error>
+		</mat-form-field>
+		<div *ngIf="!(option1Confirm === '3' || option2Confirm === '3')" style="margin-top: 31px;"></div>
+		<button class="verifyButton" mat-button (click)="verify()" [disabled]="(patientIdDocCount === 2 && (option1Confirm === undefined || option2Confirm === undefined))
+			|| (patientIdDocCount === 1 && (option1Confirm === undefined && option2Confirm === undefined))"
+			l10nTranslate>Label.Verify</button>
+
+	</mat-card>
+
+	<!-- test field -->
+	<div class='hiddenInput'>
+		<mat-form-field>
+			<input matInput id='hiddenPadField' (change)=changeCompareScanResult() [(ngModel)]="padScanValue" />
+		</mat-form-field>
+	</div>
+</div>

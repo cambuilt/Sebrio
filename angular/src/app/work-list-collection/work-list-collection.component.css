@@ -1,0 +1,63 @@
+.btn-complete {
+	position: absolute;
+	right: 108px;
+}
+
+.labelsDiv1 {
+	margin-left: 40px;
+	margin-right: 40px;
+	margin-top: 100px;
+}
+
+.labelsDiv2 {
+	position: relative;
+	bottom: 0px;
+	overflow: auto;
+}
+
+.expansion-content {
+	margin-left: 40px;
+	margin-right: 40px;
+	background-color: white;
+}
+
+.mat-expansion-panel-body {
+	background-color: white;
+}
+
+.outer-expansion {
+	background-color: white;
+}
+
+.labelsHeader {
+	margin-left: 0px;
+	margin-top: 36px;
+}
+
+.mat-expansion-panel-header {
+	padding: 0px;
+	margin: 0px;
+	/* border-bottom: 1 px solid black !important; */
+	background-color: #F5F5F5;
+}
+
+.mat-expansion-panel-header-title {
+	margin: 0px;
+}
+
+.menu-group-header {
+	margin: 0px;
+	left: 0px;
+	margin-left: 40px;
+	margin-bottom: 0px;
+}
+
+.btn-expansion {
+	margin-left: -24px;
+	margin-bottom: 33px;
+	margin-top: -3px
+}
+
+.expansionDropdown {
+	margin-top: 12px;
+}

@@ -1,0 +1,28 @@
+<div *ngIf="showPrintComm === true">
+	<mat-card class="printCard">
+		<div class="card-heading" l10nTranslate>Header.Print communication label</div>
+
+		<mat-form-field style="margin-top: 8px;">
+			<mat-select matSelect placeholder="Reason" #commReasonForm=ngModel [(ngModel)]="reason" genericRequired>
+				<mat-option *ngFor="let rs of reasons" [value]="rs.Description">{{ rs.Description }}</mat-option>
+			</mat-select>
+			<mat-error *ngIf="commReasonForm.errors">{{commReasonForm.errors.message}}</mat-error>
+		</mat-form-field>
+
+		<mat-form-field>
+			<mat-select matSelect placeholder="Quantity" #commQuantityForm=ngModel [(ngModel)]="quantity" genericRequired>
+				<mat-option *ngFor="let q of quantities" [value]="q">{{ q }}</mat-option>
+			</mat-select>
+			<mat-error *ngIf="commQuantityForm.errors">{{commQuantityForm.errors.message}}</mat-error>
+		</mat-form-field>
+
+		<mat-form-field style="margin-top: -1px;">
+			<input matInput placeholder="Comments" #commCommentsForm=ngModel [(ngModel)]="comments" charLimit [maximumLength]=160
+			 maxlength="160" genericRequired />
+			<mat-error *ngIf="commCommentsForm.errors">{{commCommentsForm.errors.message}}</mat-error>
+			<mat-hint align="end">{{commCommentsForm.value?.length}}/160</mat-hint>
+		</mat-form-field>
+
+		<button class="printButton" mat-button (click)="print()" [disabled]="quantities.length === 1" l10nTranslate>Label.Print</button>
+	</mat-card>
+</div>

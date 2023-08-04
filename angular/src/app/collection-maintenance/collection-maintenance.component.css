@@ -1,0 +1,57 @@
+.showColor {
+    color: #FF0000;
+}
+
+.mat-column-Name,
+.mat-column-DOB,
+.mat-column-MRN,
+.mat-column-Location,
+.mat-column-Priority,
+.mat-column-Gender,
+.mat-column-Time,
+.mat-column-Bed,
+.mat-column-ProblemList,
+.mat-column-Gender
+ {
+	padding-right: 24px;
+	white-space: nowrap;
+}
+
+.mat-column-TsuRequest
+{
+    padding-right: 14px;
+}
+
+.mat-column-Reserved,
+{
+	padding-left: 24px;
+	padding-right: 24px;
+	text-align: center;
+	width: 36px;
+}
+
+.tsuIndicator {
+    display: none;
+}
+
+.tsuIndicator.show {
+    display: block;
+    margin-top: 2px;
+    background-color: #FF0000;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.rowDisabled td  span, .rowDisabled td  .mat-icon {
+    color: rgba(0, 0, 0, .38) !important;
+}
+
+.rowDisabled td  span.showColor {
+    color: rgb(255, 158, 158) !important;
+}
+
+.mat-column-Reserved .mat-icon:hover {
+    color: rgba(0, 0, 0, 0.54);
+}

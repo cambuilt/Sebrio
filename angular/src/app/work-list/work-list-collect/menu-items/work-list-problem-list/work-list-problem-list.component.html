@@ -1,0 +1,12 @@
+<div *ngIf="showProblemList === true">
+	<mat-card class="problemListCard">
+		<div class="card-heading" l10nTranslate>Label.Problem list</div>
+
+		<mat-form-field style="margin-top: 7px;">
+			<input matInput placeholder="Comments" #problemListReason=ngModel [(ngModel)]="reason" genericRequired />
+			<mat-error *ngIf="problemListReason.errors">{{problemListReason.errors.message}}</mat-error>
+		</mat-form-field>
+
+		<button class="problemListButton" mat-button (click)="move()" l10nTranslate>Label.Submit</button>
+	</mat-card>
+</div>

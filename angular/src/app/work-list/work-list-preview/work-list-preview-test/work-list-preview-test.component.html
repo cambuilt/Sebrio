@@ -1,0 +1,90 @@
+<div
+	[ngClass]="{'mac': !(platform === 'Win64' || platform === 'Win32'), 'android': userAgentCategory === 'Android', 'disabled': testDisabled}">
+	<div class="colorBar" [style.color]="colorTextColor"
+		[style.background]="testDisabled ? 'rgba(0,0,0,.24)' : test.Container.TopColor"
+		[style.border]="test.Container.TopColor === '' && !testDisabled ? '1px black solid' : 'none'">
+		<span *ngIf=test.Container.Description
+			class="colorText">{{test.Container.Code}}-{{test.Container.Description}}</span>
+		<span *ngIf=!test.Container.Description class="colorText">{{test.Container.Code}}</span>
+	</div>
+	<span #testInformation style="display: inline-block; line-height: 13px; width: 100%; max-width: 100%;">
+
+		<span #firstRow style="display: inline-block; width: 100%;">
+			<span #testCode class="testCode">{{test.TestCode}}</span>
+			<span #testVolume class="volume">{{test.Volume}}</span>
+		</span>
+
+		<div style="margin-top: 1px;"></div>
+
+		<span>{{test.CID}}</span>
+		<span style="margin-left: 11px;">{{test.LaboratoryAccessionId}}</span>
+
+		<div style="margin-top: 4px;"></div>
+
+		<span [ngClass]="{'showColor': test.PriorityShowColor === true}">{{test.Priority.Code}}</span>
+		<span style="margin-left: 11px;">{{test.ScheduledTime}}</span>
+		<span style="margin-left: 7px;">{{test.ScheduledDate}}</span>
+
+		<div style="margin-top: 2px;"></div>
+		<span style="display: inline-block;">{{test.CollectionStaff}}</span>
+
+		<ng-container *ngIf="test.InstructionsArray">
+			<div style="margin-top: 2px;"></div>
+			<ng-container *ngFor="let instruction of test.InstructionsArray">
+				<ng-container *ngIf="instruction.substring(0,4) !== 'http' || testDisabled">
+					<span style="display: inline-block;">{{instruction}}</span>
+				</ng-container>
+				<ng-container *ngIf="instruction.substring(0,4) === 'http' && !testDisabled">
+					<a href={{instruction}} target="_blank">{{instruction}}</a>
+				</ng-container>
+				<ng-container *ngIf="test.InstructionsArray.indexOf(instruction) !== test.InstructionsArray.length - 1">
+					{{' - '}}
+				</ng-container>
+			</ng-container>
+		</ng-container>
+
+		<div *ngIf="test.Notes !== '' && test.Notes !== null && test.Notes !== undefined" style="margin-top: 2px;">
+		</div>
+		<span *ngIf="test.Notes !== '' && test.Notes !== null && test.Notes !== undefined"
+			style="display: inline-block;">{{test.Notes}}</span>
+
+		<ng-container *ngIf=test.actions.length>
+			<div
+				style="margin-top: 5px; margin-bottom: 5px; height: 1px; background-color: rgba(0, 0, 0, 0.25) !important">
+			</div>
+			<ng-container *ngFor="let action of test.actions">
+				<div style="margin-top: 2px;"></div>
+				<div *ngIf=action.IsCancelled>
+					<span *ngIf=test.CancelledBy.Username>Canceled by {{test.CancelledBy.FirstName}}
+						{{test.CancelledBy.LastName}}</span>
+					<div style="margin-top: 2px;"></div>
+					<span *ngIf=test.CancellationReason>Reason: {{test.CancellationReason}}</span>
+					<div style="margin-top: 2px;"></div>
+					<span *ngIf=test.CancellationComments>Comment: {{test.CancellationComments}}</span>
+				</div>
+				<div *ngIf=action.IsRescheduled>
+					<span *ngIf=test.RescheduledBy.Username>Rescheduled by {{test.RescheduledBy.FirstName}}
+						{{test.RescheduledBy.LastName}}</span>
+					<div style="margin-top: 2px;"></div>
+					<span *ngIf=test.RescheduleComments>Comment: {{test.RescheduleComments}}</span>
+				</div>
+				<div *ngIf=action.IsProblem>
+					<span *ngIf=test.ReportedBy.Username>Problem listed by {{test.ReportedBy.FirstName}}
+						{{test.ReportedBy.LastName}}</span>
+					<div style="margin-top: 2px;"></div>
+					<span *ngIf=test.ProblemReason>Comment: {{test.ProblemReason}}</span>
+				</div>
+				<div *ngIf=action.IsTransferred>
+					<span *ngIf=test.TransferredBy.Username>Transferred by {{test.TransferredBy.FirstName}}
+						{{test.TransferredBy.LastName}}</span>
+					<div style="margin-top: 2px;"></div>
+					<span *ngIf=test.TransferComments>Comment: {{test.TransferComments}}</span>
+				</div>
+				<div *ngIf=test.IsCollected>
+					<span *ngIf=test.CollectedBy.Username>Collected by {{test.CollectedBy.FirstName}}
+						{{test.CollectedBy.LastName}}</span>
+				</div>
+			</ng-container>
+		</ng-container>
+	</span>
+</div>

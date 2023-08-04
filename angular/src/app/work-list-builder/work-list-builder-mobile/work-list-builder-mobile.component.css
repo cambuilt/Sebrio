@@ -1,0 +1,350 @@
+.headerRow {
+    margin-top: 7px;
+    height: 48px;
+    border-bottom: 1px rgba(0, 0, 0, 0.12) solid;
+}
+
+.reserveHeader {
+    position: absolute;
+    right: 13px;
+    padding: 0px;
+    margin-top: 9px;
+}
+
+.completeIcon {
+    color: rgba(0, 0, 0, .38) !important;
+    cursor: default;
+}
+
+.noPointer {
+    cursor: default;
+}
+
+.noPointer:hover {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.rowDisabled {
+    color: rgba(0, 0, 0, .38) !important;
+}
+
+.problemListIcon {
+    padding: 0;
+    height: 11px;
+    cursor: default;
+    position: relative;
+    top: 1px;
+}
+
+.leftAlign .top-row .greenDotTransferred {
+    top: -3px !important;
+    right: -5px;
+    margin-left: -14px !important;
+}
+
+.problemListIcon:hover {
+    color: rgba(0, 0, 0, .54);
+}
+
+.expand-icon {
+    padding: 0px;
+    position: relative;
+    margin-left: 8px;
+    margin-right: -3px;
+    top: 12px;
+    -moz-transition: all .05s linear;
+    -webkit-transition: all .05s linear;
+    transition: all .05s linear;
+}
+
+.expand-icon.expanded {
+    -ms-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.locationText {
+    font-size: 13px;
+    display: inline-block;
+    position: absolute;
+    left: 32px;
+}
+
+.locationString {
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 12px;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap;
+    width: 64%;
+    position: relative;
+    top: 3px;
+}
+
+.locationCollection {
+    padding-left: 32px;
+}
+
+.mac.locationCollection {
+    padding-left: 25px;
+}
+
+.priorityAndTime {
+    font-size: 12px;
+    display: inline-block;
+    position: absolute;
+    margin-right: 42px;
+    right: 0px;
+    margin-top: 3px;
+}
+
+.mobile-row {
+    height: 47px;
+    border-bottom: 1px rgba(0, 0, 0, 0.12) solid;
+}
+
+.showLocations .mat-icon {
+    margin-top: -15px;
+}
+
+.mobile-row:nth-child(1) {
+    border-top: none;
+}
+
+.mobile-row:last-child {
+    border-bottom: none;
+}
+
+.mobile-row-br {
+    margin-top: -6px;
+}
+
+.custom-paginator {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 56px;
+    vertical-align: middle;
+    padding: 0 8px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 12px;
+}
+
+.paginator-icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.paginator-range {
+    display: inline-block;
+    margin: 0 37px 0 36px;
+    position: relative;
+    top: -1px;
+}
+
+.paginator-icon {
+    padding: 0px;
+    font-size: 30px;
+    height: 30px;
+    width: 30px;
+}
+
+.items-per-page {
+    position: relative;
+    top: -1px;
+    margin-right: 5px;
+}
+
+.paginator-select {
+    width: 56px;
+    top: -1px;
+}
+
+.paginator-icon-disabled {
+    cursor: default;
+    color: rgba(0, 0, 0, 0.26)
+}
+
+.left-chevron {
+    margin-right: 10px;
+}
+
+.right-chevron {
+    margin-right: 5px;
+}
+
+.reserveIcon {
+    float: right;
+    padding: 0px;
+    position: relative;
+    top: 12px;
+    right: 14px;
+}
+
+.leftAlign {
+    float: left;
+    font-size: 12px;
+    margin-right: -15px;
+}
+
+.rightAlign {
+    float: right;
+    font-size: 12px;
+    position: relative;
+    right: 20px;
+}
+
+.rightAlign .middle-row {
+    float: right;
+}
+
+.rightAlign .bottom-row {
+    float: right;
+}
+
+.codeCentered {
+    top: 3px;
+}
+
+.android .codeCentered {
+    top: 4px;
+}
+
+.codeNotCentered {
+    top: -6px;
+}
+
+.android .codeNotCentered {
+    top: -4.5px;
+}
+
+.groupText {
+    position: relative;
+    font-size: 13px;
+}
+
+.groupAddress {
+    display: inline-block;
+    margin-left: 31px;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap;
+    width: calc(100% - 31px);
+    top: 0px;
+}
+
+.mac .groupAddress {
+    top: -2px;
+}
+
+.android .groupAddress {
+    top: -0.5px;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.showColor {
+    color: #FF0000;
+}
+
+.rowDisabled .showColor {
+    color: rgb(255, 158, 158);
+}
+
+.right-aligned {
+    position: absolute;
+    right: 0px;
+    margin-right: 43px;
+}
+
+.top-row,
+.middle-row,
+.bottom-row {
+    position: relative;
+    font-size: 12px;
+}
+
+.top-row {
+    top: 8px;
+}
+
+.bottom-row {
+    top: 11px;
+}
+
+.mac .top-row {
+    top: 6px;
+}
+
+.mac .bottom-row {
+    top: 7px;
+}
+
+.android .top-row {
+    top: 8px;
+}
+
+.android .bottom-row {
+    top: 9px;
+}
+
+.mac .top-row span,
+.mac .middle-row span,
+.mac .bottom-row span {
+    display: inline-block;
+    margin-left: 7px;
+}
+
+.top-row span,
+.middle-row span,
+.bottom-row span {
+    display: inline-block;
+    margin-left: 8px;
+}
+
+.top-row span:first-child,
+.middle-row span:first-child,
+.bottom-row span:first-child {
+    display: inline-block;
+    margin-left: 0px;
+}
+
+.homeDraw .top-row {
+    top: 1px;
+}
+
+.homeDraw .middle-row {
+    top: 2px;
+}
+
+.homeDraw.bottom-row {
+    top: 3px;
+}
+
+.mac .homeDraw .top-row {
+    top: 0px;
+}
+
+.mac .homeDraw .middle-row {
+    top: -1px;
+}
+
+.mac .homeDraw.bottom-row {
+    top: -5px;
+}
+
+.locationString {
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap;
+    width: 88%;
+    margin-left: 0px;
+}
+
+.mac .locationString {
+    width: calc(88% + 6px) !important;
+}

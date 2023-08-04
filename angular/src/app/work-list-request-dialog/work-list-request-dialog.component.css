@@ -1,0 +1,74 @@
+.work-list-request {
+	padding-top: 23px;
+	padding-left: 23px;
+	padding-right: 24px;
+	padding-bottom: 32px;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	font-size: 14px;
+}
+
+.message-heading {
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	font-size: 18px;
+}
+
+.message {
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	font-size: 14px;
+	color: rgba(0, 0, 0, .54);
+	margin-top: 20px;
+}
+
+.request-phleb {
+	margin-top: 12px;
+	margin-bottom: 1px;
+}
+
+.request-phleb-click {
+	cursor: pointer;
+}
+
+.request-phleb-timer {
+	float: right;
+	margin-right: 1px;
+	color: rgba(0, 0, 0, .54);
+}
+
+.timerActive {
+	color: rgba(0, 0, 0, .38);
+	cursor: default;
+}
+
+.contactTSA {
+	margin-top: 2px;
+	margin-bottom: -3px;
+}
+
+.btn-close {
+	margin-top: 32px;
+	float: right;
+	margin-bottom: 32px;
+}
+
+.add-overlay {
+	width: 400px;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	background-color: rgba(35, 34, 35, 0.1);
+	z-index: 5;
+}
+
+.add-overlay.show {
+	animation-duration: 0.25s;
+	animation-name: showDrawerOverlay;
+	display: block;
+	opacity: 1;
+}
+
+.cdk-overlay-container>.unsavedOverlay {
+	/* Black background with opacity */
+	background-color: rgba(35, 34, 35, 0);
+	z-index: 3 !important;
+}

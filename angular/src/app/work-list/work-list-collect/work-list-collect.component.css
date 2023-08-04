@@ -1,0 +1,97 @@
+.drawer-header-text {
+    position: relative;
+    top: -3px;
+}
+
+.drawer-content {
+    top: -8px;
+}
+
+.drawer-container.show,
+.box-shadow-container *,
+.drawerToolbar *,
+.drawer-footer,
+.drawer-footer * {
+    transform: translateZ(0);
+}
+
+.hideShadow {
+    box-shadow: none;
+}
+
+.patientMRN {
+    color: #707070;
+    font-size: 12px;
+    line-height: 12px;
+    margin-left: 16px;
+    position: relative;
+    top: -8px;
+}
+
+.navigationControls {
+    position: absolute;
+    right: 13px;
+}
+
+.expand-icon {
+    padding: 0px;
+    -moz-transition: all .1s linear;
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+    position: relative;
+    top: 5px;
+    right: 16px;
+    font-size: 32px;
+    height: 32px;
+    width: 32px;
+}
+
+.disabledIcon {
+    cursor: default;
+    color: rgba(0, 0, 0, .38);
+}
+
+.expand-icon.expanded {
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.menuIcon {
+    padding: 0;
+    position: relative;
+    left: 29px;
+    margin-top: 8px;
+}
+
+.printButton {
+    position: relative;
+    left: calc(50% - 48px - 32px);
+    margin-bottom: 0px;
+    margin-left: 0;
+    position: relative;
+    top: -8px;
+}
+
+.drawer-footer {
+    z-index: 4;
+}
+
+.drawer-footer.shadowed {
+    box-shadow: 0px -4px 8px 0px rgba(0, 0, 0, 0.08);
+}
+
+app-work-list-menu {
+    position: fixed;
+    bottom: 64px;
+    width: 100%;
+    z-index: 1;
+}
+
+app-work-list-patient {
+    position: fixed;
+    top: 64px;
+    width: 100%;
+    z-index: 2;
+}

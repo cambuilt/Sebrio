@@ -1,0 +1,52 @@
+.subtitle-right {
+	color: rgba(0, 0, 0, 0.54);
+	font-weight: 600;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+    display: inline-block;
+	margin-left: 60%;
+	padding-bottom: 5%;
+}
+
+.associatedTitle {
+	margin-left: 24px;
+	padding-top: 5%;
+}
+
+.associatedSubTitle {
+	color: rgba(0, 0, 0, 0.54);
+    font-weight: 600;
+    margin-left: 24px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    display: inline-block;
+}
+
+.tenantRow {
+	font-size: 14px;
+	height: 48px;
+	line-height: 48px;
+	padding-left: 24px;
+}
+
+.associated-tenant {
+	display: inline-block;
+	padding-left: 7%;
+	padding-bottom: 2%;
+	margin-top: -1.5%;
+	max-width: 265px !important;
+	width: 100% !important;
+}
+
+.info-span {
+	margin-left: 0px;
+	margin-top: 17px;
+}
+
+.checkBoxDiv {
+	margin-top: -2px;
+	right: 32px;
+}
+
+.subheadingDiv {
+	margin-top: 6px;
+	margin-bottom: -1px;
+}

@@ -1,0 +1,49 @@
+<div class="drawer-overlay" [ngClass]="{'show': properties.showOverlay === true, 'hide': properties.hideOverlay === true}" (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()" id="priorityBackArrow">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Details</div>
+			<mat-form-field class='firstFormField' id='firstFormField'>
+				<input matInput placeholder="{{translation.translate('Label.Code')}}" [disabled]="properties.rowID !== ''" (keydown.Tab)="tabEvent()"
+				 id='firstField' (input)='updateDescription()' (blur)="blurCode();" appCodeLabValidation (change)='resetExists();'  [(ngModel)]="priority.Code" #code=ngModel
+				  />
+				<mat-error *ngIf="code.errors">{{code.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput (change)="checkDescriptionChange();" placeholder="{{translation.translate('Label.Description')}}" id='descriptionField' [(ngModel)]="priority.Description" />
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select matSelect id="prioritySelect" placeholder="{{translation.translate('Label.Add priority')}}" [(ngModel)]="priority.Priority"
+				 #priorityForm=ngModel genericRequired>
+					<mat-option *ngFor="let option of options" [value]="option">{{ option }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="priorityForm.errors">{{priorityForm.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+					<mat-select id="labSelect" [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Lab')}}"
+					 #lab=ngModel genericRequired [(ngModel)]="priority.Laboratory.Id">
+						<mat-option *ngFor="let lab of labOptions" [value]="lab.Code">{{ lab.Code }}</mat-option>
+					</mat-select>
+					<mat-error *ngIf="lab.errors">{{lab.errors.message}}</mat-error>
+				</mat-form-field>
+			<div class="priority-toggle-container" style="margin-top: -7px;">
+				<label l10nTranslate>Label.Assign color to priority</label>
+				<mat-slide-toggle color="primary" id="colorToggle" [(ngModel)]="priority.ShowColor"></mat-slide-toggle>
+			</div>
+			<div class="priority-toggle-container" style="margin-bottom: 13px;">
+				<label l10nTranslate>Label.Active</label>
+				<mat-slide-toggle color="primary" [(ngModel)]="priority.IsActive"></mat-slide-toggle>
+			</div>
+			
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button class="btn-save-and-add-another" mat-button (click)="checkForm(true)" *ngIf="headerText === translation.translate('Label.Add priority')"
+		 l10nTranslate>Label.Save & Add Another</button>
+		<button class="btn-save" id="prioritySaveButton" mat-button (click)="checkForm(false)" l10nTranslate>Label.Save</button>
+	</div>
+</div>

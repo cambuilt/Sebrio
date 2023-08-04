@@ -1,0 +1,43 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+  },
+  "include": [
+    "src/**/*",
+    "./node_modules/angular-cordova/index.ts",
+    "./node_modules/angular-cordova/plugin/index.ts",
+    "./node_modules/angular-cordova/plugin/battery-status.ts",
+    "./node_modules/angular-cordova/plugin/camera.ts",
+    "./node_modules/angular-cordova/plugin/device-motion.ts",
+    "./node_modules/angular-cordova/plugin/device-orientation.ts",
+    "./node_modules/angular-cordova/plugin/device.ts",
+    "./node_modules/angular-cordova/plugin/dialogs.ts",
+    "./node_modules/angular-cordova/plugin/facebook.ts",
+    "./node_modules/angular-cordova/plugin/firebase.ts",
+    "./node_modules/angular-cordova/plugin/geolocation.ts",
+    "./node_modules/angular-cordova/plugin/keyboard.ts",
+    "./node_modules/angular-cordova/plugin/media.ts",
+    "./node_modules/angular-cordova/plugin/network-information.ts",
+    "./node_modules/angular-cordova/plugin/splashscreen.ts",
+    "./node_modules/angular-cordova/plugin/statusbar.ts",
+    "./node_modules/angular-cordova/plugin/stripe.ts",
+    "./node_modules/angular-cordova/plugin/vibration.ts",
+    "./node_modules/@types/node/index.d.ts", 
+    "src/karma.conf.js", "spec/unit-test.spec.ts", "spec/cancellation.service.spec.ts",
+  ],
+}

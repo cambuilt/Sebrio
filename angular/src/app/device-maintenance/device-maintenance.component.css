@@ -1,0 +1,28 @@
+/* .maintenance-page:before {
+	background-image: url('../../assets/banners/keyboard.png');
+} */
+
+.mat-column-Code,
+.mat-column-Description,
+.mat-column-Manufacturer
+ {
+	padding-right: 24px;
+	white-space: nowrap;
+}
+
+.mat-column-SecretNumber {
+	padding-right: 24px;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.mat-column-IsActive {
+	padding-left: 24px;
+	padding-right: 24px;
+	text-align: center;
+	width: 36px;
+}
+
+rmp-device-add {
+	z-index: 2;
+}

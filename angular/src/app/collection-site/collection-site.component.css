@@ -1,0 +1,16 @@
+.mat-column-Code,
+.mat-column-Description {
+	padding-right: 24px;
+	white-space: nowrap;
+}
+
+.mat-column-IsActive {
+	padding-left: 24px;
+	padding-right: 24px;
+	text-align: center;
+	width: 36px;
+}
+
+rmp-collection-site-add {
+	z-index: 2;
+}

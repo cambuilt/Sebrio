@@ -1,0 +1,123 @@
+<div class="drawer-overlay" [ngClass]="{'show': properties.showOverlay === true, 'hide': properties.hideOverlay === true}"
+ (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Details</div>
+			<mat-form-field class='firstFormField' id='firstFormField'>
+				<input matInput placeholder="{{translation.translate('Label.Code')}}" [disabled]="!properties.isDrawerOpen || properties.rowID !== ''"
+				 id='firstField' (keydown.Tab)="tabEvent()" [(ngModel)]="lab.Code" (blur)="blurCode();" (input)='updateDescription()'
+				 #code=ngModel appCodeValidation />
+				<mat-error *ngIf="code.errors">{{code.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" (change)="checkDescriptionChange();" placeholder="{{translation.translate('Label.Description')}}"
+				 id='descriptionField' [(ngModel)]="lab.Description" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='labStreet1' placeholder="{{translation.translate('Label.Street address 1')}}"
+				 [(ngModel)]="lab.Location.StreetAddress1" #streetAddress1=ngModel />
+				<mat-error *ngIf="streetAddress1.errors">{{streetAddress1.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Street address 2')}}"
+				 [(ngModel)]="lab.Location.StreetAddress2" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='labCity' placeholder="{{translation.translate('Label.City')}}"
+				 [(ngModel)]="lab.Location.City" #city=ngModel />
+				<mat-error *ngIf="city.errors">{{city.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]="!properties.isDrawerOpen" id='labState' placeholder="{{translation.translate('Label.State')}}"
+				 (selectionChange)="lab.Location.County = ''" [(ngModel)]="lab.Location.State" #state=ngModel >
+					<mat-option *ngFor="let state of states()" [value]="state">{{ state }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="state.errors">{{state.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='labZip' placeholder="{{translation.translate('Label.Postal code')}}"
+				 [(ngModel)]="lab.Location.PostalCode" numeric #postalCode=ngModel postalCodeValidator maxlength="5" />
+				<mat-error *ngIf="postalCode.errors">{{postalCode.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]="!properties.isDrawerOpen" id='labCounty' placeholder="{{translation.translate('Label.County')}}"
+				 [(ngModel)]="lab.Location.County">
+					<mat-option *ngFor="let county of counties()" [value]="county">{{ county }}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field id='countryField'>
+				<input matInput placeholder="{{translation.translate('Label.Country')}}" value="USA" disabled="true" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='labPhone' placeholder="{{translation.translate('Label.Phone')}}" (blur)="blur();"
+				 [(ngModel)]="lab.Phone" #phone=ngModel numeric phoneValidator maxlength="14" />
+				<mat-error *ngIf="phone.errors">{{phone.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='labEmail' placeholder="{{translation.translate('Label.Email')}}"
+				 [(ngModel)]="lab.Email" #email=ngModel emailValidator />
+				<mat-error *ngIf="email.errors">{{email.errors.message}}</mat-error>
+			</mat-form-field>
+			<div class="drawer-toggle-container">
+				<label l10nTranslate>Label.Active</label>
+				<mat-slide-toggle [disabled]="!properties.isDrawerOpen" id='labActiveToggle' [(ngModel)]="lab.IsActive"></mat-slide-toggle>
+			</div>
+		</mat-card>
+		<mat-card>
+			<div class="card-heading" style="margin-bottom: -5px;" l10nTranslate>Header.Collection list details</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Cancel order</label>
+				<mat-slide-toggle [disabled]="!properties.isDrawerOpen" [(ngModel)]="lab.DefaultCollectionList.CanCancelOrder"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Reschedule order</label>
+				<mat-slide-toggle [disabled]="!properties.isDrawerOpen" [(ngModel)]="lab.DefaultCollectionList.CanRescheduleOrder"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Identify collection site</label>
+				<mat-slide-toggle [disabled]="!properties.isDrawerOpen" [(ngModel)]="lab.DefaultCollectionList.CanIdentifyCollectionSite"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Workload code entry</label>
+				<mat-slide-toggle [disabled]="!properties.isDrawerOpen" [(ngModel)]="lab.DefaultCollectionList.CanWorkloadCodeEntry"></mat-slide-toggle>
+			</div>
+			<div class="collection-list-toggle">
+				<label l10nTranslate>Label.Generate communication label</label>
+				<mat-slide-toggle [disabled]="!properties.isDrawerOpen" (change)=changeCommunicationLabel() [(ngModel)]="lab.DefaultCollectionList.CanGenerateCommunicationLabel"></mat-slide-toggle>
+			</div>
+			<mat-form-field class="lineAfterToggle">
+				<input numeric matInput (change)=validateCommLabels() placeholder="{{translation.translate('Label.Default number of labels')}}"
+				 [(ngModel)]="lab.DefaultCollectionList.LabelNumberDefault" [disabled]="!properties.isDrawerOpen || !lab.DefaultCollectionList.CanGenerateCommunicationLabel"
+				 #labelNumberDefault=ngModel genericRequired />
+				<mat-error *ngIf="labelNumberDefault.errors">{{labelNumberDefault.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input numeric matInput (change)=validateCommLabels() placeholder="{{translation.translate('Label.Maximum number of labels')}}"
+				 [(ngModel)]="lab.DefaultCollectionList.LabelNumberMaximum" [disabled]="!properties.isDrawerOpen || !lab.DefaultCollectionList.CanGenerateCommunicationLabel" />
+			</mat-form-field>
+			<div style="margin-top: -1px;" class="collection-list-toggle">
+				<label l10nTranslate>Label.Trigger exception report</label>
+				<mat-slide-toggle [disabled]="!properties.isDrawerOpen" [(ngModel)]="lab.DefaultCollectionList.CanTriggerExceptionReport"></mat-slide-toggle>
+			</div>
+			<mat-form-field style="margin-top: 18px;" class="lineToCard">
+				<mat-select [disabled]="!properties.isDrawerOpen" id='labSelectIdentifiers' matSelect placeholder="{{translation.translate('Label.Minimum patient identifier required')}}"
+				 #minimumPatientID=ngModel [(ngModel)]="lab.DefaultCollectionList.MinimumPatientIdentifiersRequired"
+				 genericRequired>
+					<mat-option *ngFor="let number of four" [value]="number">{{ number }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="minimumPatientID.errors">{{minimumPatientID.errors.message}}</mat-error>
+			</mat-form-field>
+		</mat-card>
+
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]="!properties.isDrawerOpen" class="btn-save-and-add-another" mat-button (click)="checkForm(true)"
+		 *ngIf="headerText === translation.translate('Label.Add lab')" l10nTranslate>Label.Save & Add Another</button>
+		<button [disabled]="!properties.isDrawerOpen" id='labSaveButton' class="btn-save" mat-button (click)="checkForm(false)" l10nTranslate>Label.Save</button>
+	</div>
+</div>

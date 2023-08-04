@@ -1,0 +1,20 @@
+.mat-column-Users,
+.mat-column-Code,
+.mat-column-Total {
+	padding-right: 24px;
+	white-space: nowrap;
+}
+
+.filteredRange {
+	position: absolute;
+	top: 21px;
+	left: 18px;
+	font-size: 14px;
+	color: rgb(117, 117, 117);
+}
+
+@media (max-width: 440px) {
+	.maintenance-page .page-header {
+		line-height: 48px !important;
+	}
+}

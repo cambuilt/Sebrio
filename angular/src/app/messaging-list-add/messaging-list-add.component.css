@@ -1,0 +1,118 @@
+.associatedTitle {
+	margin-left: 24px;
+	padding-top: 24px;
+	margin-bottom: 6px;
+}
+
+.associatedSubTitle {
+	margin-left: 24px;
+	/* padding-bottom: 1px; */
+}
+
+.iconInfo {
+	margin-left: 70%;
+	padding-top: 1.5%;
+}
+
+.label-remove {
+	position: relative;
+    /* left: 251px; */
+    right: 24px;
+    float: right;
+}
+
+.associated-row {
+	vertical-align: middle;
+}
+
+.associated-hr {
+	border-color: #CCCCCC;
+	border-bottom-style: solid;
+	border-top-width: 0px;
+	border-bottom-width: 1px;
+	padding: 0px;
+	margin-top: 0px;
+	margin-bottom: 7px;
+}
+
+.remove {
+	padding: 0px;
+	position: absolute;
+	right: 34px;
+	margin-top: 12px;
+}
+
+.user-hr {
+	color: #bfbfbf;
+	margin-bottom: 0px;
+}
+
+.user-name {
+	margin-left: 16px;
+}
+
+.removeUser {
+	padding: 0px;
+	position: absolute;
+	right: 32px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+.inboxRow {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+	height: 48px;
+	line-height: 48px;
+	padding-left: 24px;
+}
+
+.drawer-toggle-container1 {
+	margin-top: 19px;
+	padding-bottom: 4px;
+}
+
+.drawer-toggle-container-2fa {
+	margin-top: -12px;
+}
+
+.bottomToggle {
+	margin-top: -2px;
+}
+
+.subheadingDiv {
+	margin-bottom: -1px;
+}
+
+.circle {
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	background-color: #D5D5D5;
+	display: inline-block;
+	margin-top: 7px;
+	height: 30px;
+	line-height: 30px;
+	width: 30px;
+	margin: 0px;
+	padding: 0px;
+}
+
+.avatarCircle {
+	background-color: #D5D5D5;
+	border-radius: 50%;
+	height: 30px;
+	width: 30px;
+	line-height: 30px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.info-span {
+	margin-left: 24px;
+	width: calc(100% - 129px);
+}
+
+.email-span {
+	width: 100% !important;
+}

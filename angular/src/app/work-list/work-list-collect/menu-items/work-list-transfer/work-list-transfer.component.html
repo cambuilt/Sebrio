@@ -1,0 +1,18 @@
+<div *ngIf="showTransfer === true">
+	<mat-card class="transferCard">
+		<div class="card-heading" l10nTranslate>Label.Transfer collection</div>
+
+		<mat-form-field style="margin-top: 8px;">
+			<mat-select matSelect placeholder="User" #transferTo=ngModel [(ngModel)]="user" genericRequired>
+				<mat-option *ngFor="let u of users" [value]="u">{{ u }}</mat-option>
+			</mat-select>
+			<mat-error *ngIf="transferTo.errors">{{transferTo.errors.message}}</mat-error>
+		</mat-form-field>
+		<mat-form-field style="margin-top: 7px;">
+			<input matInput placeholder="Comments" #transferComments=ngModel [(ngModel)]="comments" genericRequired />
+			<mat-error *ngIf="transferComments.errors">{{transferComments.errors.message}}</mat-error>
+		</mat-form-field>
+
+		<button class="transferButton" mat-button (click)="transfer()" l10nTranslate>Label.Submit</button>
+	</mat-card>
+</div>

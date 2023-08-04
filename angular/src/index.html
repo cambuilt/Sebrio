@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>RMP</title>
+	<base href="/">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<style type="text/css">
+		body {
+			overflow-x: hidden;
+			overflow-y: hidden;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="content">
+		<app-root></app-root>
+	</div>
+	<div class="poweredBy"></div><img src="assets/eMyLabCollect.com.svg" class="eMyLabCollect" />
+	<div class="watermark"></div>
+	<div id='hiddenDivMain' style='display: none;'></div>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script>
+		// this script will only execute if cordova.js is found
+		window.deviceReady = false;
+		window.deviceRooted = false;
+		window.honeywellData = '';
+		window.printersAvailable = false;
+		document.addEventListener("deviceready", function () {
+			window.deviceReady = true;
+			checkRooted();
+		}, false);
+
+		function checkRooted() {
+			if (window.device.platform.toLowerCase() === 'android') {
+				IRoot.isRootedRedBeerWithoutBusyBoxCheck((success) => {
+					window.deviceRooted = success;
+				}, (failureCallback) => {
+					alert('error checking for rooted red beer without busy box');
+				});
+
+			} else {
+				IRoot.isRooted((success) => {
+					window.deviceRooted = success;
+				}, (failureCallback) => {
+					alert('error checking for rooted');
+				});
+			}
+		}
+
+		function initScanner() {
+			plugins.honeywell.listenForScans(function (data) {
+				// do something with 'data'
+				alert(data);
+			});
+		}
+
+		function testPrint(file) {
+			window.plugins.PrintPDF.print({
+				data: file,
+				type: 'Data',
+				title: 'Print Document',
+				success: function () {
+					console.log('success');
+				},
+				error: function (data) {
+					data = JSON.parse(data);
+					alert('failed: ' + data.error);
+				}
+			});
+		}
+
+	</script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/1.5.1/fingerprint2.min.js"></script>
+</body>
+
+</html>

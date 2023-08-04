@@ -1,0 +1,55 @@
+<div class="drawer-overlay" [ngClass]="{'show': isDrawerOpen === true, 'hideOverlay': hideOverlay === true}" (click)="clickOverlay(false)"></div>
+<div class="drawer-container" [ngClass]="{'show': isDrawerOpen === true, 'hideShadow': hideOverlay === true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay(true)">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{singleSelect === true ? translation.translate('Label.Select user') :
+			translation.translate('Label.Select Users') }}</div>
+		<mat-icon class='filter-icon' (click)="openFilter();">filter_list</mat-icon>
+		<div class="filter-container" [ngClass]="{'show': showFilter === true}">
+			<input [disabled]=!isDrawerOpen class='userSelectorFilterInput' #txtFilter matInput placeholder="{{translation.translate('Label.Filter')}}" (input)='applyFilter()'
+			 [(ngModel)]="filterValue" />
+			<mat-icon class="btn-close-filter" (click)="closeFilter();clearFilter()">close</mat-icon>
+		</div>
+	</mat-toolbar>
+	<div #userSelectorDrawer class="drawer-content">
+		<mat-card style='padding: 0px;' id="userSelectorCard">
+			<div class="card-heading associatedTitle">{{singleSelect === true ? translation.translate('Header.Assign user') :
+				translation.translate('Header.Assign users') }}</div>
+			<br />
+			<div class='subheadingDiv'>
+				<span class="card-subheading associatedSubTitle" l10nTranslate>Label.Users</span>
+				<span style="display: inline-block;">
+					<mat-icon class="selectAll" *ngIf="singleSelect === false" (click)=selectAllUsers($event)>check_box_outline_blank</mat-icon>
+				</span>
+			</div>
+			<br />
+			<div class="selector-hr"></div>
+			<ng-container *ngFor="let user of usersFiltered">
+				<div class='selectorRow' (click)="selectUser(user)">
+					<div style="float: left;">
+						<ng-container *ngIf="user.AvatarURL.length <= 1">
+							<span class="circle">{{utilsService.getInitials(user)}}</span>
+						</ng-container>
+						<ng-container *ngIf="user.AvatarURL.length > 1">
+							<img class="avatarCircle" src="{{user.AvatarURL}}" alt="" [ngClass]="{'scrollingDrawer': (scrollDrawer === true && (platform === 'Win32' || platform === 'Win64'))}" />
+						</ng-container>
+					</div>
+					<div class="info-span">
+						<span style="line-height: 14px;">{{user.FirstName}} {{user.LastName}}</span>
+						<br class="selector-br">
+						<span class="email-span">{{user.Email}}</span>
+					</div>
+					<mat-icon class="checkBoxDiv selectorCheckbox" *ngIf="user.check === false && singleSelect === false" (click)="propagateCheckbox($event, user)">check_box_outline_blank</mat-icon>
+					<mat-icon class="checkBoxDiv selectorCheckbox checked" *ngIf="user.check === true && singleSelect === false" (click)="propagateCheckbox($event, user)">check_box</mat-icon>
+				</div>
+				<div class="selector-hr">
+				</div>
+			</ng-container>
+			<div class="card-bottom-space"></div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]=!isDrawerOpen class="btn-save selectorSave" mat-button (click)="save()" l10nTranslate *ngIf="singleSelect === false">Label.Save</button>
+	</div>
+</div>
+<app-messaging-chat #messagingChat (onClose)="closedChat($event)" [messageFieldName]="singleSelect === true ? 'userSelectorMessageFieldSingleSelect' : 'userSelectorMessageField' + parentData.title"></app-messaging-chat>

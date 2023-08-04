@@ -1,0 +1,71 @@
+<div>
+	<rmp-nav-bar (onBroadcast)="notifyBroadcast($event)"></rmp-nav-bar>
+	<app-notification-message #notificationMessage></app-notification-message>
+	<div class="maintenance-page" hidden>
+		<div class="page-content" [ngClass]="{'noData': dataSource.data.length === 0, 'oneEntry': dataSource.data.length === 1}">
+			<div class="page-header" l10nTranslate>ScreenTitle.Hub Maintenance</div>
+			<button class="page-button" mat-button color="white" (click)="hubAdd.addHub()" id="hubAddButton" l10nTranslate>Label.Add Hub</button>
+			<mat-card class="maintenance-card">
+				<div class="action-buttons">
+					<mat-icon (click)="tableConfiguration.show(columns.table)" title="{{translation.translate('Label.Table Configuration')}}">settings</mat-icon>
+					<mat-icon id='hubFilterIcon' *ngIf='filterComponent.filterApplied === false' (click)="filterComponent.show(columns.filter)" title="{{translation.translate('ScreenTitle.Filter')}}">filter_list</mat-icon>
+					<mat-icon id='hubFilterIcon2' *ngIf='filterComponent.filterApplied === true' (click)="filterComponent.show(columns.filter)" title="{{translation.translate('ScreenTitle.Filter')}}"
+					 svgIcon='filter_applied'></mat-icon>
+					<mat-icon id='hubEditIcon' (click)="editClick()" title="{{translation.translate('Label.Edit')}}">create</mat-icon>
+				</div>
+				<div class="table-container" id='hub-maintenance-table'>
+					<table mat-table [dataSource]="dataSource" matSort>
+						<ng-container matColumnDef="Name">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Code</th>
+							<td mat-cell *matCellDef="let element">{{element.Name}}</td>
+						</ng-container>
+						<ng-container matColumnDef="Description">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Description</th>
+							<td mat-cell *matCellDef="let element">{{element.Description}}</td>
+						</ng-container>
+						<ng-container matColumnDef="Address">
+							<th mat-header-cell *matHeaderCellDef l10nTranslate>Label.Address</th>
+							<td mat-cell *matCellDef="let element">{{element.Address}}</td>
+						</ng-container>
+						<ng-container matColumnDef="Users">
+							<th mat-header-cell *matHeaderCellDef l10nTranslate>Label.Users</th>
+							<td mat-cell *matCellDef="let element">
+								<mat-chip-list [selectable]='false' [disabled]='true' #chipList>
+									<mat-chip *ngIf="element.Users.length > 0" [disabled]='true' [selectable]='false'>
+										<ng-container *ngIf="element.Users[0].AvatarURL <= 1">
+											<div class="chipCircle">
+												<span class="chipCircleText">{{utilsService.getInitials(element.Users[0])}}</span>
+											</div>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{element.Users[0].FirstName}} {{element.Users[0].LastName}}
+										</ng-container>
+										<ng-container *ngIf="element.Users[0].AvatarURL.length > 1 ">
+											<img class="avatarCircle" src={{element.Users[0].AvatarURL}} alt="" />
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{element.Users[0].FirstName}} {{element.Users[0].LastName}}
+										</ng-container>
+									</mat-chip>
+									<mat-icon class="verticalEllipsisButton" *ngIf='element.Users.length > 1' svgIcon='ellipsis' (click)=hubChip.editAssociatedUsers(element)></mat-icon>
+								</mat-chip-list>
+							</td>
+						</ng-container>
+						<ng-container matColumnDef="IsActive">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Active</th>
+							<td mat-cell *matCellDef="let element">
+								<mat-checkbox class='tableCheckBox' [checked]="element.IsActive" disabled="true"></mat-checkbox>
+							</td>
+						</ng-container>
+						<tr mat-header-row *matHeaderRowDef="columns.display"></tr>
+						<tr mat-row *matRowDef="let row; columns: columns.display;" [ngClass]="{'selected': selectedRowId == row.Id}"
+						 (click)="selectedRowId = row.Id" (dblclick)="hubAdd.editHub(row.Id)"></tr>
+					</table>
+				</div>
+				<mat-paginator #tablePaginator (page)=paginatorChange($event) [ngClass]="{'noBorderPaginator': !(dataSource.data && dataSource.data.length)}"
+				 [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator>
+			</mat-card>
+		</div>
+		<div class="poweredBy2"></div><img src="assets/eMyLabCollect.com.svg" class="eMyLabCollect2" />
+		<div class="watermark2"></div>
+		<rmp-hub-add #hubAdd (onSave)="hubOnSave($event)"></rmp-hub-add>
+		<rmp-table-configuration #tableConfiguration (onSave)="tableColumnsOnSave($event)"></rmp-table-configuration>
+		<rmp-user-chip #hubChip (onSave)='chipSave($event)' id="hubChip" style="z-index: 2;" [parentData]="{title: 'Hub', source: 'chip'}"></rmp-user-chip>
+		<app-filter #filterComponent (onSave)='receiveFilter($event);'></app-filter>
+	</div>

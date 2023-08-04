@@ -1,0 +1,122 @@
+.card-heading {
+    margin-bottom: 7px;
+}
+
+.outerDiv:last-child {
+    margin-bottom: -25px;
+}
+
+/* .dateTime, .dateTime2 {
+    width: 150px;
+} */
+
+.dateSpan {
+    padding-left: 20px;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+.subtitle-right {
+	position: absolute;
+	right: 24px;
+}
+
+.associatedTitle {
+	margin-left: 24px;
+	padding-top: 24px;
+	margin-bottom: 6px;
+}
+
+.associatedTitle.error {
+	/* margin-left: 24px; */
+	/* padding-top: 12px; */
+	margin-bottom: -7px;
+}
+
+.userLengthError {
+    /* display: none; */
+	position: relative;
+    top: -14px;
+    left: 51px;
+	font-size: 10px;
+	width: fit-content;
+}
+
+.associatedSubTitle {
+	margin-left: 24px;
+}
+
+.datePeriodField {
+    margin-bottom: -27px !important;
+}
+
+.circle {
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	background-color: #D5D5D5;
+	display: inline-block;
+	margin-top: 7px;
+	height: 30px;
+	line-height: 30px;
+	width: 30px;
+	margin: 0px;
+	padding: 0px;
+}
+
+.avatarCircle {
+	background-color: #D5D5D5;
+	border-radius: 50%;
+	height: 30px;
+	width: 30px;
+	line-height: 30px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.info-span {
+	margin-left: 24px;
+}
+
+.email-span {
+	width: 187px;
+}
+
+.user-name {
+	margin-left: 16px;
+}
+
+.removeUser {
+	padding: 0px;
+	position: absolute;
+	right: 34px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+.subheadingDiv {
+	margin-bottom: -1px;
+	line-height: 12px;
+}
+
+/* .userLengthError {
+	position: relative;
+    top: -20px;
+    left: 77px;
+    font-size: 10px;
+} */
+
+
+@media (max-width: 400px) {
+    /* .dateTime, .dateTime2 {
+        width: 144px;
+    } */
+}
+
+@media (max-width: 360px) {
+    /* .dateTime, .dateTime2 {
+        width: 138px;
+    } */
+}

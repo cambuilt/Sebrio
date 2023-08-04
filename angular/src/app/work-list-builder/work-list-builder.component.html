@@ -1,0 +1,38 @@
+<div>
+	<rmp-nav-bar (onBroadcast)="notifyBroadcast($event)"></rmp-nav-bar>
+	<app-notification-message #notificationMessage></app-notification-message>
+	<div class="maintenance-page" hidden [ngClass]="{'mac': !(platform === 'Win32' || platform === 'Win64')}">
+		<div class="page-content" [ngClass]="{'noData': dataSource.data.length === 0, 'oneEntry': dataSource.data.length === 1}">
+			<div class="page-header" l10nTranslate>ScreenTitle.Work List Builder</div>
+			<button class="page-button" mat-button color="white" id="workListBuilderSearchButton" (click)="openSearch()" l10nTranslate>Label.Search</button>
+			<mat-card class="maintenance-card">
+				<div class="action-buttons">
+					<span class="periodText">{{(periodText | async)}}</span>
+					<span style="float: right; width: 192px;">
+						<mat-icon *ngIf="workListCreate.disabledFilter() === false" (click)="openFilter()" title="{{translation.translate('ScreenTitle.Filter')}}">filter_list</mat-icon>
+						<mat-icon *ngIf="workListCreate.disabledFilter() === true" class="disabled" title="{{translation.translate('ScreenTitle.Filter')}}">filter_list</mat-icon>
+						<mat-icon svgIcon=library_books (click)=switchScreen() title="{{translation.translate('MainMenu.WorkList')}}"></mat-icon>
+						<mat-icon *ngIf="(canManualRefresh | async)" manualRefresh (click)=manualRefresh() title="{{translation.translate('Header.Refresh')}}">refresh</mat-icon>
+						<mat-icon *ngIf="!(canManualRefresh | async)" class="refreshDisabled" title="{{translation.translate('Header.Refresh')}}">refresh</mat-icon>
+						<mat-icon id="legendIcon" svgIcon="list_outline" (click)=clickLegend($event)></mat-icon>
+					</span>
+				</div>
+
+				<app-work-list-builder-desktop *ngIf="showTable === true" #workListBuilderDesktop [hidden]="!showTable || showMobile"
+				 (emitPaginatorChange)="updateMobileListPaginator()"></app-work-list-builder-desktop>
+				<app-work-list-grid *ngIf="showTable === false" [hidden]="showTable || showMobile" (emitLocationChange)="updateMobileLocations()"
+				 (emitPaginatorChange)="updateMobilePaginator()" #workListGrid></app-work-list-grid>
+				<app-work-list-builder-mobile *ngIf="showTable === false" [hidden]="showTable || !showMobile" (emitLocationChange)="updateGridLocations()"
+				 (emitPaginatorChange)="updateGridPaginator()" #workListBuilderMobile></app-work-list-builder-mobile>
+				<app-work-list-builder-mobile-list *ngIf="showTable === true" [hidden]="!showTable || !showMobile"
+				 (emitPaginatorChange)=updateTablePaginator() #workListBuilderMobileList></app-work-list-builder-mobile-list>
+
+			</mat-card>
+		</div>
+		<div class="poweredBy2"></div><img src="assets/eMyLabCollect.com.svg" class="eMyLabCollect2" />
+        <div class="watermark2"></div>
+	</div>
+	<app-work-list-create #workListCreate (saveListOutput)=saveFilter($event)></app-work-list-create>
+	<rmp-table-configuration #tableConfiguration (onSave)="tableColumnsOnSave($event)"></rmp-table-configuration>
+	<app-work-list-legend #workListLegend></app-work-list-legend>
+</div>

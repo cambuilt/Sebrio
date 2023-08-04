@@ -1,0 +1,143 @@
+<div class='reqForm' id='reqForm'>
+  <!-- header -->
+  <div class='formHeader'>
+    <!-- lab info -->
+    <div class='labInfo'>
+      <span class='codeDescription'>{{ data.Lab.Code }}</span><span style='font-size: 14px; color: #757575; margin-left: 4px; margin-right: 4px;'>|</span><span
+        class='codeDescription'>{{ data.Lab.Description }}</span><br>
+      <span>{{ data.Lab.Address }}</span><br>
+      <span>{{ data.Lab.Phone }}</span>
+    </div>
+    <!-- req title and id -->
+    <div class='reqInfo'>
+      <span style='font-size: 20px; font-weight: bold;'>LAB REQUISITION</span><br>
+      <span style='font-size: 13px; font-weight: bold;'>Req ID: </span>
+    </div>
+  </div>
+  <!-- patient, client, draw address info -->
+  <div class='firstSection'>
+    <div class='patientInfo'>
+      <span class='codeDescription'>Patient</span><br>
+      <span>Name: {{ data.Collection.Patient.FullName }}</span><span style='margin-left: 12px; margin-right: 12px'>Sex:
+        {{ data.Collection.Patient.Gender }}</span><span>Age: {{ age }}</span><br>
+      <span>DOB: {{ DOB }}</span><br>
+      <span>SSN: xxx-xx-{{ ssn }}</span><br>
+      <span>Address: </span><br>
+      <span>Phone #: </span>
+    </div>
+    <div class='clientInfo'>
+      <span class='codeDescription'>Client</span><br>
+      <span>TC</span><br>
+      <span>TriCore Client</span><br>
+      <span>1001 Woodward PL</span><br>
+      <span>NE, Albuquerque, NM</span><br>
+      <span>Phone #: </span>
+    </div>
+    <div class='drawInfo'>
+      <span class='codeDescription'>Draw Adress</span><br>
+      <span>{{ data.Collection.CollectedLocation.Code }}</span><br>
+      <span>{{ data.Collection.CollectedLocation.AddressLine1 }}</span><br>
+      <span>{{ data.Collection.CollectedLocation.City }}, {{ data.Collection.CollectedLocation.State }} {{
+        data.Collection.CollectedLocation.ZipCode }}</span><br>
+      <span>{{ data.Collection.Bed }}</span>
+    </div>
+  </div>
+  <div class='hr'></div>
+  <div class='secondSection'>
+    <div class='orderDetails'>
+      <span class='codeDescription'>Order Details</span><br>
+      <span>Collect Date/Time: {{ collectionDate }}</span><span style='margin-left: 16px;'>Ord Provider: QCP - Polk,
+        James</span><br>
+      <span>Rec'd Date/Time: {{ recdTime }}</span><span style='margin-left: 22px;'>Copy to: </span><br>
+      <span>Accession #: {{ data.Collection.DecodedId }}</span><span style='margin-left: 83px;'>Bill: Insurance</span><br>
+      <span>Account #: </span><br>
+      <span>Location: </span><br>
+      <span>Order Comment: {{ data.Collection.CollectionInformation.CollectionComments }}</span>
+    </div>
+    <div class='responsibleParty'>
+      <span class='codeDescription'>Responsible Party</span><br>
+      <span>Address: 05 Camino De Duran,</span><br>
+      <span>El Llano, NM 87532</span><br>
+      <span>Phone #: (505) 888-7777</span><br>
+      <span>Relationship: Self</span>
+    </div>
+  </div>
+  <div class='hr'></div>
+  <div class='thirdSection'>
+    <div class='primaryInurance'>
+      <span class='codeDescription'>Primary Insurance</span><br>
+      <span>INS: MC - Medicare of New</span><br>
+      <span>Policy #: 9C99B88CC77</span><br>
+      <span>Group #: </span>
+      <span>Name: {{ data.Collection.Patient.FullName }}</span>
+    </div>
+    <div class='secondaryInsurance'>
+      <span class='codeDescription'>Secondary Insurance</span><br>
+      <span>INS:</span><br>
+      <span>Policy #: </span><br>
+      <span>Group #: </span>
+      <span>Name: </span>
+    </div>
+    <div class='tertiaryInsurance'>
+      <span class='codeDescription'>Tertiary Insurance</span><br>
+      <span>INS: </span><br>
+      <span>Policy #: </span><br>
+      <span>Group #: </span>
+      <span>Name: </span>
+    </div>
+  </div>
+  <div class='hr'></div>
+  <div class='fourthSection'>
+    <span class='codeDescription'>Trip Charge</span><br>
+    <div class='inputSpans'>
+      <span class='userInput'>Patients: </span><span>
+        <mat-form-field style='margin-right: 57px;'><input matInput [(ngModel)]="totalPatients" /></mat-form-field>
+      </span>
+      <span class='userInput'>Stops: </span><span>
+        <mat-form-field style='margin-right: 57px;'><input matInput [(ngModel)]="totalStops" /></mat-form-field>
+      </span>
+      <span class='userInput'>Miles: </span><span>
+        <mat-form-field style='margin-right: 57px;'><input matInput [(ngModel)]="totalMiles" /></mat-form-field>
+      </span>
+      <span class='userInput'>Trip: </span><span>
+        <mat-form-field><input matInput [(ngModel)]="tripTotal" /></mat-form-field>
+      </span>
+    </div>
+  </div>
+  <div class='tableSection'>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="Code">
+        <th mat-header-cell *matHeaderCellDef>TEST CODE/NAME</th>
+        <td mat-cell *matCellDef="let element">{{element.Code}}</td>
+      </ng-container>
+      <ng-container matColumnDef="ABN">
+        <th mat-header-cell *matHeaderCellDef>ABN</th>
+        <td mat-cell *matCellDef="let element"></td>
+      </ng-container>
+      <ng-container matColumnDef="DX">
+        <th mat-header-cell *matHeaderCellDef>DX</th>
+        <td mat-cell *matCellDef="let element"></td>
+      </ng-container>
+      <ng-container matColumnDef="CNT">
+        <th mat-header-cell *matHeaderCellDef>CNT</th>
+        <td mat-cell *matCellDef="let element">{{element.ContainerCode}}</td>
+      </ng-container>
+      <ng-container matColumnDef="PRI">
+        <th mat-header-cell *matHeaderCellDef>PRI</th>
+        <td mat-cell *matCellDef="let element">{{element.Priority}}</td>
+      </ng-container>
+      <ng-container matColumnDef="LabACC">
+        <th mat-header-cell *matHeaderCellDef>LAB ACC</th>
+        <td mat-cell *matCellDef="let element">{{element.Accession}}</td>
+      </ng-container>
+      <ng-container matColumnDef="Comments">
+        <th mat-header-cell *matHeaderCellDef>COMMENTS</th>
+        <td mat-cell *matCellDef="let element"></td>
+      </ng-container>
+      <tr style='height: 17px;'  mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr class='formRow' [ngClass]="{'odd': isOdd(row.id) < 1}" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <!-- <div class='timeStamp'>Laboratory Requisition Generated: {{ getDate() }}</div> -->
+</div>
+<button (click)='download();' mat-button>Download</button>

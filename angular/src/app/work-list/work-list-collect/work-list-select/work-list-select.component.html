@@ -1,0 +1,18 @@
+<div *ngIf="showSelect === true">
+	<mat-card class="testSelect">
+		<ng-container *ngFor="let test of collection.OrderedTests">
+			<div class="collectionContainers" *ngIf="test.show">
+				<mat-icon *ngIf="(test.disabled || test.transferred || test.cancelled || test.rescheduled || test.problemListed || test.IsDisabled)"
+				 class="disabledCollection" svgIcon="disabled_collection"></mat-icon>
+				<ng-container *ngIf="!(test.disabled || test.transferred || test.cancelled || test.rescheduled || test.problemListed || test.IsDisabled)">
+					<mat-icon *ngIf="!test.checked" (click)=toggleCheck(test)>check_box_outline_blank</mat-icon>
+					<mat-icon *ngIf="test.checked" (click)=toggleCheck(test)>check_box</mat-icon>
+				</ng-container>
+				<app-work-list-preview-test [collection]=collection [test]="test" [testDisabled]="(test.disabled || test.transferred || test.cancelled || test.rescheduled || test.problemListed || test.IsDisabled)"></app-work-list-preview-test>
+				<!-- <app-work-list-preview-test [test]="test"></app-work-list-preview-test> -->
+			</div>
+			<div *ngIf="test.show" class="testSpacer" [ngClass]="{'lastTest': collection.OrderedTests[collection.OrderedTests.length - 1] === test}"></div>
+		</ng-container>
+		<div style="margin-bottom: -4px;"></div>
+	</mat-card>
+</div>

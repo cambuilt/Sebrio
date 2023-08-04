@@ -1,0 +1,112 @@
+<div>
+	<rmp-nav-bar (onBroadcast)="notifyBroadcast($event)"></rmp-nav-bar>
+	<div class="drawer-overlay" [ngClass]="{'show': isLoading === true}"></div>
+	<app-notification-message #notificationMessage></app-notification-message>
+	<div class="loading-indicator" *ngIf="isLoading === true">
+		<mat-progress-spinner *ngIf="isLoading === true" color="primary" mode="indeterminate"> </mat-progress-spinner>
+	</div>
+	<div class="maintenance-page" hidden>
+		<div class="page-content" [ngClass]="{'noData': dataSource.data.length === 0, 'oneEntry': dataSource.data.length === 1}">
+			<div class="page-header" l10nTranslate>ScreenTitle.Auditing</div>
+			<button class="page-button" mat-button color="white" (click)="openFilter()" l10nTranslate>Label.Search</button>
+			<mat-card class="maintenance-card">
+				<p class='filteredRange'>{{filteredRange}}</p>
+				<div class="action-buttons">
+					<mat-icon (click)="tableConfiguration.show(columns.table)" title="{{translation.translate('Label.Table Configuration')}}">settings</mat-icon>
+					<!-- <mat-icon (click)="filterComponent.show(columns.filter)" title="{{translation.translate('ScreenTitle.Filter')}}">search</mat-icon> -->
+					<mat-icon (click)="print()" [ngClass]="{'disabled': noFilter === true}" title="{{translation.translate('Label.Print')}}">print</mat-icon>
+				</div>
+				<div class="scroll-container">
+					<div class="table-container">
+						<table>
+							<thead>
+								<tr class="header-row">
+									<ng-container *ngFor="let col of columns.table">
+										<ng-container *ngIf="col.checked">
+											<th>
+												<div>
+													<span class="sort-header" [ngClass]="{'sorted-asc': (grid.sort.column === col.name && grid.sort.order === 'desc'), 'sorted-desc': (grid.sort.column === col.name && grid.sort.order === 'asc')}"
+													 (click)=sortColumn(col);>{{col.display}}
+														<span class="sort-arrow-container">
+															<span class="sort-arrow-middle"></span>
+															<span class="sort-arrow-stem"></span>
+															<span class="sort-arrow-left"></span>
+															<span class="sort-arrow-right"></span>
+														</span>
+													</span>
+												</div>
+											</th>
+										</ng-container>
+									</ng-container>
+								</tr>
+							</thead>
+
+							<ng-container *ngIf=toGroupDates>
+								<ng-container *ngFor="let groupDate of groupDates">
+									<ng-container>
+										<tr style="line-height: unset;" class="grid-row" *ngIf="(groupDate.count < paginationEnd && groupDate.count >= paginationStart) || groupDate.count === pinnedDate">
+											<td colspan="10">
+												<mat-icon class="expand-icon" (click)=clickDate(groupDate) [ngClass]="{'expanded': groupDate.expanded, 'collapsed': !groupDate.expanded}">chevron_right</mat-icon>
+												<span class="groupDate bold">{{groupDate.date}} [{{(groupDate.actionCount) ? (groupDate.actionCount) :
+													(0)}}]</span>
+											</td>
+										</tr>
+										<ng-container *ngFor="let action of groupDate.actions">
+											<tr style="line-height: unset;" class="grid-row" *ngIf="groupDate.expanded && (action.count < paginationEnd && action.count >= paginationStart)">
+												<ng-container *ngFor="let col of columns.table">
+													<td *ngIf=col.checked>
+														<span>{{action[col.sortOn]}}</span>
+													</td>
+												</ng-container>
+											</tr>
+										</ng-container>
+									</ng-container>
+								</ng-container>
+							</ng-container>
+
+							<ng-container *ngIf=!toGroupDates>
+								<ng-container *ngFor="let action of groupDates[0].actions">
+									<tr style="line-height: unset;" class="grid-row" *ngIf="(action.count < paginationEnd && action.count >= paginationStart)">
+										<ng-container *ngFor="let col of columns.table">
+											<td *ngIf=col.checked>
+												<span>{{action[col.sortOn]}}</span>
+											</td>
+										</ng-container>
+									</tr>
+								</ng-container>
+							</ng-container>
+
+						</table>
+					</div>
+				</div>
+				<div class="custom-paginator" [ngClass]="{'noBorderPaginator': !(groupDates && groupDates.length) || (!toGroupDates && !groupDates[0].actions.length)}">
+					<div class="mat-paginator" style="line-height:56px; border-top: unset !important;">
+						<span class="items-per-page" l10nTranslate>
+							Label.Items per page
+						</span>
+
+						<mat-form-field class="paginator-select">
+							<mat-select matSelect [(ngModel)]="paginatorSelected" (selectionChange)=updatePaginatorNumber()>
+								<mat-option *ngFor="let option of paginatorOptions" [value]="option">{{option}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+
+						<span class="paginator-range">
+							{{ paginatorRange }}
+						</span>
+					</div>
+					<mat-icon class="paginator-icon left-chevron" title="{{translation.translate('Label.Previous')}}" id="previous"
+					 *ngIf="paginationStart !== 0" (click)=changePageIndex(-1)>chevron_left</mat-icon>
+					<mat-icon class="paginator-icon paginator-icon-disabled left-chevron" id="nav-end" *ngIf="paginationStart === 0">chevron_left</mat-icon>
+					<mat-icon class="paginator-icon right-chevron" title="{{translation.translate('Label.Next')}}" id="next" *ngIf="paginationEnd < paginationTotal"
+					 (click)=changePageIndex(1)>chevron_right</mat-icon>
+					<mat-icon class="paginator-icon paginator-icon-disabled right-chevron" *ngIf="paginationEnd >= paginationTotal">chevron_right</mat-icon>
+				</div>
+			</mat-card>
+		</div>
+		<div class="poweredBy2"></div><img src="assets/eMyLabCollect.com.svg" class="eMyLabCollect2" />
+		<div class="watermark2" [ngClass]="{'noEntry': dataSource.data.length === 0, 'oneEntry': dataSource.data.length === 1}"></div>
+	</div>
+	<app-filter #filterComponent (onSave)='receiveFilter($event);'></app-filter>
+	<rmp-table-configuration #tableConfiguration (onSave)="tableColumnsOnSave($event)"></rmp-table-configuration>
+</div>

@@ -1,0 +1,26 @@
+{
+	"extends": "../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "../out-tsc/spec",
+		"module": "commonjs",
+		"types": [
+			"jasmine",
+			"node"
+		]
+	},
+	"files": [
+		"test.ts",
+		"polyfills.ts",
+		"./app/services/active-entities.service.spec.ts",
+		"./app/services/auditing.service.spec.ts",
+		"../spec/role.service.spec.ts",
+		"./app/services/messaging.service.spec.ts"
+	]
+}
+// "**/*.spec.ts",
+// "**/*.d.ts",
+// "./app/services/active-entities.service.spec.ts",
+// "./app/services/auditing.service.spec.ts",
+// "./app/services/broadcast-group.service.spec.ts",
+// "./app/services/messaging.service.spec.ts"
+// "../spec/auditing.service.spec.ts"

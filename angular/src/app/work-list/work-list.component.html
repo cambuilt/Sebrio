@@ -1,0 +1,42 @@
+<div>
+	<rmp-nav-bar (onBroadcast)="notifyBroadcast($event)"></rmp-nav-bar>
+	<app-notification-message #notificationMessage></app-notification-message>
+	<div class="maintenance-page" hidden [ngClass]="{'mac': !(platform === 'Win32' || platform === 'Win64')}">
+		<div class="page-content" [ngClass]="{'noData': dataSource.data.length === 0, 'oneEntry': dataSource.data.length === 1}">
+			<div class="page-header" l10nTranslate>ScreenTitle.Work List</div>
+			<button class="page-button" mat-button color="white" (click)="collectButton()" [disabled]="collectButtonDisabled"
+			 l10nTranslate>Label.Collect</button>
+			<mat-card class="maintenance-card">
+				<div class="action-buttons">
+					<span class="periodText">{{(periodText | async)}}</span>
+					<span style="float: right; width: 144px;">
+						<mat-icon *ngIf="collections.length" (click)="workListFilter.show(getColumnsForFilter())" title="{{translation.translate('ScreenTitle.Filter')}}">filter_list</mat-icon>
+						<mat-icon *ngIf="!collections.length" class="disabled" title="{{translation.translate('ScreenTitle.Filter')}}">filter_list</mat-icon>
+						<mat-icon *ngIf="(online | async)" svgIcon=library_books (click)=switchScreen() title="{{translation.translate('MainMenu.WorkListBuilder')}}"></mat-icon>
+						<mat-icon *ngIf="!(online | async)" svgIcon=library_books class="disabled" title="{{translation.translate('MainMenu.WorkListBuilder')}}"></mat-icon>
+						<mat-icon *ngIf="(canManualRefresh | async) && (online | async)" manualRefresh (click)=manualRefresh() title="{{translation.translate('Header.Refresh')}}">refresh</mat-icon>
+						<mat-icon *ngIf="!(canManualRefresh | async) || !(online | async)" class="disabled" title="{{translation.translate('Header.Refresh')}}">refresh</mat-icon>
+					</span>
+				</div>
+
+				<app-work-list-desktop [hidden]="showMobile" (cycleReserve)="mobileCycleReserved($event)" (cycleAll)="mobileReserveAll()"
+				 (emitPaginatorChange)=updateMobilePaginator() (selectCollection)=collectDisabled($event) (changePreview)=previewCollection($event)
+				 (openCancelledCollection)=openCancelled($event) #workListDesktop></app-work-list-desktop>
+				<app-work-list-mobile [hidden]="!showMobile" (cycleReserve)="mobileCycleReserved($event)" (reserveAllMobile)="mobileReserveAll()"
+				 (emitPaginatorChange)=updateDesktopPaginator() (selectCollection)=collectDisabled($event) (changePreview)=previewCollection($event)
+				 (openCancelledCollection)=openCancelled($event) #workListMobile></app-work-list-mobile>
+			</mat-card>
+		</div>
+		<div class="poweredBy2"></div><img src="assets/eMyLabCollect.com.svg" class="eMyLabCollect2" />
+		<div class="watermark2"></div>
+	</div>
+	<rmp-table-configuration #tableConfiguration (onSave)="tableColumnsOnSave($event)"></rmp-table-configuration>
+	<app-work-list-filter #workListFilter></app-work-list-filter>
+	<app-work-list-preview (openCollect)="collect($event)" (openOver)="disabledCollectOverlay()" (previousCollection)="getPreviousPreview($event)"
+	 (nextCollection)="getNextPreview($event)" #workListPreview></app-work-list-preview>
+	<app-work-list-collect (completeCollection)=completeCollection($event) (cancel)="cancelCollection($event)"
+	 (reschedule)="rescheduleCollection($event)" (problemList)=problemListCollection($event) (transfer)=transferCollection($event)
+	 (commLabels)="printCommLabels($event)" (patientLabels)="printPatientLabels($event)" (containerLabels)="printContainerLabels($event)" (clickedOverlay)=closeCollect($event)
+	 (closePreview)=closeSneakPeek() #workListCollect></app-work-list-collect>
+	<app-work-list-cancelled #workListCancelled></app-work-list-cancelled>
+</div>

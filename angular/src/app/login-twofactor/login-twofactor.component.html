@@ -1,0 +1,9 @@
+<div style="background-color: #FFFFFF; padding-left: 22px; padding-right: 22px; overflow:hidden !important;">
+	<h4 l10nTranslate>Label.Two-step verification</h4>
+	<mat-form-field style="width: 100%; font-size: 14px;">
+		<input matInput name='securityCode' type='password' placeholder="{{translation.translate('Label.Security code')}}" 
+		[(ngModel)]='securityCode' #securityCodeForm=ngModel (keyup)="handleEnter($event);" [invalidSecurityCode]=invalidSecurityCode securityCodeValidation />
+		<mat-error *ngIf="securityCodeForm.errors">{{securityCodeForm.errors.message}}</mat-error>
+	</mat-form-field>
+	<button class='signInButton' mat-button (click)="onSignIn()" l10nTranslate>LogIn.SignIn</button>
+</div>

@@ -1,0 +1,103 @@
+.messages {
+    width: 100%;
+}
+
+.message-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    padding-left: 24px;
+    padding-right: 24px;
+	position: absolute;
+	bottom: 0px;
+	height: 65px;
+	left: 0px;
+    width: 100%;
+}
+
+.message-bubble {
+    font-family: "Helvetica Neue", sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+    padding: 10px;
+    position: relative;
+    left: 19px;
+    max-width:85%;
+    min-width:10%;
+    width: fit-content;
+    background: white;
+    margin: 0px;
+}
+
+.message-currentuser-bubble {
+    font-family: "Helvetica Neue", sans-serif;
+	font-weight: 400;
+    font-size: 14px;
+    text-align: left;
+    padding: 10px;
+    position: relative;
+    right: 21px;
+    max-width:67%;
+    min-width:10%;
+    width: fit-content;
+    margin: 0px;
+}
+
+.message-bubble-table {
+    width: 100%; 
+    border: 0px; 
+    margin-bottom: -5px; 
+    padding: 0px;
+}
+
+.message-currentuser-bubble:before {
+	border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    transform: rotate(90deg);
+	content: "";
+	height: 0px;
+	position: absolute;
+	right: -14px;
+    top: calc(37%);
+    width: 0px;    
+}
+
+.message-bubble:before {
+	border-bottom: 10px solid white;
+	border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+	content: "";
+	height: 0px;
+	position: absolute;
+	left: -15px;
+    top: calc(37%);
+    width: 0px;
+    transform: rotate(270deg) !important;
+}
+
+.pointerShadow {
+    background: black;
+    width: 10px;
+    height: 1px;
+    transform: rotate(45deg);
+}
+
+.time {
+    padding-left: 10px;
+    font-family: "Helvetica Neue", sans-serif;
+	font-weight: 300;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.dateHeader {
+    text-align: center;
+    font-family: "Helvetica Neue", sans-serif;
+	font-weight: 300;
+    font-size: 10px;
+    margin-bottom: 12px;
+}
+
+.sendButton {
+    position: absolute; 
+    top: 9px; 
+    right: 58px;
+}

@@ -1,0 +1,33 @@
+<div class="drawer-overlay" [ngClass]="{'show': showDrawerOverlay === true}" (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': isDrawerOpen === true, 'mac': !(platform === 'Win64' || platform === 'Win32')}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div>
+			<div class="drawer-header-text">{{collection.Patient.LastName}}, {{collection.Patient.FirstName}}</div>
+			<div class="patientMRN">
+				<span>{{collection.Patient.DateOfBirth}}</span>
+				<span style="margin-left: 7px;">{{collection.Patient.Gender}}</span>
+				<span style="margin-left: 7px;">{{collection.Patient.MRN}}</span>
+			</div>
+		</div>
+
+		<div class="navigationControls">
+			<mat-icon class="navigationChevron" (click)="showPrevious()" [ngClass]="{'disabled':  previous === null}">chevron_left</mat-icon>
+			<mat-icon class="navigationChevron" (click)="showNext()" [ngClass]="{'disabled':  next === null}">chevron_right</mat-icon>
+		</div>
+
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<ng-container *ngFor="let test of collection.OrderedTests">
+				<!-- <app-work-list-preview-test [test]="test" [testDisabled]="collection.IsCancelled || collection.IsProblem || collection.IsRescheduled || collection.IsTransferred"></app-work-list-preview-test> -->
+				<app-work-list-preview-test [collection]=collection [test]="test" [testDisabled]=test.IsDisabled></app-work-list-preview-test>
+				<div class="testSpacer" [ngClass]="{'lastTest': collection.OrderedTests[collection.OrderedTests.length - 1] === test}"></div>
+			</ng-container>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<mat-icon class="gpsIcon themed" (click)='openMap();' svgIcon="gps"></mat-icon>
+		<button class="btn-save" mat-button (click)="collect()" [disabled]="!isDrawerOpen || collectDisabled" l10nTranslate>Label.Collect</button>
+	</div>
+</div>

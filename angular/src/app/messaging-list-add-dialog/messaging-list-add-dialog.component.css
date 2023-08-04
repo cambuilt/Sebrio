@@ -1,0 +1,22 @@
+.messaging-list-add-dialog {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+	font-size: 14px;
+}
+
+.menu-button {
+    margin-top: 0px;
+    margin-left: 7px;
+    margin-bottom: -2px;
+    height: 34px;
+}
+
+.menu-button-users {
+    width: 98px;
+    text-align: center;
+    margin-top: -2px;
+    margin-left: 7px;
+    margin-bottom: 8px;
+    height: 34px;
+}

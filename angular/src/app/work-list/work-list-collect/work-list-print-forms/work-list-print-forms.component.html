@@ -1,0 +1,35 @@
+<div *ngIf="showPrintForms === true">
+	<mat-card>
+		<div class="card-heading" l10nTranslate>Header.Print forms</div>
+
+		<span style="margin-top: 25px;" class="formContainer" *ngIf=requiredFormABN>
+			<label l10nTranslate>Label.ABN English</label>
+			<span class="themed" (click)="showABN('english');">OPEN</span>
+		</span>
+
+		<div style="margin-top: 0px;"></div>
+
+		<span style="margin-top: 19px;" class="formContainer" *ngIf=requiredFormABN>
+			<label l10nTranslate>Label.ABN Spanish</label>
+			<span class="themed" (click)="showABN('spanish');">OPEN</span>
+		</span>
+
+		<div style="margin-top: 0px;"></div>
+
+		<span style="margin-top: 19px;" class="formContainer" *ngIf=requiredFormFinancialResponsibility>
+			<label l10nTranslate>Label.Financial responsibility</label>
+			<span class="themed" (click)="showFinancial();">OPEN</span>
+		</span>
+
+		<div style="margin-top: 0px;"></div>
+
+		<span style="margin-top: 19px;" class="formContainer" *ngIf=requiredFormRequisition>
+			<label l10nTranslate>Label.Requisition</label>
+			<span (click)='showRequisition();' class="themed">OPEN</span>
+		</span>
+
+		<mat-form-field style="margin-top: 25px; margin-bottom: -25px;">
+			<input matInput placeholder="Comment" [(ngModel)]='forms.Comments' />
+		</mat-form-field>
+	</mat-card>
+</div>

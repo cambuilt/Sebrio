@@ -1,0 +1,76 @@
+.columns-card
+{
+	padding:0px 0px 24px;
+}
+
+.columns-card.overLastItem
+{
+	padding:0px 0px 72px;
+}
+
+.columns-card .card-heading
+{
+	padding:24px 24px 0px;
+}
+
+.column-headings
+{
+	color:rgba(0, 0, 0, 0.54);
+	font-size:12px;
+	font-weight:600;
+	height:56px;
+	line-height:56px;
+	margin:0px 24px;
+}
+
+.column-headings div:first-child
+{
+	float:left;
+}
+
+.column-headings div:last-child
+{
+	float:right;
+}
+
+.column-tile
+{
+	background-color:#ffffff;
+	height:48px;
+	line-height:48px;
+	padding:0px 24px;
+	/* transition:box-shadow 0.25s; */
+	width:calc(100% - 48px);
+}
+
+.column-tile.isDragging
+{
+	box-shadow:0px 10px 20px 0px rgba(0, 0, 0, 0.16);
+	position:absolute;
+	z-index:1;
+	transform: translateZ(0);
+}
+
+.column-tile.itemOver
+{
+	margin-top:48px;
+	transform: translateZ(0);
+}
+
+.column-tile .mat-icon
+{
+	float:left;
+	margin:0px 8px 0px -12px;
+}
+
+.column-name
+{
+	float:left;
+	font-size:14px;
+}
+
+.column-selection
+{
+	float:right;
+	margin-right:16px;
+}

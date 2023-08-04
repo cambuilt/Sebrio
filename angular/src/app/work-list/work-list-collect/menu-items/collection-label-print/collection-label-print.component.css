@@ -1,0 +1,128 @@
+.printerDialog {
+    padding-top: 25px;
+    padding-bottom: 32px;
+    padding-right: 9px;
+    padding-left: 24px;
+}
+
+.printerRow {
+    display: inline-block;
+    height: 42px;
+}
+
+.printerRow.noCordova {
+    display: inline-block;
+    height: 28px;
+}
+
+.mainDiv,
+.mat-radio-group {
+    max-height: 125px;
+    height: inherit;
+    margin-top: 9px;
+    overflow: auto;
+    padding-top: 15px;
+    margin-bottom: -3px;
+}
+
+.mainDiv.noPrinters {
+    margin-top: 8px;
+}
+
+.printerRow:last-child {
+    margin-bottom: 14px;
+}
+
+.printerName {
+    line-height: 14px;
+    display: inline-block;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+}
+
+.printDialogHeading {
+    color: #757575;
+    margin-left: 0px;
+    margin-top: 0px;
+    font-size: 14px;
+    margin-bottom: -14px;
+}
+
+.mainDiv .form-field-label {
+    color: #757575;
+    font-size: 14px;
+}
+
+.printer-span {
+    /* margin-left: 24px; */
+    /* max-width: 220px;
+	width: 220px; */
+    margin-right: 24px;
+    text-overflow: ellipsis !important;
+    overflow: ellipsis !important;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+/* .address-span {
+	width: 180px;
+} */
+
+.address-span {
+    color: #999999;
+    text-align: left;
+    font-weight: lighter;
+    font-size: 10px;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    /* line-height: 7px; */
+    height: 14px;
+    display: inline-block;
+    /* width: 260px;
+    width: calc(100% - 24px); */
+    padding-right: 24px;
+    position: relative;
+    top: -3px;
+}
+
+.address-span.hide {
+    display: none;
+}
+
+.printerRadio {
+    /* margin-top: 8px; */
+    position: relative;
+    top: -17px;
+    /*  right: -31px; */
+}
+
+.printerRadio.noCordova {
+    /* margin-top: 8px; */
+    position: relative;
+    top: -1px;
+    /* right: -31px; */
+}
+
+.cancelButton,
+.printButton {
+    float: right;
+    margin: 0px !important;
+}
+
+.cancelButton {
+    margin-left: 24px !important;
+    margin-right: 15px !important;
+}
+
+.printButtons {
+    height: 40px;
+    margin-top: 6px;
+}
+
+.printButtons.noPrinters {
+    margin-top: 31px
+}
+
+.printButtons.addSpace {
+    margin-top: 35px;
+}

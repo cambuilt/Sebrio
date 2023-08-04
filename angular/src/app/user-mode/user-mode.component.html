@@ -1,0 +1,45 @@
+<div>
+<rmp-nav-bar (onBroadcast)="notifyBroadcast($event)"></rmp-nav-bar>
+<app-notification-message #notificationMessage></app-notification-message>
+<div class="maintenance-page" hidden>
+	<div class="page-content" [ngClass]="{'noData': dataSource.data.length === 0, 'oneEntry': dataSource.data.length === 1}">
+		<div class="page-header" l10nTranslate>ScreenTitle.User Mode</div>
+		<mat-card class="maintenance-card">
+			<div class="action-buttons">
+				<mat-icon id='userModeConfiguratorIcon' (click)="tableConfiguration.show(columns.table)" title="{{translation.translate('Label.Table Configuration')}}">settings</mat-icon>
+				<mat-icon id='userModeFilterIcon' *ngIf='filterComponent.filterApplied === false' (click)="filterComponent.show(columns.filter)" title="{{translation.translate('ScreenTitle.Filter')}}">filter_list</mat-icon>
+				<mat-icon id='userModeFilterIcon2' *ngIf='filterComponent.filterApplied === true' (click)="filterComponent.show(columns.filter)" title="{{translation.translate('ScreenTitle.Filter')}}"
+				 svgIcon='filter_applied'></mat-icon>
+				 <mat-icon (click)="getUpdate();" title="{{translation.translate('Header.Refresh')}}">refresh</mat-icon>
+				</div>
+			<div class="table-container" id='user-mode-table'>
+				<table mat-table [dataSource]="dataSource" matSort>
+					<ng-container matColumnDef="User">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.User</th>
+						<td mat-cell *matCellDef="let element"><span>{{element.User}}</span></td>
+					</ng-container>
+					<ng-container matColumnDef="Device">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Device</th>
+						<td mat-cell *matCellDef="let element"><span>{{element.Status === 'Offline' || element.Status === 'N/A' ? '' :
+								element.Device === '' && element.Status !== 'Offline' && element.Status !== 'N/A' ? 'Desktop' :
+								element.Device}}</span></td>
+					</ng-container>
+					<ng-container matColumnDef="Status">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Status</th>
+						<td mat-cell [style.color]="element.Status === 'Online' ? '#20D674' : '#D62020'" *matCellDef="let element" id='status{{element.User}}'><span>{{element.Status
+								!== 'N/A' ? element.Status : 'Offline' }}</span></td>
+					</ng-container>
+					<tr mat-header-row *matHeaderRowDef="columns.display"></tr>
+					<tr mat-row *matRowDef="let row; columns: columns.display;"></tr>
+				</table>
+			</div>
+			<mat-paginator #tablePaginator [ngClass]="{'noBorderPaginator': !(dataSource.data && dataSource.data.length)}"
+			 [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator>
+		</mat-card>
+	</div>
+	<div class="poweredBy2"></div><img src="assets/eMyLabCollect.com.svg" class="eMyLabCollect2" />
+	<div class="watermark2"></div>
+</div>
+<rmp-table-configuration #tableConfiguration (onSave)="tableColumnsOnSave($event)"></rmp-table-configuration>
+<app-filter #filterComponent (onSave)='receiveFilter($event);'></app-filter>
+</div>

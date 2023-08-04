@@ -1,0 +1,136 @@
+<div class="drawer-overlay" [ngClass]="{'show': properties.showOverlay === true, 'hide': properties.hideOverlay === true}"
+ (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Details</div>
+			<mat-form-field class='firstFormField' id='firstFormField'>
+				<input matInput placeholder="{{translation.translate('Label.Code')}}" id='firstField' [disabled]="!properties.isDrawerOpen || properties.rowID !== ''"
+				 (keydown.Tab)="tabEvent()" (blur)="blurCode();" (change)='resetErrorLabs();' (input)='updateDescription();' genericRequired [(ngModel)]="hub.Name" #name=ngModel
+				  />
+				<mat-error *ngIf="name.errors">{{name.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" (change)="checkDescriptionChange();" placeholder="{{translation.translate('Label.Description')}}"
+				 id='descriptionField' [(ngModel)]="hub.Description" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Street address 1')}}"
+				 id="streetAddress1Field" [(ngModel)]="hub.StreetAddress1" #streetAddress1=ngModel  />
+				<mat-error *ngIf="streetAddress1.errors">{{streetAddress1.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Street address 2')}}"
+				id="streetAddress2Field" [(ngModel)]="hub.StreetAddress2" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.City')}}"
+				id="cityField" [(ngModel)]="hub.City" #city=ngModel />
+				<mat-error *ngIf="city.errors">{{city.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]="!properties.isDrawerOpen" matSelect placeholder="{{translation.translate('Label.State')}}"
+				id="stateSelect" (selectionChange)="hub.County = ''" [(ngModel)]="hub.State" #state=ngModel >
+					<mat-option *ngFor="let state of states()" [value]="state">{{state}}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="state.errors">{{state.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Postal code')}}"
+				id="postalCodeField" [(ngModel)]="hub.PostalCode" numeric #postalCode=ngModel postalCodeValidator maxlength="5" />
+				<mat-error *ngIf="postalCode.errors">{{postalCode.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]="!properties.isDrawerOpen" matSelect placeholder="{{translation.translate('Label.County')}}"
+				id="countySelect" [(ngModel)]="hub.County">
+					<mat-option *ngFor="let county of counties()" [value]="county">{{county}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field id='countryField'>
+				<input matInput placeholder="{{translation.translate('Label.Country')}}" value="USA" disabled="disabled" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Phone')}}" (blur)="blurPhone('Phone');"
+				id="phoneField" [(ngModel)]="hub.Phone" #phone=ngModel numeric phoneValidator maxlength="14" />
+				<mat-error *ngIf="phone.errors">{{phone.errors.message}}</mat-error>
+			</mat-form-field>
+			<div class="drawer-toggle-container">
+				<label l10nTranslate>Label.Active</label>
+				<mat-slide-toggle [disabled]="!properties.isDrawerOpen" color="primary" [(ngModel)]="hub.IsActive"></mat-slide-toggle>
+			</div>
+		</mat-card>
+		<mat-card style='padding: 0px;'>
+			<div class="card-heading associatedTitle" l10nTranslate>Header.Associated users</div>
+			<br />
+			<div class='subheadingDiv'>
+				<span class="card-subheading associatedSubTitle" l10nTranslate>Label.Users</span>
+				<span class="card-subheading subtitle-right" l10nTranslate>Label.Remove</span>
+			</div>
+			<br />
+			<div class="selector-hr"></div>
+			<ng-container *ngFor="let user of hub.Users">
+				<div class='selectorRow'>
+					<div style="float: left;">
+						<ng-container *ngIf="user.AvatarURL.length <= 1">
+							<span class="circle">{{utilsService.getInitials(user)}}</span>
+						</ng-container>
+						<ng-container *ngIf="user.AvatarURL.length > 1">
+							<img class="avatarCircle" src="{{user.AvatarURL}}" alt="" />
+						</ng-container>
+					</div>
+					<div class="info-span">
+						<span style="line-height: 14px;">{{user.FirstName}} {{user.LastName}}</span>
+						<br class="selector-br">
+						<span class="email-span">{{user.Email}}</span>
+					</div>
+					<mat-icon class='removeUser' (click)='removeUser(user);'>close</mat-icon>
+				</div>
+				<div class="selector-hr"></div>
+			</ng-container>
+			<div style="padding-top: 32px; padding-bottom: 14px;">
+				<button [disabled]="!properties.isDrawerOpen" id='hubAddUser' mat-button (click)="hubUser.show(true)" l10nTranslate>Label.Select Users</button>
+			</div>
+		</mat-card>
+		<!-- labs -->
+		<mat-card style='padding: 0px;' class='labsCard'>
+				<div class="card-heading associatedTitleLab" l10nTranslate>Header.Associated labs</div>
+				<br />
+				<div class='subheadingDivLab'>
+					<span class="card-subheading associatedSubTitleLab" l10nTranslate>Label.Labs</span>
+					<span class="card-subheading subtitle-right" l10nTranslate>Label.Remove</span>
+				</div>
+				<br />
+				<div class="selector-hr"></div>
+				<ng-container *ngFor="let lab of hub.Laboratories">
+					<!-- <span class='hasError' *ngIf="findLabError(lab.Code)"></span> -->
+					<div class='selectorRow'>
+						<!-- <span class='hasError' *ngIf="findLabError(lab.Code)"></span> -->
+						<div class="info-span labSpan" style="float: left">
+								<span class='hasError' [ngClass]="{'show': findLabError(lab.Code)}"></span>
+							<span class='labCode' [ngClass]="{'shift': findLabError(lab.Code)}" style="line-height: 14px;">{{lab.Code}}</span>
+							<br class="selector-br">
+							<span class="details-span">{{lab.Description}}</span>
+						</div>
+						<mat-icon class='removeUser' (click)='removeLab(lab);'>close</mat-icon>
+					</div>
+					<div class="selector-hr"></div>
+				</ng-container>
+				<mat-error class='labErrorMessage' [ngClass]="{'show': errorLabs.length > 0}">{{ labErrorMessage }}</mat-error>
+				<div style="padding-top: 32px; padding-bottom: 14px;">
+					<button [disabled]="!properties.isDrawerOpen" mat-button id='hubAddLab' class='labAddButton' [ngClass]="{'error': errorLabs.length > 0}" (click)="addLab.show(true)" l10nTranslate>Label.Select Lab</button>
+				</div>
+			</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]="!properties.isDrawerOpen" class="btn-save-and-add-another" mat-button (click)="checkForm(true)"
+		 *ngIf="headerText === translation.translate('Label.Add hub')" l10nTranslate>Label.Save & Add Another</button>
+		<button [disabled]="!properties.isDrawerOpen" id="hubSaveButton" class="btn-save" mat-button (click)="checkForm(false)" l10nTranslate>Label.Save</button>
+	</div>
+</div>
+<rmp-user-selector #hubUser id="hubUser" (onFullClose)="fullClose($event)" (onSave)='processUserSelect($event)'
+ [usersInput]='hub.Users' [parentData]="{title: 'Hub', source: 'chip'}"></rmp-user-selector>
+ <rmp-lab-selector #addLab id="addLab" (onSave)='processLabSelect($event)' (onFullClose)="fullClose($event)" [labsInput]='hub.Laboratories'></rmp-lab-selector>

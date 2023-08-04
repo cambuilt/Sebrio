@@ -1,0 +1,138 @@
+<div class="scroll-container" [ngClass]="{'mac': !(platform === 'Win32' || platform === 'Win64')}">
+	<table>
+		<thead>
+			<tr class="header-row">
+				<ng-container *ngFor="let col of columns.display">
+					<ng-container
+						*ngIf="col.name !== 'Reserved' && col.name !== 'Problem list' && col.checked === true">
+						<th>
+							<div>
+								<span class="sort-header"
+									[ngClass]="{'sorted-asc': (grid.sort.column === col.name && grid.sort.order === 'desc'), 'sorted-desc': (grid.sort.column === col.name && grid.sort.order === 'asc')}"
+									(click)=sort(col);>{{col.display}}
+									<span class="sort-arrow-container">
+										<span class="sort-arrow-middle"></span>
+										<span class="sort-arrow-stem"></span>
+										<span class="sort-arrow-left"></span>
+										<span class="sort-arrow-right"></span>
+									</span>
+								</span>
+							</div>
+						</th>
+					</ng-container>
+					<ng-container *ngIf="col.name === 'Reserved'">
+						<th>
+							<mat-icon class="Reserved-header-icon" (click)=reserveAll()>check_box_outline_blank
+							</mat-icon>
+						</th>
+					</ng-container>
+					<ng-container *ngIf="col.name === 'Problem list' && showProblemList && canDisplayProblemList">
+						<th>
+							<span class="sort-header">{{col.display}}</span>
+						</th>
+					</ng-container>
+				</ng-container>
+			</tr>
+		</thead>
+
+		<ng-container class="rowGroup" *ngFor="let collection of collectionsToDisplay">
+			<tr class="grid-row splitRow" (click)=selectRow(collection) (dblclick)=openCancelled(collection)
+				[ngClass]="{'selected': selectedRowId === collection.Id, 'showAddress': (canDisplayHomeDrawAddress | async) || (canDisplayLocationAddress | async), 'rowDisabled': collection.Status === 'Complete' || collection.IsCancelled}">
+				<ng-container *ngFor="let col of columns.display">
+					<ng-container *ngIf="col.checked && col.name !== 'Reserved' && col.name !== 'Problem list'">
+						<td>
+							<ng-container *ngIf="col.id === 0">
+								<!-- <mat-icon style="position: relative; top: 10px;" class="expand-icon" (click)="clickCollection(collection, $event)"
+								 [ngClass]="{'expanded': collection.expanded, 'collapsed': !collection.expanded, 'showAddressIcon': (canDisplayHomeDrawAddress | async) || (canDisplayLocationAddress | async)}">chevron_right</mat-icon> -->
+								<div class="expand-icon-container">
+									<mat-icon class="expand-icon" svgIcon="eye_outline"
+										(click)="previewCollection(collection)"></mat-icon>
+								</div>
+							</ng-container>
+							<span *ngIf="col.name === 'Name' && collection.IsTransferred"
+								class="greenDotTransferred"></span>
+							<span *ngIf="collection.changed && collection[col.name + 'Changed']"
+								class="themedDot"></span>
+							<span class="propertyContainer"
+								[ngClass]="{'firstColumn': col.id === 0, 'noAddress': !((canDisplayHomeDrawAddress | async) || (canDisplayLocationAddress | async)), 'showColor': col.name === 'Priority' && collection.Priority && collection.Priority.ShowColor === true}">
+								{{getProperty(collection, col.tableShow)}}</span>
+						</td>
+
+					</ng-container>
+					<ng-container *ngIf="col.name === 'Reserved'">
+						<td>
+							<ng-container *ngIf="collection.IsCancelled">
+								<mat-icon class="completeIcon">close</mat-icon>
+							</ng-container>
+							<ng-container *ngIf="!collection.IsCancelled">
+								<mat-icon class="completeIcon" *ngIf="collection.Status === 'Complete'">done</mat-icon>
+								<mat-icon class="reservationIcons"
+									*ngIf="collection.Status === 'Available' || collection.Status === ''"
+									(click)=cycleReserved(collection)>check_box_outline_blank</mat-icon>
+								<mat-icon class="reservationIcons"
+									*ngIf="collection.Status === 'Reserved' && collection.ReservedBy.Username === currentPhleb.username"
+									(click)=cycleReserved(collection)>check_box</mat-icon>
+								<mat-icon class="reservationIcons"
+									*ngIf="collection.Status === 'Locked' && collection.ReservedBy.Username === currentPhleb.username"
+									svgIcon="locked" (click)=cycleReserved(collection)></mat-icon>
+								<mat-icon class="reservationIcons"
+									*ngIf="collection.Status === 'Reserved' && collection.ReservedBy.Username !== currentPhleb.username && (canSupersedeReservations | async) "
+									svgIcon="other_reserved" (click)=cycleReserved(collection)></mat-icon>
+								<mat-icon class="reservationIcons noPointer"
+									*ngIf="collection.Status === 'Reserved'  && collection.ReservedBy.Username !== currentPhleb.username &&  !(canSupersedeReservations | async)"
+									svgIcon="other_reserved"></mat-icon>
+								<mat-icon class="reservationIcons"
+									*ngIf="collection.Status === 'Locked' &&  (canSupersedeReservations | async) && collection.ReservedBy.Username !== currentPhleb.username"
+									svgIcon="blocked" (click)=requestLocked(collection)></mat-icon>
+								<mat-icon class="reservationIcons noPointer"
+									*ngIf="collection.Status === 'Locked' && !(canSupersedeReservations | async) && collection.ReservedBy.Username !== currentPhleb.username"
+									svgIcon="blocked"></mat-icon>
+							</ng-container>
+						</td>
+					</ng-container>
+					<ng-container *ngIf="col.name === 'Problem list' && showProblemList && canDisplayProblemList">
+						<td>
+							<mat-icon class="problemListIcon" svgIcon="problem_list" *ngIf=collection.IsProblem>
+							</mat-icon>
+						</td>
+					</ng-container>
+				</ng-container>
+			</tr>
+			<tr class="addressRow" (mouseenter)="hoverAddressRow($event)" (mouseleave)="leaveAddressRow($event)"
+				[ngClass]="{'selected': selectedRowId === collection.Id, 'showAddress': (canDisplayHomeDrawAddress | async) || (canDisplayLocationAddress | async), 'rowDisabled': collection.Status === 'Complete' || collection.IsCancelled}">
+				<td [colSpan]=columns.display.length style="border-bottom: 1px rgba(0, 0, 0, 0.12) solid;"
+					(click)=selectRow(collection) (dblclick)=openCancelled(collection)>
+					<span *ngIf="(canDisplayHomeDrawAddress | async) || (canDisplayLocationAddress | async)"
+						class="addressSpan">{{collection.CollectedLocation.Address}}</span>
+				</td>
+			</tr>
+		</ng-container>
+	</table>
+</div>
+<div class="custom-paginator"
+	[ngClass]="{'noBorderPaginator': this.collections === undefined || this.collections.length === 0}">
+	<div class="mat-paginator" style="line-height:56px; border-top: unset !important;">
+		<span class="items-per-page" l10nTranslate>
+			Label.Items per page
+		</span>
+
+		<mat-form-field class="paginator-select">
+			<mat-select matSelect [(ngModel)]="paginatorSelected" (selectionChange)=updatePaginatorNumber()>
+				<mat-option *ngFor="let option of paginatorOptions" [value]="option">{{option}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<span class="paginator-range">
+			{{ paginatorRange }}
+		</span>
+	</div>
+	<mat-icon class="paginator-icon left-chevron" title="{{translation.translate('Label.Previous')}}" id="previous"
+		*ngIf="paginationStart !== 0" (click)=changePageIndex(-1)>chevron_left</mat-icon>
+	<mat-icon class="paginator-icon paginator-icon-disabled left-chevron" id="nav-end" *ngIf="paginationStart === 0">
+		chevron_left</mat-icon>
+	<mat-icon class="paginator-icon right-chevron" title="{{translation.translate('Label.Next')}}" id="next"
+		*ngIf="paginationEnd < paginationTotal" (click)=changePageIndex(1)>chevron_right</mat-icon>
+	<mat-icon class="paginator-icon paginator-icon-disabled right-chevron" *ngIf="paginationEnd >= paginationTotal">
+		chevron_right</mat-icon>
+</div>
+<app-work-list-preview #workListPreview></app-work-list-preview>

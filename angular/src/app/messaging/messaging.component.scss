@@ -1,0 +1,403 @@
+.drawer-header-back {
+	position: absolute;
+	left: 2px;
+	top: 8px;
+	cursor: pointer;	
+}
+
+.drawer-header-text {
+	position: absolute;
+	top: 14.5px;
+	left: 54px;
+}
+
+.gray {
+	color: rgba(0, 0, 0, 0.54);
+}
+
+.circle {
+	font-size: 15px;
+	font-weight: bold;
+	color: white;
+	background-color: #D5D5D5;
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	width: 30px;
+	margin: 0px;
+	padding: 0px;
+	margin-top: 10px;
+}
+
+.avatarCircle {
+	background-color: #D5D5D5;
+	border-radius: 50%;
+	height: 30px;
+	width: 30px;
+	line-height: 30px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.inboxRow {
+	background:white;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 13px;
+	height: 53px;
+	width: 320px;
+	line-height: 48px;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	white-space: nowrap;
+	z-index: 1;
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+
+.broadcastGroupRow {
+	// background:white;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 13px;
+	height: 66px;
+	width: 321px;
+	position: relative;
+	left: 24px;
+	top: 0px;
+	white-space: nowrap;
+	// margin-bottom: -24px;
+	z-index: 1;
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+
+.redDelete {
+	// display: block;
+	background: rgba(255, 0, 0, 0.48);
+	text-align: right;
+	height: 20px;
+	width: 320px;
+	position: relative;
+	bottom: 27px;
+	z-index: 0;
+}
+
+.redbroadcastGroupDelete {
+	// display: block;
+	background: rgba(255, 0, 0, 0.48);
+	text-align: right;
+	height: 30px;
+	width: 320px;
+	left: 24px;
+	position: relative;
+	bottom: 6px;
+	z-index: 0;
+}
+
+.inbox-hr {
+	position: relative;
+	top: 4px;
+	height: 1px;
+	left: 30px;
+	width: 273px;
+	background-color: #CCCCCC;
+}
+
+.inbox-br {
+	display: block;
+	margin: 1px 0;
+	content: " ";
+}
+
+.inbox-hr.edit {
+	width: 238px;
+}
+
+#time-span {
+	color: #ADADAD;
+	text-align: right;
+	line-height: 14px;
+	height: 14px;
+	width: 80px;
+	position: absolute;
+	left: 220px;
+	top: 1px;
+	font-size: 8px;
+	white-space: nowrap;
+}
+
+#time-span.edit {
+	left: 185px;
+}
+
+.inbox-span {
+	line-height: 14px;
+	position: relative;
+	top: 10px;
+	left: 16px;
+}
+
+.inbox-span.edit {
+	left: 51px;
+}
+
+.inbox-avatar {
+	position: relative;
+	float: left;
+}
+
+.inbox-avatar.edit {
+	left: 35px;
+}
+
+.inbox-small-span {
+	color: #ADADAD;
+	text-align: left;
+	font-size: 10px;
+	text-overflow: ellipsis !important;
+	overflow: hidden !important;
+	line-height: 14px;
+	height: 14px;
+	display: inline-block;
+	width: 85%;
+	position: relative;
+	top: 1px;
+	left: 0px;
+}
+
+.inbox-small-span.edit {
+	width: 75%;
+	right: 60px;
+}
+
+.inboxCard {
+	padding-top: 17px;
+	padding-bottom: 5px;
+}
+
+.inbox-checkbox {
+	padding: 0px;
+	position: absolute;
+	left: 0px;
+	margin-top: -1px;
+}
+
+.row-element {
+	cursor: pointer;
+}
+
+.clearOverlay {
+	background: transparent;
+}
+
+.drawer-height-tabs {
+	max-height: calc(100% - 155px);
+}
+
+.checkBoxbroadcastGroups {
+	padding: 0px;
+	position: absolute;
+	left: 0px;
+	margin-top: 30px;
+}
+
+.broadcastGroupCard {
+	padding: 0px;
+	padding-top: 5px;
+	padding-bottom: 26px;
+}
+
+.broadcastGroupTitle {
+	color: rgba(0, 0, 0, 0.54);
+	text-align: left;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600 !important;
+	font-size: 14px !important;
+	height: 22px;
+	position: relative;
+	top: 19px;
+	cursor: pointer;
+}
+
+.broadcastGroupTitle.edit {
+	left: 35px;
+}
+
+.broadcastGroupRecipientList {
+	color:#747474;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px !important;
+	text-align: left;
+	text-overflow: ellipsis !important;
+	overflow: hidden !important;
+	white-space: nowrap;
+	font-weight: 400;
+	font-size: 14px;
+	width: 92%;
+	position: relative;
+	top: 24px;
+	z-index: 1;
+	cursor: pointer;
+}
+
+.broadcastGroupInfo {
+	position: relative;
+	left: 286px;
+	top: -14.5px;
+	height: 18px;
+	width: 18px;
+	z-index: 1;
+	cursor: pointer;
+}
+
+.broadcastGroupRecipientList.edit {
+	left: 35px;
+	width: 81%;
+}
+
+.broadcastGroup-hr {
+	height: 1px;
+	width: 320px;
+	background: rgba(0, 0, 0, 0.14);
+	position: relative;
+	bottom: 14.5px;
+}
+
+.broadcastGroup-hr.edit {
+	left: 35px;
+	width: 285px;
+}
+
+#privateTab, #broadcastTab {
+	width: 153px;
+	cursor: pointer;
+}
+
+@media (max-width: 375px) {
+	#time-span {
+		color: #ADADAD;
+		line-height: 14px;
+		height: 14px;
+		width: unset;
+		position: absolute;
+		 left: unset; 
+		 float: unset; 
+		 right: unset;
+		right: 18px;
+		top: 1px;
+		font-size: 8px;
+		white-space: nowrap;
+	}
+
+	#time-span.edit {
+		left: unset;
+		right: 54px;
+	}
+
+	.inbox-hr.edit {
+		width: calc(100% - 82px);
+	}
+
+	.inboxRow {
+		width: unset;
+	}
+
+	.inbox-hr {
+		width: calc(100% - 46px);
+	}
+
+	.broadcastGroup-hr {
+		width: calc(100% - 55px);
+		bottom: unset;
+	}
+
+	.broadcastGroup-hr.edit {
+		left: 35px;
+		width: 74%;
+	}
+
+	.redDelete {
+		display: none;
+	}
+
+	.inbox-span {
+		position: relative;
+		right: 16px;
+	}
+
+	#privateTab, #broadcastTab {
+		width: 140px;
+	}
+
+	.broadcastGroupRow {
+		width: calc(100%  + 8px);
+		top: unset;
+	}
+
+	.broadcastGroupRecipientList {
+	width: calc(100% - 80px);
+	top: unset;
+	line-height: 24px;
+	}
+
+	.broadcastGroupTitle {
+		top: unset;
+	}
+
+	.broadcastGroupInfo {
+		position: relative;
+		left: unset;
+		// top: -14.5px;
+		top: -38.5px;
+		height: 18px;
+		width: 18px;
+		z-index: 1;
+		cursor: pointer;
+		float: right;
+		right: 46px;
+		line-height: 24px;
+}
+
+.broadcastGroupCard {
+    padding: 0px;
+    padding-top: 24px;
+    padding-bottom: unset;
+}
+
+.broadcastGroupRecipientList.edit {
+    left: 35px;
+    width: 65%;
+}
+
+.checkBoxbroadcastGroups {
+    padding: 0px;
+    position: absolute;
+    left: 0px;
+    top: -20px;
+    margin-top: 30px;
+}
+
+}
+
+@media (max-width: 360px) {
+	#privateTab, #broadcastTab {
+		width: 131px;
+	}
+
+}
+
+@media (max-width: 340px) {
+	#privateTab, #broadcastTab {
+		width: 115px;
+	}
+
+	.broadcastGroupRecipientList.edit {
+		left: 35px;
+		width: 60%;
+	}
+
+	.broadcastGroup-hr.edit {
+		left: 35px;
+		width: 70%;
+	}
+}

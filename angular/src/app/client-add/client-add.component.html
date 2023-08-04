@@ -1,0 +1,108 @@
+<div class="drawer-overlay" [ngClass]="{'show': properties.showOverlay === true, 'hide': properties.hideOverlay === true}"
+ (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}" *ngIf="addEnabled">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Details</div>
+			<mat-form-field class='firstFormField' id='firstFormField'>
+				<input matInput placeholder="{{translation.translate('Label.Code')}}" (change)='resetExists();' id='firstField'
+				 [disabled]="!properties.isDrawerOpen || properties.rowID !== ''" (input)='updateDescription()' (keydown.Tab)="tabEvent()"
+				 (blur)="blurCode()" [(ngModel)]="client.Code" #code=ngModel appCodeLabValidation />
+				<mat-error *ngIf="code.errors">{{code.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" (change)="checkDescriptionChange();" placeholder="{{translation.translate('Label.Name')}}"
+				 id='descriptionField' [(ngModel)]="client.Name" #name=ngModel genericRequired />
+				<mat-error *ngIf="name.errors">{{name.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='clientStreet1' placeholder="{{translation.translate('Label.Street address 1')}}"
+				 [(ngModel)]="client.Location.StreetAddress1" #streetAddress1=ngModel  />
+				<mat-error *ngIf="streetAddress1.errors">{{streetAddress1.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Street address 2')}}"
+				 [(ngModel)]="client.Location.StreetAddress2" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='clientCity' placeholder="{{translation.translate('Label.City')}}"
+				 [(ngModel)]="client.Location.City" #city=ngModel  />
+				<mat-error *ngIf="city.errors">{{city.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]="!properties.isDrawerOpen" id='clientState' placeholder="{{translation.translate('Label.State')}}"
+				 (selectionChange)="client.Location.County = ''" [(ngModel)]="client.Location.State" #state=ngModel >
+					<mat-option *ngFor="let state of states()" [value]="state">{{ state }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="state.errors">{{state.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='clientZip' placeholder="{{translation.translate('Label.Postal code')}}"
+				 [(ngModel)]="client.Location.PostalCode" numeric #postalCode=ngModel postalCodeValidator maxlength="5" />
+				<mat-error *ngIf="postalCode.errors">{{postalCode.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]="!properties.isDrawerOpen" id='clientCounty' placeholder="{{translation.translate('Label.County')}}"
+				 [(ngModel)]="client.Location.County">
+					<mat-option *ngFor="let county of counties()" [value]="county">{{ county }}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field id='countryField'>
+				<input matInput placeholder="{{translation.translate('Label.Country')}}" value="USA" disabled="disabled" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='clientPhone' placeholder="{{translation.translate('Label.Phone')}}" (blur)="blur('phone');"
+				 [(ngModel)]="client.Phone" #phone=ngModel [isRequired]=true numeric phoneValidator maxlength="14" />
+				<mat-error *ngIf="phone.errors">{{phone.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='clientFax' numeric #fax=ngModel placeholder="{{translation.translate('Label.Fax')}}"
+				 (blur)="blur('fax');" [(ngModel)]="client.Fax" faxValidator maxlength="14" />
+				<mat-error *ngIf="fax.errors">{{fax.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='clientEmail' placeholder="{{translation.translate('Label.Email')}}"
+				 [(ngModel)]="client.Email" #email=ngModel [isRequired]=true emailValidator />
+				<mat-error *ngIf="email.errors">{{email.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='clientContact1' placeholder="{{translation.translate('Label.Contact person 1')}}"
+				 [(ngModel)]="client.ContactPerson1" #contactPerson1=ngModel  />
+				<mat-error *ngIf="contactPerson1.errors">{{contactPerson1.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Contact person 2')}}"
+				 [(ngModel)]="client.ContactPerson2" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='clientComments' placeholder="{{translation.translate('Label.Comments')}}"
+				 [(ngModel)]="client.Comments" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='clientSpecailty' placeholder="{{translation.translate('Label.Specialties')}}"
+				 [(ngModel)]="client.Specialties" />
+			</mat-form-field>
+			<mat-form-field>
+					<mat-select id="labSelect" [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Lab')}}"
+					 #lab=ngModel genericRequired [(ngModel)]="client.Laboratory.Id">
+						<mat-option (click)='resetExists();' *ngFor="let lab of labOptions" [value]="lab.Id">{{ lab.Id }}</mat-option>
+					</mat-select>
+					<mat-error *ngIf="lab.errors">{{lab.errors.message}}</mat-error>
+				</mat-form-field>
+			<div class="drawer-toggle-container">
+				<label l10nTranslate>Label.Active</label>
+				<mat-slide-toggle [disabled]="!properties.isDrawerOpen" color="primary" [(ngModel)]="client.IsActive"></mat-slide-toggle>
+			</div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]="!properties.isDrawerOpen" class="btn-save-and-add-another" mat-button (click)="checkForm(true)"
+		 *ngIf="headerText === translation.translate('Label.Add client')" l10nTranslate>Label.Save & Add Another</button>
+		<button [disabled]="!properties.isDrawerOpen" id='saveClientButton' class="btn-save" mat-button (click)="checkForm(false)" l10nTranslate>Label.Save</button>
+	</div>
+</div>
+<rmp-lab-selector #addLab id="addLab" (onSave)='processLabSelect($event)' (onFullClose)="fullClose($event)" [labsInput]='client.Laboratories'></rmp-lab-selector>

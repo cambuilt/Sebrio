@@ -1,0 +1,27 @@
+/* .maintenance-page:before {
+	background-image: url('../../assets/banners/filters.png');
+} */
+
+.mat-column-Code,
+.mat-column-Name,
+.mat-column-Description,
+.mat-column-Volume,
+.mat-column-ContainerType,
+.mat-column-ContainerRank,
+.mat-column-SpecimenCode,
+.mat-column-DrawOrder,
+.mat-column-StorageCode {
+	padding-right: 24px;
+	white-space: nowrap;
+}
+
+.mat-column-IsActive {
+	padding-left: 24px;
+	padding-right: 24px;
+	text-align: center;
+	width: 36px;
+}
+
+rmp-container-add {
+	z-index: 2;
+}

@@ -1,0 +1,67 @@
+.mat-card {
+    padding-top: 32px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 19px;
+}
+
+.drawer-header-text {
+    position: relative;
+    top: -3px;
+}
+
+.patientMRN {
+    color: #707070;
+    font-size: 12px;
+    line-height: 12px;
+    margin-left: 16px;
+    position: relative;
+    top: -8px;
+}
+
+.mac .drawer-header-text {
+    top: -4px;
+}
+
+.mac .patientMRN {
+    top: -9px;
+}
+
+.navigationControls {
+    position: absolute;
+    right: 13px;
+}
+
+.navigationChevron {
+    padding: 0px;
+    font-size: 24pt;
+    position: relative;
+    top: 5px;
+}
+
+.mac .navigationChevron {
+    top: 4px;
+}
+
+.navigationChevron.disabled {
+    color: rgba(0, 0, 0, 0.26);
+    cursor: default;
+}
+
+.navigationChevron:first-child {
+    right: 10px;
+}
+
+.testSpacer {
+    margin-top: 8px;
+}
+
+.lastTest {
+    margin-top: 9px;
+}
+
+.gpsIcon {
+    position: relative;
+    top: -4px;
+    left: 19px;
+}

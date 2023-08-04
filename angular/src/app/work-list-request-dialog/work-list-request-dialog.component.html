@@ -1,0 +1,33 @@
+<div class="work-list-request">
+	<div class="message-heading" l10nTranslate>Label.Request locked collection</div>
+
+	<div class="message"><span l10nTranslate>Label.This collection has been locked by </span>{{data.row.ReservedBy.FirstName}}
+		{{data.row.ReservedBy.LastName}}. <span l10nTranslate>Label.Click the link below
+			to request this collection If there is no response within 20 minutes, please request the collection from the TSA</span></div>
+	<br>
+	<div class="request-phleb">
+		<span class="request-phleb-click themedText" *ngIf="!timerActive" (click)=request()><span
+			 l10nTranslate>Label.Request
+				from </span>
+			{{data.row.ReservedBy.FirstName}} {{data.row.ReservedBy.LastName}}</span>
+		<span class="request-phleb-click timerActive" *ngIf="timerActive"><span l10nTranslate>Label.Request from</span>
+			{{data.row.ReservedBy.FirstName}}
+			{{data.row.ReservedBy.LastName}}</span>
+		<span class="request-phleb-timer">{{(secondsRemaining) ? (getFormattedTime()) : (timeRemaining)}}</span>
+	</div>
+	<br>
+	<div class="contactTSA">
+		<span *ngIf=!contactTSA class="timerActive" l10nTranslate>Label.Request from TSA</span>
+		<span *ngIf=contactTSA class="request-phleb-click themedText" (click)=requestFromTSA() l10nTranslate>Label.Request
+			from TSA
+		</span>
+	</div>
+	<div class="closeContainer">
+		<mat-form-field style="top: 32px; width: 274px;">
+			<input matInput placeholder="{{translation.translate('Label.Reason')}}" #reason=ngModel [(ngModel)]=reasonText
+			 [disabled]="timerActive" maxlength=50 />
+			<mat-hint align="end">{{reason.value?.length || 0}}/50</mat-hint>
+		</mat-form-field>
+		<button class="btn-close" mat-button color="white" [mat-dialog-close]="false" l10nTranslate>Label.Close</button>
+	</div>
+</div>

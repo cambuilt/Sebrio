@@ -1,0 +1,88 @@
+<div class="drawer-overlay" [ngClass]="{'show': isDrawerOpen == true}" (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text" l10nTranslate>SystemSettings.SystemSettings</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="card-heading" l10nTranslate>SystemSettings.IdleTimePurgePeriod</div>
+			<mat-form-field class="lineAfterHeader">
+				<!-- Defeat Chrome's attempts to autofill the time form with a username -->
+				<input [disabled]="!isDrawerOpen" type="text" id="username" tabindex="-1" style="position: absolute; top: -1000px;">
+				<input [disabled]="!isDrawerOpen" type="text" id="password" tabindex="-1" style="position: absolute; top: -1000px;">
+				<input [disabled]="!isDrawerOpen" type="text" id="time" matInput [timeType]="'Duration'" fillTime timeNumeric
+				 placeholder="{{translation.translate('Label.Time')}} (HH:MM)" #idleTime=ngModel maxlength="5" [(ngModel)]="purgePeriod.idleTime.selected"
+				 l10nTranslate genericRequired />
+				<mat-error *ngIf="idleTime.errors">{{idleTime.errors.message}}</mat-error>
+			</mat-form-field>
+			<div class="drawer-toggle-container">
+				<label l10nTranslate>Label.Active</label>
+				<mat-slide-toggle color="primary" [(ngModel)]="purgePeriod.idleTimeActive.selected"></mat-slide-toggle>
+			</div>
+		</mat-card>
+		<mat-card>
+			<div class="form-field-container">
+				<div class="card-heading" l10nTranslate>SystemSettings.WhiteLabeling</div>
+				<div class="form-field-label" style="margin-top: 5px;" l10nTranslate>SystemSettings.LoginPage
+					<span class="file-dimensions">- 290x44</span>
+				</div>
+				<span>
+					<input #loginImageInput id="input-file-login-image" type="file" style="display: none;" (change)="changeFile('login', $event)"
+					 accept="image/*" />
+					<label class="themed-text" for="input-file-login-image" l10nTranslate>Label.Upload</label>
+					<span class="labelSpan">
+						<label title={{files.login.label.selected}} class="file-name" for="input-file-login-image">{{files.login.label.selected}}</label>
+					</span>
+					<mat-icon class="undo-icon" (click)="resetFile('login')">undo</mat-icon>
+				</span>
+				<hr class="ss-hr" />
+				<div class="form-field-label" l10nTranslate>SystemSettings.NavigationBar
+					<span class="file-dimensions">- 200x31</span>
+				</div>
+				<span>
+					<input #navbarImageInput id="input-file-navbar-image" type="file" style="display: none;" (change)="changeFile('navbar', $event)"
+					 accept="image/*" />
+					<label class="themed-text" for="input-file-navbar-image" l10nTranslate>Label.Upload</label>
+					<span class="labelSpan">
+						<label title={{files.navbar.label.selected}} class="file-name" for="input-file-navbar-image">{{files.navbar.label.selected}}</label>
+					</span>
+					<mat-icon class="undo-icon" (click)="resetFile('navbar')">undo</mat-icon>
+				</span>
+				<hr class="ss-hr" />
+				<div class="form-field-label" l10nTranslate>SystemSettings.Watermark
+					<span class="file-dimensions">- 380x380</span>
+				</div>
+				<span>
+					<input #watermarkImageInput id="input-file-watermark-image" type="file" style="display: none;" (change)="changeFile('watermark', $event)"
+					 accept="image/*" />
+					<label class="themed-text" for="input-file-watermark-image" l10nTranslate>Label.Upload</label>
+					<span class="labelSpan">
+						<label title={{files.watermark.label.selected}} class="file-name" for="input-file-watermark-image">{{files.watermark.label.selected}}</label>
+					</span>
+					<mat-icon class="undo-icon" (click)="resetFile('watermark')">undo</mat-icon>
+				</span>
+				<hr class="ss-hr" />
+				<div class="form-field-label-color" l10nTranslate>SystemSettings.ThemeColor</div>
+				<span>
+					<button [disabled]="!isDrawerOpen" mat-icon-button [mat-menu-trigger-for]="themeMenu">
+						<mat-icon class="color-picker-icon">format_color_fill</mat-icon>
+					</button>
+					<mat-icon class="undo-icon" (click)=resetTheme()>undo</mat-icon>
+				</span>
+				<hr class="ss-hr" />
+			</div>
+			<div style="overflow: hidden;" class="color-picker-menu">
+				<mat-menu #themeMenu="matMenu" [overlapTrigger]="false" xPosition="after" yPosition="below" class="color-picker-menu"
+				 style="overflow: hidden;">
+					<div class="color-picker-menu">
+						<div *ngFor="let theme of themes" class="picker-color-circle" [style.background]="theme.primary" (click)=themeClick(theme)></div>
+					</div>
+				</mat-menu>
+			</div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]="!isDrawerOpen" id='saveSystemSettingsButton' class="btn-save" mat-button (click)="save()" l10nTranslate>Label.Save</button>
+	</div>
+</div>

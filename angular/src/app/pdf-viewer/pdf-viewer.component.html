@@ -1,0 +1,20 @@
+<mat-card style='padding: 0px !important;'>
+<div class='viewerContent' hidden>
+  <div  class='scrollHere'></div>
+  <div class='pdfView'>
+    <pdf-viewer [src]="pdfSrc" [render-text]="true" style="display: block;"></pdf-viewer>
+  </div>
+ 
+  <div class='signaturePad' [ngClass]="{'show': showPad === true}">
+      <div class='selector-hr'></div>
+    <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>'
+  </div>
+</div>
+<div class='selector-hr'></div>
+  <div class='signatureButtons'>
+    <button class='signButton' *ngIf='showPad === false' mat-button (click)="sign()">Sign</button>
+    <button class='submitButton' *ngIf='showPad === true' mat-button (click)="drawComplete()">Submit</button>
+    <button class='clearButton' *ngIf='showPad === true' mat-button (click)="clearPad()">Clear</button>
+  </div>
+</mat-card>
+

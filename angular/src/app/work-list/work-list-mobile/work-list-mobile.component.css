@@ -1,0 +1,431 @@
+.headerRow {
+    margin-top: 7px;
+    height: 48px;
+    border-bottom: 1px rgba(0, 0, 0, 0.12) solid;
+}
+
+.reserveHeader {
+    position: absolute;
+    right: 13px;
+    padding: 0px;
+    margin-top: 9px;
+}
+
+/* .reserveIcon {
+    position: absolute;
+    right: 13px;
+    padding: 0px;
+    margin-top: -14px;
+}
+
+.mac .reserveIcon {
+    margin-top: -20px !important;
+} */
+
+.completeIcon {
+    color: rgba(0, 0, 0, .38) !important;
+    cursor: default;
+}
+
+.noPointer {
+    cursor: default;
+}
+
+.noPointer:hover {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.rowDisabled {
+    color: rgba(0, 0, 0, .38) !important;
+}
+
+.expand-icon {
+    padding: 0px;
+    /* position: absolute; */
+    float: left;
+    margin-top: 12px;
+    -moz-transition: all .05s linear;
+    -webkit-transition: all .05s linear;
+    transition: all .05s linear;
+    height: 16px;
+    width: 16px;
+    position: relative;
+    top: 3px;
+    right: 8px;
+}
+
+.mac .expand-icon {
+    top: 2px;
+}
+
+.expand-icon.expanded {
+    -ms-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.rowDisabled {
+    color: rgba(0, 0, 0, .38) !important;
+}
+
+.problemListIcon {
+    padding: 0;
+    height: 11px;
+    cursor: default;
+    position: relative;
+    top: 1px;
+}
+
+.leftAlign .top-row .greenDotTransferred {
+    top: -3px !important;
+    right: -5px;
+    margin-left: -14px !important;
+}
+
+.leftAlign .top-row .themedDot,
+.leftAlign .middle-row .themedDot,
+.rightAlign .top-row .themedDot,
+.bottom-row .themedDot {
+    margin-left: -1px !important;
+    margin-right: -5px !important;
+    position: relative !important;
+    left: 3px;
+    bottom: 3px !important;
+}
+
+.leftAlign .top-row .themedDot:first-child,
+.leftAlign .middle-row .themedDot:first-child,
+.bottom-row .themedDot:first-child {
+    margin-left: -14px !important;
+    margin-right: 0px !important;
+    left: 7px;
+}
+
+.problemListIcon:hover {
+    color: rgba(0, 0, 0, .54);
+}
+
+.rowDisabled .problemListIcon {
+    color: rgba(0, 0, 0, .38) !important;
+}
+
+.locationText {
+    font-size: 12px;
+    display: inline-block;
+    position: absolute;
+    left: 30px;
+}
+
+.locationString {
+    display: inline-block;
+    margin-left: 6px;
+    font-size: 12px;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap;
+    width: 64%;
+    position: relative;
+    top: 3px;
+}
+
+.locationCollection {
+    padding-left: 30px;
+    padding-right: 36px;
+}
+
+.priorityAndTime {
+    font-size: 12px;
+    display: inline-block;
+    position: absolute;
+    margin-right: 43px;
+    right: 0px;
+    margin-top: 5px;
+}
+
+.mobile-row {
+    height: 47px;
+    border-bottom: 1px rgb(224, 224, 224) solid;
+    padding-left: 32px;
+}
+
+.showLocations .mat-icon {
+    margin-top: -15px;
+}
+
+.mobile-row:nth-child(1) {
+    border-top: none;
+}
+
+.mobile-row:last-child {
+    border-bottom: 0px rgba(0, 0, 0, 0.12) solid;
+    border-bottom: 0px rgb(224, 224, 224) solid;
+}
+
+.custom-paginator {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 56px;
+    vertical-align: middle;
+    padding: 0 8px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 12px;
+}
+
+.paginator-icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.paginator-range {
+    display: inline-block;
+    margin: 0 37px 0 36px;
+    position: relative;
+    top: -1px;
+}
+
+.paginator-icon {
+    padding: 0px;
+    font-size: 30px;
+    height: 30px;
+    width: 30px;
+}
+
+.items-per-page {
+    position: relative;
+    top: -1px;
+    margin-right: 5px;
+}
+
+.paginator-select {
+    width: 56px;
+    top: -1px;
+}
+
+.paginator-icon-disabled {
+    cursor: default;
+    color: rgba(0, 0, 0, 0.26)
+}
+
+.left-chevron {
+    margin-right: 10px;
+}
+
+.right-chevron {
+    margin-right: 5px;
+}
+
+.reserveIcon {
+    float: right;
+    padding: 0px;
+    position: relative;
+    top: 12px;
+    right: 14px;
+}
+
+.leftAlign {
+    float: left;
+    font-size: 12px;
+    margin-right: -15px;
+    height: 24px;
+}
+
+.rightAlign {
+    float: right;
+    font-size: 12px;
+    position: relative;
+    right: 20px;
+    height: 24px;
+}
+
+.rightAlign .middle-row {
+    float: right;
+}
+
+.test.rightAlign {
+    right: 44px;
+}
+
+.mobile-br {
+    margin-top: -5px;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+/* Collection Rules */
+
+.top-row,
+.middle-row,
+.bottom-row {
+    position: relative;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.top-row span,
+.middle-row span,
+.bottom-row span {
+    margin-left: 8px;
+}
+
+.mac .top-row span,
+.mac .middle-row span,
+.mac .bottom-row span {
+    margin-left: 7px;
+}
+
+.top-row span:first-child,
+.middle-row span:first-child,
+.bottom-row span:first-child {
+    margin-left: 0px !important;
+}
+
+.top-row {
+    top: 2px;
+}
+
+.middle-row {
+    top: 8px;
+}
+
+.bottom-row {
+    top: 5px;
+    clear: both;
+}
+
+.mac .top-row {
+    top: 0px;
+}
+
+.mac .middle-row {
+    top: 4px;
+}
+
+.mac .bottom-row {
+    top: 3px;
+}
+
+.android .top-row {
+    top: 3.75px;
+}
+
+.android .middle-row {
+    top: 7.75px;
+}
+
+.android .bottom-row {
+    top: 3.25px;
+}
+
+/* TEST RULES */
+
+.test .top-row {
+    top: 0px;
+}
+
+.rightAlign.test .top-row {
+    position: relative;
+    top: 3px;
+}
+
+.test .middle-row {
+    top: 5px;
+}
+
+.rightAlign.test .middle-row {
+    position: relative;
+    top: 9px;
+}
+
+.test.bottom-row {
+    top: 4px;
+}
+
+.rightAlign.test .top-row {
+    position: relative;
+    top: 3px;
+}
+
+.mac .test .top-row {
+    top: -2px;
+}
+
+.mac .test .middle-row {
+    top: 1px;
+}
+
+.rightAlign.test .middle-row {
+    position: relative;
+    top: 9px;
+}
+
+.mac .test.bottom-row {
+    top: -3px;
+}
+
+.colorText {
+    display: inline-block;
+    padding-left: 1px;
+    padding-right: 1px;
+    height: 15px;
+    position: relative;
+    top: -1px;
+}
+
+.mac .colorText {
+    top: 1px;
+}
+
+.colorText span {
+    position: relative;
+    top: 1px;
+}
+
+.mac .colorText span {
+    top: -1px !important;
+}
+
+.showColor {
+    color: #FF0000;
+}
+
+.rowDisabled .showColor {
+    color: rgb(255, 158, 158);
+}
+
+.accession {
+    display: inline-block;
+    margin-left: 8px !important;
+}
+
+.testCode {
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+}
+
+.locationString {
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap;
+    width: 82%;
+    margin-left: 0px;
+}
+
+.test.locationString {
+    width: 88%;
+}
+
+.mac .locationString {
+    width: calc(82% - 2px) !important;
+}
+
+.mac .test.locationString {
+    width: calc(88% + 6px) !important;
+}

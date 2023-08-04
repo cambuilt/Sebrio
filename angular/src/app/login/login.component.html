@@ -1,0 +1,25 @@
+<div class="login-wrapper" [ngClass]="{'show': showContent === true}">
+	<div class="page-background">
+		<div class="login-dialog">
+			<div class="dialog-content">
+				<img class="login-logo" alt="MPLogo" id='mpLogo'>
+				<div class="login-subheading" l10nTranslate>App.Subtitle</div>
+				<form>
+					<div class="login-inputs" [ngClass]="{'focusPassword':hasPasswordFocus}">
+						<div class="label-username" l10nTranslate>LogIn.Username</div>
+						<input class="input-username" [(ngModel)]="username" (focus)="inputOnFocus('username')" name="username"
+						 autocomplete="username" />
+						<mat-icon class="icon-username" svgIcon='username-icon'></mat-icon>
+						<div class="label-password" l10nTranslate>LogIn.Password</div>
+						<input class="input-password" [(ngModel)]="password" (focus)="inputOnFocus('password')" name="password" type="password"
+						 #passwordForm=ngModel autocomplete="current-password" sessionExpire />
+						<mat-icon class="icon-password" svgIcon='password-icon'></mat-icon>
+					</div>
+					<mat-error *ngIf="passwordForm.errors">{{passwordForm.errors.message}}</mat-error>
+					<button class="button-sign-in" type="submit" (click)='signIn();' l10nTranslate>LogIn.SignIn</button>
+				</form>
+				<div class="login-footer" l10nTranslate>LogIn.Poweredby</div>
+			</div>
+		</div>
+	</div>
+</div>

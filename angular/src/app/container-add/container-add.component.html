@@ -1,0 +1,85 @@
+<div class="drawer-overlay" [ngClass]="{'show': properties.showOverlay === true, 'hide': properties.hideOverlay === true}"
+ (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()" id="containerBackArrow">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<div class="colorPickerOverlay" [ngClass]="{'show': showColorPicker === true, 'hide': showColorPicker === false}"
+		 (click)="toggleColorPicker()"></div>
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Details</div>
+			<mat-form-field class='firstFormField' id='firstFormField'>
+				<input matInput placeholder="{{translation.translate('Label.Code')}}" appCodeLabValidation (change)='resetExists();'  id='firstField' [disabled]="!properties.isDrawerOpen || properties.rowID !== ''"
+				 (input)='updateDescription()' (keydown.Tab)="tabEvent()" (blur)="blurCode();" [(ngModel)]="container.Code" #code=ngModel
+				  />
+				<mat-error *ngIf="code.errors">{{code.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]=!properties.isDrawerOpen placeholder="{{translation.translate('Label.Name')}}" id='nameField'
+				 [(ngModel)]="container.Name" #name=ngModel />
+				<mat-error *ngIf="name.errors">{{name.errors.message}}</mat-error>
+				<mat-icon [style.color]="container.TopColor || 'rgba(0, 0, 0, 0.54)'" id="colorPickerIcon" #colorPickerIcon (click)="toggleColorPicker()">format_color_fill</mat-icon>
+			</mat-form-field>
+
+			<div class="colorPickerContainer" style="position: absolute;" [ngClass]="{'show': showColorPicker === true, 'hide': showColorPicker === false}">
+				<app-color-picker (saveColorPicker)=selectColor($event) #colorPicker style="position: absolute; z-index: 7; background: white; position: relative; top: -32px; left: 32px;"></app-color-picker>
+			</div>
+			<mat-form-field>
+				<input matInput [disabled]=!properties.isDrawerOpen (change)="checkDescriptionChange();" placeholder="{{translation.translate('Label.Description')}}"
+				 id='descriptionField' [(ngModel)]="container.Description" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]=!properties.isDrawerOpen id="containerVolume" placeholder="{{translation.translate('Label.Volume')}}"
+				 [(ngModel)]="container.Volume" #volume=ngModel volume genericRequired />
+				<mat-error *ngIf="volume.errors">{{volume.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]=!properties.isDrawerOpen id="containerType" placeholder="{{translation.translate('Label.Container type')}}"
+				 [(ngModel)]="container.ContainerType" #type=ngModel genericRequired />
+				<mat-error *ngIf="type.errors">{{type.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select matSelect [disabled]=!properties.isDrawerOpen id="containerRank" placeholder="{{translation.translate('Label.Container rank')}}"
+				 [(ngModel)]="container.ContainerRank" #rank=ngModel genericRequired>
+					<mat-option *ngFor="let containerRank of containerRanks" [value]="containerRank">{{ containerRank }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="rank.errors">{{rank.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]=!properties.isDrawerOpen id="specimenCode" placeholder="{{translation.translate('Label.Specimen code')}}"
+				 [(ngModel)]="container.SpecimenCode" #specimen=ngModel genericRequired />
+				<mat-error *ngIf="specimen.errors">{{specimen.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]=!properties.isDrawerOpen id="drawOrder" placeholder="{{translation.translate('Label.Draw order')}}"
+				 [(ngModel)]="container.DrawOrder" #draw=ngModel numeric genericRequired />
+				<mat-error *ngIf="draw.errors">{{draw.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]=!properties.isDrawerOpen id="storageCode" placeholder="{{translation.translate('Label.Storage code')}}"
+				 [(ngModel)]="container.StorageCode" #storage=ngModel genericRequired />
+				<mat-error *ngIf="storage.errors">{{storage.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+					<mat-select id="labSelect" [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Lab')}}"
+					 #lab=ngModel genericRequired [(ngModel)]="container.Laboratory.Id">
+						<mat-option *ngFor="let lab of labOptions" [value]="lab.Id">{{ lab.Code }}</mat-option>
+					</mat-select>
+					<mat-error *ngIf="lab.errors">{{lab.errors.message}}</mat-error>
+				</mat-form-field>
+			<div class="drawer-toggle-container">
+				<label l10nTranslate>Label.Active</label>
+				<mat-slide-toggle [disabled]=!properties.isDrawerOpen color="primary" [(ngModel)]="container.IsActive"></mat-slide-toggle>
+			</div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]=!properties.isDrawerOpen class="btn-save-and-add-another" id="containerSaveAndAddButton"
+		 mat-button (click)="checkForm(true)" *ngIf="headerText === translation.translate('Label.Add container')"
+		 l10nTranslate>Label.Save & Add Another</button>
+		<button [disabled]=!properties.isDrawerOpen class="btn-save" id="containerSaveButton" mat-button (click)="checkForm(false)"
+		 l10nTranslate>Label.Save</button>
+	</div>
+</div>

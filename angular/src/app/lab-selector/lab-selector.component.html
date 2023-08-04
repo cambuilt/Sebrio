@@ -1,0 +1,42 @@
+<div class="drawer-overlay" [ngClass]="{'show': isDrawerOpen == true, 'hideOverlay': hideOverlay == true}" (click)="clickOverlay(false)"></div>
+<div class="drawer-container" [ngClass]="{'show': isDrawerOpen == true, 'hideShadow': hideOverlay == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay(true)">arrow_back</mat-icon>
+		<div class="drawer-header-text" l10nTranslate>Label.Select labs</div>
+		<mat-icon class='filter-icon' (click)="openFilter();txtFilter.focus()">filter_list</mat-icon>
+		<div class="filter-container" [ngClass]="{'show': showFilter == true}">
+			<input [disabled]=!isDrawerOpen #txtFilter class='labSelectorFilterInput' matInput placeholder="{{translation.translate('Label.Filter')}}" (input)='applyFilter()'
+			 [(ngModel)]="filterValue" />
+			<mat-icon class="btn-close-filter" (click)="closeFilter();clearFilter()">close</mat-icon>
+		</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card style='padding: 0px;'>
+			<div class="card-heading associatedTitle" l10nTranslate>Header.Assign labs</div>
+			<br />
+			<div class='subheadingDiv'>
+				<span class="card-subheading associatedSubTitle" l10nTranslate>Label.Labs</span>
+				<span class="card-subheading subtitle-right" l10nTranslate>Label.Assigned</span>
+			</div>
+			<br />
+			<div class="selector-hr"></div>
+			<ng-container *ngFor="let lab of labsFiltered">
+				<div class='selectorRow'>
+					<!-- <mat-checkbox class="checkBoxDiv" color="primary" [id]="'checkboxLab-' + lab.Code" [checked]=lab.check (change)="propagateCheckbox($event, lab)"></mat-checkbox> -->
+					<mat-icon class="checkBoxDiv selectorCheckbox otherSelector" *ngIf="lab.check === false" (click)="propagateCheckbox($event, lab)">check_box_outline_blank</mat-icon>
+					<mat-icon class="checkBoxDiv selectorCheckbox otherSelector checked" *ngIf="lab.check === true" (click)="propagateCheckbox($event, lab)">check_box</mat-icon>
+					<div class="info-span" style="float: left">
+						<span style="line-height: 14px;">{{lab.Code}}</span>
+						<br class="selector-br">
+						<span class="email-span">{{lab.Description}}</span>
+					</div>
+				</div>
+				<div class="selector-hr"></div>
+			</ng-container>
+			<div class="card-bottom-space"></div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]=!isDrawerOpen id='labSelectorSaveButton' class="btn-save" mat-button (click)="save()" l10nTranslate>Label.Save</button>
+	</div>
+</div>

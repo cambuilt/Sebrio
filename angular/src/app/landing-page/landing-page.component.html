@@ -1,0 +1,166 @@
+<div class="drawer-overlay" [ngClass]="{'show': isDrawerOpen == true}" (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text" l10nTranslate>Header.Set Landing Page</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="form-field-container">
+				<div class="card-heading" l10nTranslate>Header.Select</div>
+				<table class='mainTable' [ngClass]="{'rsa': authService.currentUser.role === 'RMP_RSA'}">
+					<mat-radio-group [disabled]="!isDrawerOpen" [(ngModel)]="landingPage" #radioGroup="matRadioGroup">
+						<tr [ngClass]="{'show': hasPermission('audit')}" class='tableRow'>
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Auditing</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="auditing"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('CancelReason')}">
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Cancellation Maintenance</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="cancellations"></mat-radio-button>
+							</td>
+						</tr>
+						<tr [ngClass]="{'show': hasPermission('Client')}" class='tableRow'>
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Client Maintenance</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="clients"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('Collection')}">
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Collection List Maintenance</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="collection-list"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('CollectionData')}">
+							<td class="form-field-label" l10nTranslate>MainMenu.Collection Data</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="collection-data"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('CollectionDuration')}">
+							<td class="form-field-label" l10nTranslate>MainMenu.Collection Duration</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="collection-duration"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('CollectionMaintenance')}">
+							<td class="form-field-label" l10nTranslate>MainMenu.CollectionMaintenance</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="collection-maintenance"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('Container')}">
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Container Maintenance</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="containers"></mat-radio-button>
+							</td>
+						</tr>
+						<tr [ngClass]="{'show': hasPermission('Device')}" class='tableRow'>
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Devices</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="devices"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('Hub')}">
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Hub Maintenance</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="hubs"></mat-radio-button>
+							</td>
+						</tr>
+
+						<tr [ngClass]="{'show': hasPermission('Lab')}" class='tableRow'>
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Lab Maintenance</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="labs"></mat-radio-button>
+							</td>
+						</tr>
+						<tr [ngClass]="{'show': hasPermission('labels')}" class='tableRow'>
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Label Maintenance</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="labels"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('Location')}">
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Location Maintenance</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="locations"></mat-radio-button>
+							</td>
+						</tr>
+						<tr [ngClass]="{'show': hasPermission('Priority')}" class='tableRow'>
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Priority Maintenance</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="priorities"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('Provider')}">
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Provider Maintenance</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="providers"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('Role')}" class='tableRow'>
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Role Maintenance</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="roles"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('Tenant')}">
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Tenant Maintenance</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="tenants"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('Test')}">
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Test Maintenance</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="tests"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('User')}">
+							<td class="form-field-label" l10nTranslate>ScreenTitle.User Maintenance <span class='rsaSpan' *ngIf="authService.currentUser.role === 'RMP_RSA'"></span></td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="users"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('usermode')}">
+							<td class="form-field-label" l10nTranslate>ScreenTitle.User Mode</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="user-mode"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('Utilization')}">
+							<td class="form-field-label" l10nTranslate>MainMenu.Utilization</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="utilization"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('WorkList')}">
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Work List</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="work-list"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('WorkList')}">
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Work List Builder</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="work-list-builder"></mat-radio-button>
+							</td>
+						</tr>
+						<tr class='tableRow' [ngClass]="{'show': hasPermission('WorkLoad')}">
+							<td class="form-field-label" l10nTranslate>ScreenTitle.Workload</td>
+							<td>
+								<mat-radio-button color='primary' class="radioButton" value="workload"></mat-radio-button>
+							</td>
+						</tr>
+					</mat-radio-group>
+				</table>
+			</div>
+		</mat-card>
+
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]="!isDrawerOpen" id='saveLandingPageButton' class="btn-save" mat-button (click)="onSaveClick()" l10nTranslate>Label.Save</button>
+	</div>

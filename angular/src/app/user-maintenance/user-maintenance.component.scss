@@ -1,0 +1,49 @@
+@import '~@angular/material/theming';
+
+@mixin user-maintenance-theme($theme)
+{
+	$primary: map-get($theme, primary);
+	$accent: map-get($theme, accent);
+	$warn: map-get($theme, accent);
+}
+
+.user-maintenance:before
+{
+	
+}
+
+.mat-column-Initials
+{
+	padding-left:24px;
+	padding-right:24px;
+	white-space:nowrap;
+	width:35px;
+}
+
+.mat-column-FirstName, .mat-column-LastName, .mat-column-Email, .mat-column-RoleGap, .mat-column-Role
+{
+	padding-right:24px;
+	white-space:nowrap;
+}
+
+.mat-column-Phone
+{
+	padding-left:24px;
+	padding-right:24px;
+	text-align:center;
+	white-space:nowrap;
+}
+
+.mat-column-Active
+{
+	padding-left:24px;
+	padding-right:24px;
+	text-align:center;
+	width:36px;
+}
+
+/* THIS SOULD BE A STYLE ON THE COMPONENTS ITSELF */
+rmp-user-add
+{
+	z-index:2;
+}

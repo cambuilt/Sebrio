@@ -1,0 +1,39 @@
+<div class="drawer-overlay" [ngClass]="{'show': properties.showOverlay === true, 'hide': properties.hideOverlay === true}"
+ (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Details</div>
+			<mat-form-field class='firstFormField' id='firstFormField'>
+				<input matInput placeholder="{{translation.translate('Label.Code')}}" appCodeLabValidation (change)='resetExists();'  [disabled]="!properties.isDrawerOpen || properties.rowID !== ''"
+				 id='firstField' (keydown.Tab)="tabEvent()" [(ngModel)]="workload.Code" #code=ngModel (input)='updateDescription()'
+				 (blur)="blurCode();" />
+				<mat-error *ngIf="code.errors">{{code.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" (change)="checkDescriptionChange();" placeholder="{{translation.translate('Label.Description')}}"
+				 id='descriptionField' [(ngModel)]="workload.Description" />
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]="!properties.isDrawerOpen" id="labSelect" placeholder="{{translation.translate('Label.Lab')}}" [(ngModel)]="workload.LaboratoryId"
+				 #lab=ngModel genericRequired>
+					<mat-option *ngFor="let lab of labOptions" (click)='resetExists();' [value]="lab">{{ lab }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="lab.errors">{{lab.errors.message}}</mat-error>
+			</mat-form-field>
+			<div class="drawer-toggle-container">
+				<label l10nTranslate>Label.Active</label>
+				<mat-slide-toggle [disabled]="!properties.isDrawerOpen" color="primary" [(ngModel)]="workload.IsActive"></mat-slide-toggle>
+			</div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]="!properties.isDrawerOpen" class="btn-save-and-add-another" mat-button (click)="checkForm(true)"
+		 *ngIf="headerText === translation.translate('Label.Add workload')" l10nTranslate>Label.Save & Add Another</button>
+		<button [disabled]="!properties.isDrawerOpen" class="btn-save" mat-button (click)="checkForm(false)" id="workloadSaveButton" l10nTranslate>Label.Save</button>
+	</div>
+</div>

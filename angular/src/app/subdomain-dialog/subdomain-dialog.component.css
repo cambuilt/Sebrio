@@ -1,0 +1,15 @@
+.domainLabel {
+	color:#26ADAA;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: 12px;
+	padding-left: 10px;
+	position: relative;
+	bottom: 10px;
+}
+
+.subdomainButton {
+	position: relative;
+	left: 113px;
+	bottom: 14px;
+}

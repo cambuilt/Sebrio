@@ -1,0 +1,40 @@
+.mat-chip {
+    background-color: #EBEBEB;
+    height: 30px;
+}
+
+.avatarCircle {
+    background-color: #D5D5D5;
+    border-radius: 50%;
+    height: 28px;
+    width: 28px;
+    position: absolute;
+    left: 0px;  
+    /* width: var(--avatar-size); */
+}
+
+.initials {
+    font-size: 16px; /* calc(var(--avatar-size) / 2)   */
+    font-family: 'Open Sans', Sans-serf;
+    font-weight: 600;
+    /* line-height: 1; */
+    color: #FFF;
+    /* position: relative; */
+    /* top: calc(var(--avatar-size) / 4);  */
+    margin-top: 39px;
+    margin-bottom:-12px;
+    /* background-color:red; */
+}
+
+.initials-role {
+    font-size: 12px; /* calc(var(--avatar-size) / 2)   */
+    font-family: 'Open Sans', Sans-serf;
+    font-weight: 600;
+    line-height: 1;
+    color: #000;
+    position: relative;
+    top: calc(var(--avatar-size) / 4); 
+    font-size: 12px;
+    margin-left:10px;
+}
+  

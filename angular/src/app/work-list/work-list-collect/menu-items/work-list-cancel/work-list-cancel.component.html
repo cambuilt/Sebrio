@@ -1,0 +1,19 @@
+<div *ngIf="showCancel === true">
+	<mat-card class="cancelCard">
+		<div class="card-heading" l10nTranslate>Label.Cancel collection</div>
+
+		<mat-form-field style="margin-top: 8px;">
+			<mat-select matSelect placeholder="Cancel reason" #cancelReasonForm=ngModel [(ngModel)]="reason" genericRequired>
+				<mat-option *ngFor="let cancelReason of cancelReasons" [value]="cancelReason.Code">{{ cancelReason.Code }}</mat-option>
+			</mat-select>
+			<mat-error *ngIf="cancelReasonForm.errors">{{cancelReasonForm.errors.message}}</mat-error>
+		</mat-form-field>
+
+		<mat-form-field style="margin-top: -1px;">
+			<input matInput placeholder="Comments" #cancelCommentsForm=ngModel [(ngModel)]="comments" genericRequired />
+			<mat-error *ngIf="cancelCommentsForm.errors">{{cancelCommentsForm.errors.message}}</mat-error>
+		</mat-form-field>
+
+		<button mat-button class="cancelButton" (click)="cancel()" l10nTranslate>Label.Submit</button>
+	</mat-card>
+</div>

@@ -1,0 +1,160 @@
+<div class="drawer-overlay" [ngClass]="{'show': properties.showOverlay === true, 'hide': properties.hideOverlay === true}"
+ (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Details</div>
+			<mat-form-field class='firstFormField' id='firstFormField'>
+				<input matInput placeholder="{{translation.translate('Label.Code')}}" [disabled]="!properties.isDrawerOpen || properties.rowID !== ''"
+				 id='firstField' [(ngModel)]="provider.Code" #code=ngModel appCodeLabValidation (change)='resetExists();' />
+				<mat-error *ngIf="code.errors">{{code.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Company name')}}"
+				 id='descriptionField' [(ngModel)]="provider.CompanyName" #companyName=ngModel />
+				<mat-error *ngIf="companyName.errors">{{companyName.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]="!properties.isDrawerOpen"  id='providerTitleSelect' placeholder="{{translation.translate('Label.Title')}}" [(ngModel)]="provider.Title" #title=ngModel
+				 >
+					<mat-option *ngFor="let title of titles" [value]="title">{{ title }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="title.errors">{{title.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerFirstName' placeholder="{{translation.translate('Label.First name')}}" [(ngModel)]="provider.FirstName"
+				 #firstName=ngModel  />
+				<mat-error *ngIf="firstName.errors">{{firstName.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerMiddleName' placeholder="{{translation.translate('Label.Middle name')}}" [(ngModel)]="provider.MiddleName" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerLastName' placeholder="{{translation.translate('Label.Last name')}}" [(ngModel)]="provider.LastName"
+				 #lastName=ngModel />
+				<mat-error *ngIf="lastName.errors">{{lastName.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerSuffix' placeholder="{{translation.translate('Label.Suffix')}}" [(ngModel)]="provider.Suffix" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerType' placeholder="{{translation.translate('Label.Provider type')}}" [(ngModel)]="provider.ProviderType" />
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]="!properties.isDrawerOpen" id='providerSpecialty' placeholder="{{translation.translate('Label.Speciality')}}" [(ngModel)]="provider.Speciality"
+				 #specialty=ngModel >
+					<mat-option *ngFor="let speciality of specialities" [value]="speciality">{{ speciality }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="specialty.errors">{{specialty.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerLicense' placeholder="{{translation.translate('Label.License')}}" [(ngModel)]="provider.License" #license=ngModel
+				  />
+				<mat-error *ngIf="license.errors">{{license.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerUPIN' placeholder="UPIN" [(ngModel)]="provider.UPIN" #upin=ngModel  />
+				<mat-error *ngIf="upin.errors">{{upin.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerNPI' placeholder="NPI" [(ngModel)]="provider.NPI" #npi=ngModel  />
+				<mat-error *ngIf="npi.errors">{{npi.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerStreet1' placeholder="{{translation.translate('Label.Street address 1')}}" [(ngModel)]="provider.Location.StreetAddress1"
+				 #streetAddress1=ngModel />
+				<mat-error *ngIf="streetAddress1.errors">{{streetAddress1.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Street address 2')}}" [(ngModel)]="provider.Location.StreetAddress2" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerCity' placeholder="{{translation.translate('Label.City')}}" [(ngModel)]="provider.Location.City" #city=ngModel
+				  />
+				<mat-error *ngIf="city.errors">{{city.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]="!properties.isDrawerOpen" id='providerState' placeholder="{{translation.translate('Label.State')}}" (selectionChange)="provider.Location.County = ''"
+				 [(ngModel)]="provider.Location.State" #state=ngModel>
+					<mat-option *ngFor="let state of states()" [value]="state">{{ state }}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="state.errors">{{state.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerZip' placeholder="{{translation.translate('Label.Postal code')}}" [(ngModel)]="provider.Location.PostalCode"
+				 numeric #postalCode=ngModel postalCodeValidator maxlength="5" />
+				<mat-error *ngIf="postalCode.errors">{{postalCode.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select [disabled]="!properties.isDrawerOpen" id='providerCounty' placeholder="{{translation.translate('Label.County')}}" [(ngModel)]="provider.Location.County">
+					<mat-option *ngFor="let county of counties()" [value]="county">{{ county }}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field id='countryField'>
+				<input matInput  placeholder="{{translation.translate('Label.Country')}}" value="USA" disabled="disabled" />
+			</mat-form-field>
+			<mat-form-field style="width: 46.875%;">
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerPhone1' placeholder="{{translation.translate('Label.Primary phone')}}" (blur)="blurPhone('Phone1');"
+				 [(ngModel)]="provider.Phone1" numeric #phone1=ngModel phoneValidator maxlength="14" />
+				<mat-error *ngIf="phone1.errors">{{phone1.errors.message}}</mat-error>
+			</mat-form-field>
+			<span style="padding-left: 6.25%;"></span>
+			<mat-form-field style="width: 46.875%;">
+				<input matInput [disabled]="!properties.isDrawerOpen" numeric placeholder="Ext" [(ngModel)]="provider.Extension1" />
+			</mat-form-field>
+			<mat-form-field style="width: 46.875%;">
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerPhone2'  placeholder="{{translation.translate('Label.Secondary phone')}}" (blur)="blurPhone('Phone2');"
+				 [(ngModel)]="provider.Phone2" numeric #phone2=ngModel phoneValidator maxlength="14" />
+				<mat-error *ngIf="phone2.errors">{{phone2.errors.message}}</mat-error>
+			</mat-form-field>
+			<span style="padding-left: 6.25%;"></span>
+			<mat-form-field style="width: 46.875%;">
+				<input matInput [disabled]="!properties.isDrawerOpen" numeric placeholder="Ext" [(ngModel)]="provider.Extension2" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerCellPhone' placeholder="{{translation.translate('Label.Cell phone')}}" (blur)="blurPhone('CellPhone');"
+				 [(ngModel)]="provider.CellPhone" numeric #cell=ngModel phoneValidator maxlength="14" />
+				<mat-error *ngIf="cell.errors">{{cell.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerFax' placeholder="{{translation.translate('Label.Fax')}}" (blur)="blurPhone('Fax');" [(ngModel)]="provider.Fax"
+				 numeric #fax=ngModel faxValidator maxlength="14" />
+				<mat-error *ngIf="fax.errors">{{fax.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerEmail' placeholder="{{translation.translate('Label.Email')}}" [(ngModel)]="provider.Email" #email=ngModel
+				 emailValidator />
+				<mat-error *ngIf="email.errors">{{email.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" id='providerSystemID' placeholder="{{translation.translate('Label.Source system ID')}}" [(ngModel)]="provider.SourceSystemId"
+				 #ssid=ngModel  />
+				<mat-error *ngIf="ssid.errors">{{ssid.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Comments')}}" [(ngModel)]="provider.Comments" />
+			</mat-form-field>
+			<mat-form-field>
+					<mat-select id="labSelect" [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Lab')}}"
+					 #lab=ngModel genericRequired [(ngModel)]="provider.Laboratory.Id">
+						<mat-option *ngFor="let lab of labOptions"  (click)='resetExists();' [value]="lab.Id">{{ lab.Id }}</mat-option>
+					</mat-select>
+					<mat-error *ngIf="lab.errors">{{lab.errors.message}}</mat-error>
+				</mat-form-field>
+			<div class="drawer-toggle-container">
+				<label l10nTranslate>Label.Active</label>
+				<mat-slide-toggle [disabled]="!properties.isDrawerOpen" color="primary" [(ngModel)]="provider.IsActive"></mat-slide-toggle>
+			</div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]="!properties.isDrawerOpen" class="btn-save-and-add-another" mat-button (click)="checkForm(true)" *ngIf="headerText === translation.translate('Label.Add provider')"
+		 l10nTranslate>Label.Save & Add Another</button>
+		<button [disabled]="!properties.isDrawerOpen" id='saveProviderButton' class="btn-save" mat-button (click)="checkForm(false)" l10nTranslate>Label.Save</button>
+	</div>
+</div>
+<rmp-lab-selector #addLab id="addLab" (onSave)='processLabSelect($event)' (onFullClose)="fullClose($event)" [labsInput]='provider.Laboratories'></rmp-lab-selector>

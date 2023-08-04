@@ -1,0 +1,78 @@
+.drawer-header-text {
+    position: relative;
+    top: -3px;
+}
+
+.hideShadow {
+    box-shadow: none;
+}
+
+.patientMRN {
+    color: #707070;
+    font-size: 12px;
+    line-height: 12px;
+    margin-left: 16px;
+    position: relative;
+    top: -8px;
+}
+
+.navigationControls {
+    position: absolute;
+    right: 13px;
+}
+
+.expand-icon {
+    padding: 0px;
+    -moz-transition: all .1s linear;
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+    position: relative;
+    top: 5px;
+    right: 16px;
+    font-size: 32px;
+    height: 32px;
+    width: 32px;
+}
+
+.expand-icon.expanded {
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.menuIcon {
+    padding: 0;
+    position: relative;
+    left: 29px;
+    top: 8px;
+}
+
+.printButton {
+    position: relative;
+    left: calc(50% - 48px - 12px - 32px);
+}
+
+.drawer-footer {
+    z-index: 4;
+}
+
+.drawer-footer.shadowed {
+    box-shadow: 0px -4px 8px 0px rgba(0, 0, 0, 0.08);
+}
+
+.noCaret,
+.noCaret input {
+    cursor: default;
+}
+
+.cancellationCard {
+    padding-top: 26px;
+}
+
+app-work-list-patient {
+    position: fixed;
+    top: 64px;
+    width: 100%;
+    z-index: 2;
+}

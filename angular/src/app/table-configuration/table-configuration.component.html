@@ -1,0 +1,24 @@
+<div class="drawer-overlay" [ngClass]="{'show': isDrawerOpen == true}" (click)="clickOverlay()"></div>
+<div class="drawer-container" id='tableConfigurator' [ngClass]="{'show': isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="close()">arrow_back</mat-icon>
+		<div class="drawer-header-text" l10nTranslate>ScreenTitle.Table configuration</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card class="columns-card">
+			<div class="card-heading" l10nTranslate>Header.Show/hide and reorder columns</div>
+			<div class="column-headings">
+				<div l10nTranslate>Label.Columns</div>
+				<div l10nTranslate>Label.Assigned</div>
+			</div>
+			<div class="column-tile" *ngFor="let column of columns; let i = index" [attr.data-index]="i">
+				<mat-icon (mousedown)="dragStart($event)" (touchstart)="dragStart($event);">drag_handle</mat-icon>
+				<div class="column-name">{{ getColumnDisplayName(column) }}</div>
+				<mat-checkbox id="configurator{{i}}" [disabled]="!isDrawerOpen" class="column-selection" color="primary" [(ngModel)]="column.checked"></mat-checkbox>
+			</div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]="!isDrawerOpen" id='configuratorSaveButton' class="btn-save" mat-button (click)="save()" l10nTranslate>Label.Save</button>
+	</div>
+</div>

@@ -1,0 +1,41 @@
+.associatedTitle {
+    margin-left: 24px;
+    padding-top: 5%;
+    color: rgba(0, 0, 0, 0.54);
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.subtitle-headers {
+    margin-top: 16px;
+}
+
+.associatedSubTitle {
+    margin-left: 24px;
+    display: inline-block;
+    width: calc(100% - 102px);
+}
+
+.associated-location {
+    display: inline-block;
+    padding-left: 7%;
+    padding-bottom: 2%;
+    margin-top: -1.5%;
+    max-width: 265px !important;
+    width: 100% !important;
+}
+
+.card-bottom-space {
+    height: 24px;
+}
+
+.subheadingDiv {
+    margin-top: 6px;
+    margin-bottom: 1px;
+    line-height: 12px;
+}
+
+.email-span {
+    width: calc(100% - 22px);
+}

@@ -1,0 +1,39 @@
+<div class="drawer-overlay" [ngClass]="{'show': isDrawerOpen == true}" (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="card-heading" *ngIf='isRequested === true' l10nTranslate>Header.Reserved by</div>
+			<div class="card-heading" *ngIf='isRequested === false' l10nTranslate>Header.Collection transfer request</div>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Assigned phlebotomist')}}" readonly [(ngModel)]="collection.AssignedPhleb" />
+			</mat-form-field>
+			<mat-form-field *ngIf="collection.RequestingPhleb !== '' ">
+				<input matInput placeholder="{{translation.translate('Label.Requesting phlebotomist')}}" readonly [(ngModel)]="collection.RequestingPhleb" />
+			</mat-form-field>
+			<mat-form-field *ngIf="collection.RequestingPhleb !== '' ">
+				<input matInput placeholder="{{translation.translate('Label.Reason')}}" readonly [(ngModel)]="collection.Reason" />
+			</mat-form-field>
+			<div class='transferButtons'>
+				<button *ngIf="collection.RequestingPhleb !== '' " class='selectDrawerButton' mat-button l10nTranslate>Label.Transfer</button>
+				<button *ngIf="collection.RequestingPhleb !== '' " class='selectDrawerButton' mat-button l10nTranslate>Label.Reject</button>
+				<button *ngIf="collection.RequestingPhleb === ''" class='selectDrawerButton' mat-button l10nTranslate>Label.Release</button>
+			</div>
+		</mat-card>
+		<mat-card *ngIf="collection.ProblemList !== '' ">
+			<div class="card-heading" l10nTranslate>Label.Problem list</div>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Assigned phlebotomist')}}" readonly [(ngModel)]="collection.AssignedPhleb" />
+			</mat-form-field>
+			<mat-form-field style='margin-bottom: -25px'>
+				<input matInput placeholder="{{translation.translate('Label.Reason')}}" readonly [(ngModel)]="collection.ProblemList" />
+			</mat-form-field>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button class="btn-save" mat-button (click)="clickOverlay();" l10nTranslate>Label.Close</button>
+	</div>
+</div>

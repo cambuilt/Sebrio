@@ -1,0 +1,100 @@
+<div class="drawer-overlay" [ngClass]="{'show': properties.showOverlay === true, 'hide': properties.hideOverlay === true}" (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="card-heading" l10nTranslate>Header.Details</div>
+			<mat-form-field class='firstFormField' id='firstFormField'>
+				<input matInput placeholder="{{translation.translate('Label.Name')}}" id='firstField' [(ngModel)]="tenant.Name" #name=ngModel genericRequired/>
+				<mat-error *ngIf="name.errors">{{name.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Street address 1')}}" [(ngModel)]="tenant.Location.AddressLine1" #streetAddress1=ngModel genericRequired/>
+				<mat-error *ngIf="streetAddress1.errors">{{streetAddress1.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Street address 2')}}" [(ngModel)]="tenant.Location.AddressLine2" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.City')}}" [(ngModel)]="tenant.Location.City" #city=ngModel genericRequired/>
+				<mat-error *ngIf="city.errors">{{city.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select matSelect placeholder="{{translation.translate('Label.State')}}" (selectionChange)="tenant.Location.County = ''" [(ngModel)]="tenant.Location.State" #state=ngModel genericRequired>
+					<mat-option *ngFor="let state of states()" [value]="state">{{state}}</mat-option>
+				</mat-select>
+				<mat-error *ngIf="state.errors">{{state.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Postal code')}}" [(ngModel)]="tenant.Location.PostalCode" numeric #postalCode=ngModel postalCodeValidator
+				    maxlength="5" />
+				<mat-error *ngIf="postalCode.errors">{{postalCode.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<mat-select matSelect placeholder="{{translation.translate('Label.County')}}" [(ngModel)]="tenant.Location.County">
+					<mat-option *ngFor="let county of counties()" [value]="county">{{county}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Country')}}" value="USA" disabled="disabled" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Website')}}" [(ngModel)]="tenant.Website" />
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Phone')}}" (blur)="formatPhoneNumber($event)" [(ngModel)]="tenant.PhoneNumber" #phone=ngModel [isRequired]=true
+				    numeric phoneValidator maxlength="14" />
+				<mat-error *ngIf="phone.errors">{{phone.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Email')}}" [(ngModel)]="tenant.Email" #email=ngModel [isRequired]=true emailValidator />
+				<mat-error *ngIf="email.errors">{{email.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input [disabled]="tenant.Id !== '' " matInput placeholder="{{translation.translate('Label.Sub-domain')}}" maxlength="60" [(ngModel)]="tenant.SubDomain" #subdomain=ngModel subdomainForm genericRequired/>
+				<mat-error *ngIf="subdomain.errors">{{subdomain.errors.message}}</mat-error>
+			</mat-form-field>
+			<div class="drawer-toggle-container">
+				<label l10nTranslate>Label.Active</label>
+				<mat-slide-toggle color="primary" [(ngModel)]="tenant.IsActive"></mat-slide-toggle>
+			</div>
+		</mat-card>
+		<mat-card class='tenantCard2' *ngIf="this.headerText === translation.translate('Label.Add tenant')">
+			<div class="card-heading" l10nTranslate>Header.Tenant system administrator</div>
+			<mat-form-field class='firstFormField'>
+				<input matInput placeholder="{{translation.translate('Label.First name')}}" [(ngModel)]="tenant.TSAUser.FirstName" #firstName=ngModel id="firstName" genericRequired/>
+				<mat-error *ngIf="firstName.errors">{{firstName.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Last name')}}" [(ngModel)]="tenant.TSAUser.LastName" #lastName=ngModel genericRequired/>
+				<mat-error *ngIf="lastName.errors">{{lastName.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Email')}}" [(ngModel)]="tenant.TSAUser.Email" #emailTSA=ngModel [isRequired]=true emailValidator/>
+				<mat-error *ngIf="emailTSA.errors">{{emailTSA.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Phone')}}" (blur)="formatPhoneNumber($event)" [(ngModel)]="tenant.TSAUser.PhoneNumber" numeric phoneValidator maxlength="14"/>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput placeholder="{{translation.translate('Label.Username')}}" [(ngModel)]="tenant.TSAUser.Username" (change)='resetExists();' #username=ngModel appUsernameValidation />
+				<mat-error *ngIf="username.errors">{{username.errors.message}}</mat-error>
+			</mat-form-field>
+		</mat-card>
+		<mat-card class='tenantCard2' id="editTSAUser" *ngIf="this.headerText === translation.translate('Label.Edit tenant')">
+			<div class="card-heading" l10nTranslate>Header.Tenant system administrator</div>
+			<mat-form-field style='margin-top: 8px;'>
+				<mat-select matSelect placeholder="{{translation.translate('Label.User')}}" [(ngModel)]="tenant.TSAUser.Username">
+					<mat-option *ngFor="let user of tenant.Users" [value]="user.Username" (click)='setUser(user.Username);'>{{user.FirstName}} {{user.LastName}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button class="btn-save-and-add-another" mat-button (click)="save(true)" *ngIf="headerText === translation.translate('Label.Add tenant')" l10nTranslate>Label.Save & Add Another</button>
+		<button class="btn-save" mat-button (click)="save(false)"l10nTranslate>Label.Save</button>
+	</div>
+</div>

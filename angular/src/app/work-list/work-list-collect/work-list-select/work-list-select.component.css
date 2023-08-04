@@ -1,0 +1,38 @@
+app-work-list-preview-test {
+    width: calc(100% - 46px);
+}
+
+.testSelect {
+    padding-top: 32px;
+}
+
+.disabledCollection {
+    cursor: default;
+    color: rgba(0, 0, 0, .38);
+}
+
+.disabledCollection:hover {
+    color: rgba(0, 0, 0, .38);
+}
+
+.collectionContainers {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    margin-left: -10px;
+}
+
+.collectionContainers:first-child {
+    margin-top: 0px;
+}
+
+.collectionContainers .mat-icon {
+    position: relative;
+    left: -4px;
+    top: -2px;
+    padding-right: 10px;
+}
+
+.testSpacer {
+    margin-top: 9px;
+}

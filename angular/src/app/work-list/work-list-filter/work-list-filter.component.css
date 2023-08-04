@@ -1,0 +1,53 @@
+.lastDropdown {
+	margin-bottom: -26px !important;
+}
+
+.lastLine {
+	margin-bottom: -25px !important;
+}
+
+.selectAfterHeader {
+	margin-top: 7px;
+}
+
+.ageInput {
+	text-align: center;
+}
+
+.ageField {
+	margin-top: 7px;
+	width: 10%;
+	float: left;
+	margin-bottom: 1px;
+}
+
+.ageSlider {
+	/* width: calc(70% - 2px); */
+	/* width: 234px; */
+	width: 72%;
+	float: left;
+	/* margin-left: 11px; */
+	margin-left: 4%;
+	/* margin-right: 11px; */
+	margin-right: 4%;
+	margin-top: 11px;
+}
+
+.dateTime,
+.dateTime2 {
+	/* width: 150px; */
+	width: 46.875%;
+}
+
+.dateSpan {
+	/* padding-left: 20px; */
+	padding-left: 6.25%;
+}
+
+.defaultClick {
+	cursor: default;
+}
+
+.pointerClick {
+	cursor: pointer;
+}

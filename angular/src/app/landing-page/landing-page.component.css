@@ -1,0 +1,35 @@
+.mainTable .form-field-label {
+	color: rgba(0, 0, 0, 0.54);
+	font-weight: 400;
+	font-size: 14px;
+	height: 25px;
+}
+
+.tableRow {
+	height: 46px;
+	display: none;
+}
+
+.tableRow.show {
+	display: block;
+}
+
+.mainTable {
+	width: 300px;
+	margin-left: -5px;
+	margin-bottom: -1px;
+}
+
+.card-heading-landing {
+	color: rgba(0, 0, 0, 0.54);
+	font-size: 14px;
+	font-weight: 600;
+	margin-top: -8px;
+	margin-bottom: 7px;
+}
+
+.rsaSpan {
+	height: 0px;
+	width: 48px;
+	display: inline-block;
+}

@@ -1,0 +1,281 @@
+@import '../../app/nav-bar/nav-bar.component.scss';
+@import '../../app/system-settings/system-settings.component.scss';
+@mixin custom-components-theme($theme) {
+    @include navbar-theme($theme);
+    @include system-settings-theme($theme);
+    $primary-map: map-get($theme, primary);
+    $primary: mat-color($primary-map, 500);
+    $behind-toggle: mat-color($primary-map, 200);
+    $buttons: mat-color($primary-map, 100);
+    $hover: mat-color($primary-map, 50);
+    .mat-button {
+        color: $primary;
+        background-color: white;
+    }
+
+    button.mat-button {
+        color: $primary;
+    }
+    button.mat-button:hover {
+        background-color: $buttons;
+    }
+    button.mat-button:focus {
+        background-color: $buttons;
+    }
+    .mat-button[disabled][disabled] {
+        color: rgba(0, 0, 0, 0.38);
+    }
+    button.mat-button[disabled][disabled]:hover {
+        background-color: rgba(0, 0, 0, 0.0);
+    }
+    button .mat-button-focus-overlay {
+        opacity: 0 !important;
+    }
+    .login-inputs:after,
+    .button-sign-in {
+        background-color: $primary;
+    }
+    .icon-username,
+    .icon-password {
+        color: $primary !important;
+    }
+    .mat-slide-toggle.mat-primary.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+        background-color: $behind-toggle;
+    }
+    .btn-add:hover {
+        background-color: $buttons;
+    }
+    .btn-alert-ok {
+        color: $primary;
+    }
+    .btn-alert-ok:hover {
+        background-color: $buttons;
+    }
+    .mat-input-element {
+        caret-color: $primary;
+    }
+    .mat-table .mat-row:hover {
+        background-color: $hover !important;
+    }
+    .mat-table .mat-row.selected {
+        background-color: $hover !important;
+        background: $hover !important;
+    }
+    .grid-row.selected,
+    .addressRow.selected {
+        background-color: $hover !important;
+        background: $hover !important;
+    }
+    .grid-panel-contents .grid-row:hover {
+        background-color: $hover !important;
+    }
+    .grid-row:hover,
+    .addressRow:hover,
+    .test-row:hover {
+        background-color: $hover !important;
+    }
+    .splitRow:hover+.addressRow {
+        background-color: $hover !important;
+    }
+    .mobile-row:hover {
+        background-color: $hover !important;
+    }
+    .mobile-row.selected {
+        background-color: $hover !important;
+    }
+
+    .notificationContent.show, .dataSpanMessage {
+        background-color: $buttons !important;
+    }
+
+    .roundedDialogButtonAddRightHub {
+        color: $primary;
+    }
+    .roundedErrorButton {
+        color: $primary;
+        background-color: #FFFFFF;
+    }
+    .roundedErrorButton:hover {
+        background-color: $buttons;
+    }
+    .themedText,
+    .uploadButton,
+    .themed {
+        color: $primary;
+    }
+    .selectorCheckbox.checked {
+        color: $primary;
+    }
+    .notification-header-icon.themed {
+        color: $primary;
+    }
+    .mat-calendar-body-selected {
+        background-color: $behind-toggle;
+        background-color: $buttons;
+        color: black !important;
+        box-shadow: inset 0 0 0 1px black !important;
+    }
+    .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle,
+    .mat-radio-button.mat-accent .mat-radio-inner-circle {
+        border-color: $primary;
+    }
+    .mat-radio-button.mat-accent .mat-radio-inner-circle {
+        background-color: $primary;
+    }
+    .igx-slider__thumb-from .dot,
+    .igx-slider__thumb-to .dot {
+        background: $primary;
+    }
+    .igx-slider__thumb-from .label,
+    .igx-slider__thumb-to .label {
+        background: $primary;
+        border-top-color: $primary;
+    }
+    .igx-slider__track-fill {
+        background: $behind-toggle;
+    }
+    .messaging .message-currentuser-bubble {
+        background-color: $hover;
+    }
+    .message-currentuser-bubble:before {
+        border-bottom: 10px solid $hover;
+    }
+
+}
+
+// accents used to be A200, A100, A400
+$candy-app-primary: mat-palette($mat-cyan, 500, 500, 500);
+$candy-app-accent: mat-palette($mat-pink, 50, 50, 50);
+$candy-app-warn: mat-palette($mat-red);
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+$old-cyan: (50: #eefcfb, 100: #beebea, 200: #93dedd, 300: #68d1cf, 400: #47c7c4, 500: #27bdba, 600: #23b7b3, 700: #1daeab, 800: #17a6a3, 900: #0e9894, A100: #c8fffd, A200: #95fffb, A400: #62fff9, A700: #48fff8, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #000000, 600: #000000, 700: #000000, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$old-cyan-primary: mat-palette($old-cyan, 500, 500, 500); // #27BDBA
+$old-cyan-accent: mat-palette($old-cyan, 50, 50, 50); // #eefcfb
+$old-cyan-warn: mat-palette($mat-red);
+$old-cyan-theme: mat-light-theme($old-cyan-primary, $old-cyan-accent, $old-cyan-warn);
+$strong-pink: (50: #fcf4f9, 100: #f7e5f1, 200: #edc5e1, 300: #d168b1, 400: #c747a0, 500: #bd278f, 600: #b72387, 700: #ae1d7c, 800: #a61772, 900: #980e60, A100: #ffc8e6, A200: #ff95d0, A400: #ff62b9, A700: #ff48ae, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$strong-pink-primary: mat-palette($strong-pink, 500, 500, 500); // #bd278f
+$strong-pink-accent: mat-palette($strong-pink, 50, 50, 50);
+$strong-pink-warn: mat-palette($mat-red);
+$strong-pink-theme: mat-light-theme($strong-pink-primary, $strong-pink-accent, $strong-pink-warn);
+$strong-magenta: (50: #faf4fc, 100: #f4e4f7, 200: #e6c6ed, 300: #bd68d1, 400: #ae47c7, 500: #a027bd, 600: #9823b7, 700: #8e1dae, 800: #8417a6, 900: #730e98, A100: #efc8ff, A200: #e095ff, A400: #d062ff, A700: #c948ff, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$strong-magenta-primary: mat-palette($strong-magenta, 500, 500, 500); // #a027bd
+$strong-magenta-accent: mat-palette($strong-magenta, 50, 50, 50);
+$strong-magenta-warn: mat-palette($mat-red);
+$strong-magenta-theme: mat-light-theme($strong-magenta-primary, $strong-magenta-accent, $strong-magenta-warn);
+$strong-violet: (50: #f8f4fc, 100: #ede4f7, 200: #d8c6ed, 300: #9868d1, 400: #8247c7, 500: #6c27bd, 600: #6423b7, 700: #591dae, 800: #4f17a6, 900: #3d0e98, A100: #d8c8ff, A200: #b495ff, A400: #9062ff, A700: #7e48ff, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #ffffff, ));
+$strong-violet-primary: mat-palette($strong-violet, 500, 500, 500); // #6c27bd
+$strong-violet-accent: mat-palette($strong-violet, 50, 50, 50);
+$strong-violet-warn: mat-palette($mat-red);
+$strong-violet-theme: mat-light-theme($strong-violet-primary, $strong-violet-accent, $strong-violet-warn);
+$strong-blue: (50: #f4f5fc, 100: #e4e8f7, 200: #c6ceed, 300: #687cd1, 400: #4760c7, 500: #2744bd, 600: #233eb7, 700: #1d35ae, 800: #172da6, 900: #0e1f98, A100: #c8cdff, A200: #959fff, A400: #6271ff, A700: #485aff, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #ffffff, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #ffffff, A700: #ffffff, ));
+$strong-blue-primary: mat-palette($strong-blue, 500, 500, 500); // #2744bd
+$strong-blue-accent: mat-palette($strong-blue, 50, 50, 50);
+$strong-blue-warn: mat-palette($mat-red);
+$strong-blue-theme: mat-light-theme($strong-blue-primary, $strong-blue-accent, $strong-blue-warn);
+$strong-blue2: (50: #f4f8fc, 100: #e4eef7, 200: #c6daed, 300: #689cd1, 400: #4787c7, 500: #2772bd, 600: #236ab7, 700: #1d5fae, 800: #1755a6, 900: #0e4298, A100: #c8daff, A200: #95b8ff, A400: #6296ff, A700: #4885ff, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$strong-blue2-primary: mat-palette($strong-blue2, 500, 500, 500); // #2772bd
+$strong-blue2-accent: mat-palette($strong-blue2, 50, 50, 50);
+$strong-blue2-warn: mat-palette($mat-red);
+$strong-blue2-theme: mat-light-theme($strong-blue2-primary, $strong-blue2-accent, $strong-blue2-warn);
+$strong-blue3: (50: #f4fafc, 100: #e4f2f7, 200: #c6e3ed, 300: #68b5d1, 400: #47a5c7, 500: #2795bd, 600: #238db7, 700: #1d82ae, 800: #1778a6, 900: #0e6798, A100: #c8e9ff, A200: #95d5ff, A400: #62c1ff, A700: #48b7ff, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$strong-blue3-primary: mat-palette($strong-blue3, 500, 500, 500); // #2795bd
+$strong-blue3-accent: mat-palette($strong-blue3, 50, 50, 50);
+$strong-blue3-warn: mat-palette($mat-red);
+$strong-blue3-theme: mat-light-theme($strong-blue3-primary, $strong-blue3-accent, $strong-blue3-warn);
+$strong-cyan: (50: #f0f8f8, 100: #dff2f2, 200: #c6edec, 300: #68d1cf, 400: #47c7c4, 500: #27bdba, 600: #23b7b3, 700: #1daeab, 800: #17a6a3, 900: #0e9894, A100: #c8fffd, A200: #95fffb, A400: #62fff9, A700: #48fff8, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #000000, 600: #000000, 700: #000000, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$strong-cyan-primary: mat-palette($strong-cyan, 500, 500, 500); // #27bdba
+$strong-cyan-accent: mat-palette($strong-cyan, 50, 50, 50);
+$strong-cyan-warn: mat-palette($mat-red);
+$strong-cyan-theme: mat-light-theme($strong-cyan-primary, $strong-cyan-accent, $strong-cyan-warn);
+$strong-cyan-lime-green: (50: #f4fcf8, 100: #e4f7ed, 200: #c6edd8, 300: #68d198, 400: #47c782, 500: #27bd6c, 600: #23b764, 700: #1dae59, 800: #17a64f, 900: #0e983d, A100: #c8ffd8, A200: #95ffb4, A400: #62ff90, A700: #48ff7e, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #000000, 600: #000000, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$strong-cyan-lime-green-primary: mat-palette($strong-cyan-lime-green, 500, 500, 500); // #27bd6c
+$strong-cyan-lime-green-accent: mat-palette($strong-cyan-lime-green, 50, 50, 50);
+$strong-cyan-lime-green-warn: mat-palette($mat-red);
+$strong-cyan-lime-green-theme: mat-light-theme($strong-cyan-lime-green-primary, $strong-cyan-lime-green-accent, $strong-cyan-lime-green-warn);
+$strong-green: (50: #f8fcf4, 100: #eff7e4, 200: #dbedc6, 300: #a1d168, 400: #8cc747, 500: #78bd27, 600: #70b723, 700: #65ae1d, 800: #5ba617, 900: #48980e, A100: #ddffc8, A200: #bdff95, A400: #9dff62, A700: #8dff48, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #000000, 600: #000000, 700: #000000, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$strong-green-primary: mat-palette($strong-green, 500, 500, 500); // #78bd27
+$strong-green-accent: mat-palette($strong-green, 50, 50, 50);
+$strong-green-warn: mat-palette($mat-red);
+$strong-green-theme: mat-light-theme($strong-green-primary, $strong-green-accent, $strong-green-warn);
+/* $strong-yellow: (50: #fbfcf4, 100: #f6f7e4, 200: #eddec6, */
+
+$strong-yellow: (50: #fbfcf4, 100: #f6f7e4, 200: #ecedc6, 300: #cdd168, 400: #c2c747, 500: #b7bd27, 600: #b0b723, 700: #a7ae1d, 800: #9fa617, 900: #90980e, A100: #fbffc8, A200: #f8ff95, A400: #f5ff62, A700: #f3ff48, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #000000, 600: #000000, 700: #000000, 800: #000000, 900: #000000, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$strong-yellow-primary: mat-palette($strong-yellow, 500, 500, 500); // #b7bd27
+$strong-yellow-accent: mat-palette($strong-yellow, 50, 50, 50);
+$strong-yellow-warn: mat-palette($mat-red);
+$strong-yellow-theme: mat-light-theme($strong-yellow-primary, $strong-yellow-accent, $strong-yellow-warn);
+$strong-orange: (50: #fcf9f4, 100: #f7f0e4, 200: #eddec6, 300: #d1a868, 400: #c79647, 500: #bd8327, 600: #b77b23, 700: #ae701d, 800: #a66617, 900: #98530e, A100: #ffe1c8, A200: #ffc695, A400: #ffaa62, A700: #ff9c48, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #000000, 600: #000000, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$strong-orange-primary: mat-palette($strong-orange, 500, 500, 500); // #bd8327
+$strong-orange-accent: mat-palette($strong-orange, 50, 50, 50);
+$strong-orange-warn: mat-palette($mat-red);
+$strong-orange-theme: mat-light-theme($strong-orange-primary, $strong-orange-accent, $strong-orange-warn);
+$strong-red: (50: #fcf4f4, 100: #f7e4e4, 200: #edc6c6, 300: #d16868, 400: #c74747, 500: #bd2727, 600: #b72323, 700: #ae1d1d, 800: #a61717, 900: #980e0e, A100: #ffc8c8, A200: #ff9595, A400: #ff6262, A700: #ff4848, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #ffffff, ));
+$strong-red-primary: mat-palette($strong-red, 500, 500, 500); // #bd2727
+$strong-red-accent: mat-palette($strong-red, 50, 50, 50);
+$strong-red-warn: mat-palette($mat-red);
+$strong-red-theme: mat-light-theme($strong-red-primary, $strong-red-accent, $strong-red-warn);
+.default-theme {
+    @include angular-material-theme($old-cyan-theme);
+    @include custom-components-theme($old-cyan-theme);
+}
+
+.strong-pink-theme {
+    @include angular-material-theme($strong-pink-theme);
+    @include custom-components-theme($strong-pink-theme);
+}
+
+.strong-magenta-theme {
+    @include angular-material-theme($strong-magenta-theme);
+    @include custom-components-theme($strong-magenta-theme);
+}
+
+.strong-violet-theme {
+    @include angular-material-theme($strong-violet-theme);
+    @include custom-components-theme($strong-violet-theme);
+}
+
+.strong-blue-theme {
+    @include angular-material-theme($strong-blue-theme);
+    @include custom-components-theme($strong-blue-theme);
+}
+
+.strong-blue2-theme {
+    @include angular-material-theme($strong-blue2-theme);
+    @include custom-components-theme($strong-blue2-theme);
+}
+
+.strong-blue3-theme {
+    @include angular-material-theme($strong-blue3-theme);
+    @include custom-components-theme($strong-blue3-theme);
+}
+
+.strong-cyan-theme {
+    @include angular-material-theme($strong-cyan-theme);
+    @include custom-components-theme($strong-cyan-theme);
+}
+
+.strong-cyan-lime-green-theme {
+    @include angular-material-theme($strong-cyan-lime-green-theme);
+    @include custom-components-theme($strong-cyan-lime-green-theme);
+}
+
+.strong-green-theme {
+    @include angular-material-theme($strong-green-theme);
+    @include custom-components-theme($strong-green-theme);
+}
+
+.strong-yellow-theme {
+    @include angular-material-theme($strong-yellow-theme);
+    @include custom-components-theme($strong-yellow-theme);
+}
+
+.strong-orange-theme {
+    @include angular-material-theme($strong-orange-theme);
+    @include custom-components-theme($strong-orange-theme);
+}
+
+.strong-red-theme {
+    @include angular-material-theme($strong-red-theme);
+    @include custom-components-theme($strong-red-theme);
+}

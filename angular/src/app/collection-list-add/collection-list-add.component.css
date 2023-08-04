@@ -1,0 +1,257 @@
+.mat-card {
+    padding-top: 26px;
+    padding-right: 24px;
+    padding-bottom: 24px;
+    padding-left: 24px;
+}
+
+.card-heading {
+    height: 15px;
+    margin-top: -2px;
+}
+
+/* Time Fields */
+
+.tee {
+    width: 14px;
+}
+
+.mat-form-field-underline {
+    background-color: rgba(0, 0, 0, 0.42) !important;
+}
+
+.mat-form-field-appearance-legacy.mat-form-field-disabled .mat-form-field-underline {
+    background-color: red !important;
+}
+
+.teeSelect {
+    width: 28px;
+    position: relative;
+    top: -5px;
+}
+
+.date-field {
+    width: calc( 50% - 42px - 10px);
+    /* width: 99px; */
+}
+
+.date-field>.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    background-color: red !important;
+}
+
+.date-field .mat-form-field>.mat-form-field-wrapper>.mat-form-field-flex {
+    padding-left: 3px !important;
+}
+
+.half-field {
+    width: calc( 50% - 10px);
+    /* width: 141px; */
+}
+
+.quarter-field {
+    width: calc(25% - 15px);
+    /* width: 141px; */
+}
+
+.pushUp {
+    position: relative;
+    top: -56px;
+}
+
+.pushUp2 {
+    position: relative;
+    top: -45px;
+}
+
+.pushUp3 {
+    position: relative;
+    top: -45px;
+}
+
+.pushUp4 {
+    position: relative;
+    top: -56px;
+}
+
+.pushUpSelect {
+    position: relative;
+    top: -61px;
+}
+
+.pushUp2Select {
+    position: relative;
+    top: -50px;
+}
+
+.pushUp3Select {
+    position: relative;
+    top: -50px;
+}
+
+.pushUp4Select {
+    position: relative;
+    top: -61px;
+}
+
+.matError {
+    font-size: 10.5px;
+    line-height: 1.125;
+    position: relative;
+    top: -27px;
+}
+
+.half-field-splitter {
+    display: inline-block;
+    width: 20px;
+}
+
+.nowLabel {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 14px;
+}
+
+.nowLabelSpan>* {
+    position: relative;
+    bottom: 7px;
+}
+
+.nowLabelSpan .selectorCheckbox {
+    top: 1px !important;
+    left: 7px !important;
+}
+
+.selectorCheckbox {
+    left: 6px !important;
+}
+
+/* Associated Cards */
+
+.associatedTitle {
+    padding-top: 26px;
+    padding-left: 24px;
+}
+
+.selectorColumns {
+    margin-top: 19px;
+    margin-bottom: 17px;
+}
+
+.associatedSubTitle {
+    padding-left: 24px;
+    position: absolute;
+}
+
+.subtitle-right {
+    position: absolute;
+    right: 24px;
+}
+
+.tableHead {
+    margin-top: 16px;
+}
+
+.removeRow {
+    padding: 0px;
+    position: absolute;
+    right: 35.5px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.selectButton {
+    padding-top: 32px;
+    padding-bottom: 14px;
+}
+
+/* Modifiers for PP */
+
+.cardEndingWithInput {
+    padding-bottom: 0px;
+}
+
+.collection-list-toggle {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 14px;
+    margin-top: 32px;
+    height: 8px;
+    vertical-align: middle;
+}
+
+.collection-list-toggle>* {
+    position: relative;
+    top: -5px;
+}
+
+.collection-list-toggle>label {
+    display: inline-block;
+    width: calc(100% - 36px - 8px);
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap;
+}
+
+.toggle-label-disabled {
+    color: rgba(0, 0, 0, 0.38);
+}
+
+.toggleAfterHeader {
+    margin-top: 31px;
+}
+
+.toggleAfterLine {
+    margin-top: -2px !important;
+}
+
+.activeAfterLine {
+    margin-top: -2px !important;
+}
+
+.toggleToCard {
+    margin-bottom: 8px !important;
+}
+
+.toggleToCollectionInfoCard {
+    margin-bottom: 10px !important;
+}
+
+.lineAfterHeader {
+    margin-top: 11px;
+}
+
+.lineAfterToggle {
+    margin-top: 16px;
+}
+
+.lineToCard {
+    margin-bottom: -26px !important;
+}
+
+.lastLineToShortCard {
+    margin-bottom: -2px !important;
+}
+
+.lastLineToMediumCard {
+    height: 71px;
+}
+
+.hub {
+    margin-top: 1px;
+    margin-bottom: 0px;
+}
+
+.wristbandIdentifier {
+    width: 51.875%;
+    position: relative;
+    top: 1px;
+}
+
+.wristbandSegment {
+    width: 42.5%;
+    position: relative;
+    top: 6px;
+}
+
+.wristbandGap {
+    display: inline-block;
+    width: 5.625%;
+}

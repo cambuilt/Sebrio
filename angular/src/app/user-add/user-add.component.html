@@ -1,0 +1,67 @@
+<div class="drawer-overlay" [ngClass]="{'show': properties.showOverlay === true, 'hide': properties.hideOverlay === true}"
+ (click)="clickOverlay()"></div>
+<div class="drawer-container" [ngClass]="{'show': properties.isDrawerOpen == true}">
+	<mat-toolbar color="white">
+		<mat-icon (click)="clickOverlay()">arrow_back</mat-icon>
+		<div class="drawer-header-text">{{ headerText }}</div>
+	</mat-toolbar>
+	<div class="drawer-content">
+		<mat-card>
+			<div class="card-heading">Details</div>
+			<mat-form-field *ngIf="authService.currentUser.role !== 'RMP_RSA'" class='firstFormField'>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Badge ID')}}" id='firstField'
+				 [(ngModel)]="user.BadgeId" #badgeID=ngModel genericRequired />
+				<mat-error *ngIf="badgeID.errors">{{badgeID.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field *ngIf="authService.currentUser.role !== 'RMP_RSA'">
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Tech code')}}" id='techCodeField'
+				 [(ngModel)]="user.TechCode" #code=ngModel appCodeValidation />
+				<mat-error *ngIf="code.errors">{{code.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.First name')}}" id="firstNameField"
+				 [(ngModel)]="user.FirstName" #firstName=ngModel genericRequired />
+				<mat-error *ngIf="firstName.errors">{{firstName.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Last name')}}" id="lastNameField"
+				 [(ngModel)]="user.LastName" #lastName=ngModel genericRequired />
+				<mat-error *ngIf="lastName.errors">{{lastName.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Phone')}}" id="phoneField"
+				 [(ngModel)]="user.PhoneNumber" id="phoneField" #phone=ngModel [isRequired]=true numeric phoneValidator maxlength="14" />
+				<mat-error *ngIf="phone.errors">{{phone.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field>
+				<input matInput [disabled]="!properties.isDrawerOpen" placeholder="{{translation.translate('Label.Email')}}" id="emailField"
+				 [(ngModel)]="user.Email" #email=ngModel [isRequired]=true emailValidator />
+				<mat-error *ngIf="email.errors">{{email.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field id='usernameField'>
+				<input matInput placeholder="{{translation.translate('LogIn.Username')}}" (change)='resetExists();' [(ngModel)]="user.Username" [disabled]="!properties.isDrawerOpen || properties.rowID !== ''" id="usernameField"
+				 #username=ngModel appUsernameValidation />
+				<mat-error *ngIf="username.errors">{{username.errors.message}}</mat-error>
+			</mat-form-field>
+			<mat-form-field *ngIf="authService.currentUser.role === 'RMP_TSA'">
+				<mat-select [disabled]="!properties.isDrawerOpen" matSelect id="roleSelect" placeholder="{{translation.translate('MainMenu.Role')}}"
+				 [(ngModel)]="user.Role.Name">
+					<mat-option *ngFor="let role of roles" [value]="role.Name" (click)='setRoleId(role.Id);'>{{role.Name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<div class="drawer-toggle-reset-container" *ngIf="headerText === 'Edit user'">
+				<label l10nTranslate>Label.Reset password</label>
+				<mat-slide-toggle [disabled]="!properties.isDrawerOpen" color="primary" [(ngModel)]="user.ResetPassword"></mat-slide-toggle>
+			</div>
+			<div class="drawer-toggle-container">
+				<label l10nTranslate>Label.Active</label>
+				<mat-slide-toggle [disabled]="!properties.isDrawerOpen" id='userMainActiveToggle' color="primary" [(ngModel)]="user.IsActive"></mat-slide-toggle>
+			</div>
+		</mat-card>
+	</div>
+	<div class="drawer-footer">
+		<button [disabled]="!properties.isDrawerOpen" class="btn-save-and-add-another" mat-button (click)="checkForm(true)"
+		 *ngIf="headerText === 'Add user'" l10nTranslate>Label.Save & Add Another</button>
+		<button [disabled]="!properties.isDrawerOpen" id='userMainSaveButton' class="btn-save" mat-button (click)="checkForm(false)" l10nTranslate>Label.Save</button>
+	</div>
+</div>

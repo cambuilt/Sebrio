@@ -1,0 +1,46 @@
+<div>
+	<rmp-nav-bar (onBroadcast)="notifyBroadcast($event)"></rmp-nav-bar>
+	<app-notification-message #notificationMessage></app-notification-message>
+	<div class="loading-indicator" *ngIf="isLoading === true">
+		<mat-progress-spinner *ngIf="isLoading === true" color="primary" mode="indeterminate"> </mat-progress-spinner>
+	</div>
+	<div class="drawer-overlay" [ngClass]="{'show': isLoading === true}"></div>
+	<div class="maintenance-page" hidden>
+		<div class="page-content" [ngClass]="{'noData': dataSource.data.length === 0, 'oneEntry': dataSource.data.length === 1}">
+			<div class="page-header" l10nTranslate>MainMenu.Collection Data</div>
+			<button class="page-button" mat-button color="white" (click)="filterComponent.show(columns.filter);" l10nTranslate>Label.Search</button>
+			<mat-card class="maintenance-card">
+				<p class='filteredRange'>{{filteredRange}}</p>
+				<div class="action-buttons">
+					<mat-icon (click)="tableConfiguration.show(columns.table)" title="{{translation.translate('Label.Table Configuration')}}">settings</mat-icon>
+					<mat-icon (click)="print()" [ngClass]="{'disabled': noFilter === true}" title="{{translation.translate('Label.Print')}}">print</mat-icon>
+				</div>
+				<div class="table-container">
+					<table mat-table [dataSource]="dataSource" matSort>
+						<ng-container matColumnDef="Code">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.Code</th>
+							<td mat-cell *matCellDef="let element"><span>{{element.Code}}</span></td>
+						</ng-container>
+						<ng-container matColumnDef="Users">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header l10nTranslate>Label.User</th>
+							<td mat-cell *matCellDef="let element"><span>{{element.Name}}</span></td>
+						</ng-container>
+						<ng-container matColumnDef="Total">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header="Total" l10nTranslate>Label.Total
+							</th>
+							<td mat-cell *matCellDef="let element"><span>{{ element.Total }}</span></td>
+						</ng-container>
+						<tr mat-header-row *matHeaderRowDef="columns.display"></tr>
+						<tr mat-row *matRowDef="let row; columns: columns.display;"></tr>
+					</table>
+				</div>
+				<mat-paginator #tablePaginator [ngClass]="{'noBorderPaginator': !(dataSource.data && dataSource.data.length)}"
+				 [ngClass]="{'noBorderPaginator': !(dataSource.data && dataSource.data.length)}" [pageSizeOptions]="[5, 10, 20, 50, 100]"></mat-paginator>
+			</mat-card>
+		</div>
+		<div class="poweredBy2"></div><img src="assets/eMyLabCollect.com.svg" class="eMyLabCollect2" />
+		<div class="watermark2"></div>
+	</div>
+	<app-filter #filterComponent (onSave)='receiveFilter($event);'></app-filter>
+	<rmp-table-configuration #tableConfiguration (onSave)="tableColumnsOnSave($event)"></rmp-table-configuration>
+</div>

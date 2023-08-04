@@ -1,0 +1,75 @@
+.notificationContent {
+    /* background-color: #EAEAEA !important; */
+    position: relative;
+    top: -64px;
+    width: calc(100vw);
+    transform: translateY(0px);
+    transition: height .2s ease;
+    height: 0px;
+}
+
+.notificationContent.show {
+    position: relative;
+    width: calc(100vw);
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+    height: 64px;
+    max-height: 64px;
+    /* background-color: #EAEAEA !important; */
+    transform: translateY(64px);
+    transition: height .5s ease;
+    animation: fadein .5s;
+    z-index: 1;
+    display: inline-block;
+}
+
+.notificationContent .mat-icon {
+    position: relative;
+    top: 8px;
+    left: 10px;
+    cursor: default;
+    color: black;
+}
+
+.notificationContent .mat-icon:hover {
+    color: black;
+}
+
+.notificationContent {
+    position: relative;
+    vertical-align: middle;
+    font-size: 14px;
+    /* display: inline-block; */
+    display: none;
+    /* width: calc(100% - 108px) !important; */
+    width: 100%;
+    /* margin-left: 11px; */
+}
+
+.dataSpanMessage {
+    position: relative;
+    vertical-align: middle;
+    font-size: 14px;
+    display: inline-block;
+    width: calc(100% - 195px) !important;
+    margin-left: 11px;
+    /* text-overflow: ellipsis !important; */
+    /* overflow: hidden !important; */
+    overflow-x: auto;
+    white-space: nowrap;
+    line-height: 40px;
+    height: 40px;
+}
+
+.closeBroadcast, button, button.mat-button, .mat-button, .mat-button-ripple .mat-ripple, .mat-button-focus-overlay {
+    font-size: 12px;
+    margin-top: 12px !important;
+    /* background-color: #EAEAEA; */
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-family: "Helvetica Neue";
+    font-weight: 500;
+    padding-left: 0px !important;
+    padding-right: 0px !important; 
+    width: 18px !important;
+}

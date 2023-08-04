@@ -1,0 +1,79 @@
+<div class="patientInfoContainer" id="patientInfoContainer" [ngClass]="{'shadowed': showSlidedown === true}">
+	<mat-card class="patientInfoCard" *ngIf=showInfo>
+
+		<span style="margin-top: 1px;" class="subheading">Patient information</span>
+		<div class="afterSub-br"></div>
+		<span class="patientInfo topRow">
+			<span>{{collection.Patient.DateOfBirth}}</span>
+			<span style="margin-left: 27px;">{{collection.Patient.Gender}}</span>
+			<span *ngIf=displayPatientRoomBed style="margin-left: 23px;">{{collection.Bed}}</span>
+		</span>
+		<ng-container *ngIf="displayPatientAddressAndPhone">
+			<div class="collection-br"></div>
+			<span class="patientInfo middleRow">
+				<span>{{collection.CollectedLocation.Address}}</span>
+			</span>
+			<div style="margin-top: 1px;"></div>
+			<span class="patientInfo bottomRow">
+				<span>(833) 245-9876</span>
+			</span>
+		</ng-container>
+
+
+		<div class="beforeSub-br"></div>
+		<span class="subheading">Location</span>
+		<div class="afterSub-br"></div>
+		<span class="locationInfo topRow">
+			<span>{{collection.CollectedLocation.Code}}</span>
+			<ng-container *ngIf="displayHomeDrawAddress || displayCollectionLocation">
+				<div class="collection-br"></div>
+				<span>{{collection.CollectedLocation.Address}}</span>
+			</ng-container>
+
+		</span>
+
+		<ng-container *ngIf="displayClient || displayClientAddressAndPhone">
+			<div class="beforeSub-br"></div>
+			<span class="subheading">Client information</span>
+			<div class="afterSub-br"></div>
+			<span class="clientInfo topRow">
+				<span *ngIf=displayClient>{{clientInfo.Code}}</span>
+				<ng-container *ngIf=displayClientAddressAndPhone>
+					<div class="collection-br"></div>
+					<span>{{clientInfo.Address}}</span>
+					<div style="margin-top: 1px;"></div>
+					<span>{{clientInfo.Phone}}</span>
+				</ng-container>
+			</span>
+		</ng-container>
+
+		<ng-container>
+			<div class="beforeSub-br"></div>
+			<span class="subheading">Ordered by</span>
+			<div class="afterSub-short-br"></div>
+			<span class="orderedBy">
+				<span>{{clientInfo.Contact}}</span>
+			</span>
+		</ng-container>
+
+		<ng-container *ngIf="notes">
+			<div class="beforeSub-br"></div>
+			<span class="subheading">Notes</span>
+			<div class="afterSub-short-br"></div>
+			<span class="notes">
+				<span>{{notes}}</span>
+			</span>
+		</ng-container>
+
+		<ng-container *ngIf="collection.ProblemList">
+			<div class="beforeSub-br"></div>
+			<span class="subheading">Reason</span>
+			<div class="afterSub-short-br"></div>
+			<span class="notes">
+				<span>{{collection.ProblemListReason}}</span>
+			</span>
+		</ng-container>
+
+
+	</mat-card>
+</div>

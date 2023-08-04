@@ -1,0 +1,25 @@
+.mat-column-Code,
+.mat-column-Name,
+.mat-column-Address,
+.mat-column-Email {
+	padding-right: 24px;
+	white-space: nowrap;
+}
+
+.mat-column-Phone {
+	padding-left: 24px;
+	padding-right: 24px;
+	text-align: center;
+	white-space: nowrap;
+}
+
+.mat-column-IsActive {
+	padding-left: 24px;
+	padding-right: 24px;
+	text-align: center;
+	width: 36px;
+}
+
+rmp-client-add {
+	z-index: 2;
+}
